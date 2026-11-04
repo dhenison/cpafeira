@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f5132">
+  <meta name="description" content="Gere o crachá da XXIV Feira do Conhecimento 2026 do Colégio Prof. Afonso, em Tucumã — PA.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Crachá CPA">
+  <title>Crachá · XXIV Feira do Conhecimento 2026 · Colégio Prof. Afonso</title>
+  <!--
+    Imagens na mesma pasta deste arquivo:
+    Emblema do Colégio Prof. Afonso.png
+    Logo Sistema Positivo Escola Parceira.png
+    Logo Nave a Vela Robótica.png
+    Logo Pes English_ Formação Bilíngue.png
+    Logo Escola da Inteligência com Subtítulo.png
+    Logo Gênio das Finanças.png
+    Logo Maralto.png
+    Crachá Feira CPA.jpg
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;0,9..144,700;1,9..144,560&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: "#0f5132",
+            leaf: "#15803d",
+            ember: "#ea580c",
+            flame: "#f97316",
+            sun: "#eab308",
+            gold: "#f59e0b",
+            ink: "#1e293b"
+          },
+          fontFamily: {
+            display: ["Fraunces", "Georgia", "serif"],
+            sans: ["Outfit", "Segoe UI", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --forest: #0f5132;
+      --leaf: #15803d;
+      --ember: #ea580c;
+      --sun: #eab308;
+      --ink: #1e293b;
+      color-scheme: light;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Outfit, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background-color: #f8fafc;
+      background-image:
+        radial-gradient(ellipse 70% 42% at 100% -8%, rgba(249, 115, 22, 0.16), transparent 55%),
+        radial-gradient(ellipse 55% 38% at -8% 0%, rgba(234, 179, 8, 0.22), transparent 50%),
+        radial-gradient(ellipse 50% 36% at 50% 110%, rgba(21, 128, 61, 0.12), transparent 52%),
+        linear-gradient(180deg, #f8fafc 0%, #f0fdf4 100%);
+    }
+
+    body.has-dock {
+      padding-bottom: calc(6.25rem + env(safe-area-inset-bottom));
+    }
+
+    @media (min-width: 1024px) {
+      body.has-dock {
+        padding-bottom: 0;
+      }
+    }
+
+    .font-display {
+      font-family: Fraunces, Georgia, serif;
+    }
+
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+      min-height: 48px;
+    }
+
+    button {
+      min-height: 48px;
+      touch-action: manipulation;
+    }
+
+    input,
+    select,
+    button,
+    a {
+      touch-action: manipulation;
+    }
+
+    .field {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(15, 81, 50, 0.18);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.75rem 1rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field:focus {
+      border-color: var(--leaf);
+      box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.16);
+    }
+
+    .field[aria-invalid="true"] {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+    }
+
+    select.field {
+      appearance: none;
+      padding-right: 2.75rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5 10 12.5 15 7.5' stroke='%230f5132' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      background-size: 1.15rem;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.88);
+      box-shadow: 0 16px 40px -24px rgba(15, 81, 50, 0.55);
+    }
+
+    .hover-lift {
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .hover-lift:active {
+      transform: scale(0.95);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .hover-lift:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.5); }
+      70% { box-shadow: 0 0 0 16px rgba(234, 88, 12, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-3px); }
+      40% { transform: translateX(3px); }
+      60% { transform: translateX(-2px); }
+      80% { transform: translateX(2px); }
+    }
+
+    .fade-up {
+      animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .cta-pulse {
+      animation: pulse-ring 1.8s ease-out infinite;
+    }
+
+    .field-shake {
+      animation: shake 0.38s ease;
+    }
+
+    .delay-1 { animation-delay: 0.08s; }
+    .delay-2 { animation-delay: 0.16s; }
+    .delay-3 { animation-delay: 0.24s; }
+
+    #previewCanvas {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 2;
+    }
+
+    #exportCanvas {
+      position: fixed;
+      left: -12000px;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .dock {
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+
+    @media (max-width: 1023px) {
+      .dock {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        border-top: 1px solid rgba(15, 81, 50, 0.1);
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 0.75rem 1rem max(0.75rem, env(safe-area-inset-bottom));
+      }
+    }
+
+    #previewCard {
+      scroll-margin-top: 1rem;
+      scroll-margin-bottom: 6.5rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="h-2 w-full bg-gradient-to-r from-forest via-sun to-ember" aria-hidden="true"></div>
+
+  <!-- ETAPA 1 -->
+  <main id="welcome" class="mx-auto w-full max-w-6xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <header class="fade-up text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-leaf">Tucumã · Pará</p>
+      <div class="relative mx-auto mt-4 w-fit">
+        <div class="absolute -inset-8 -z-10 rounded-full bg-gradient-to-br from-sun/50 via-white to-leaf/25 blur-2xl" aria-hidden="true"></div>
+        <!-- LOGO CPA -->
+        <img
+          src="Emblema do Colégio Prof. Afonso.png"
+          alt="Emblema do Colégio Prof. Afonso, Tucumã — PA. O melhor para você!"
+          width="1254"
+          height="1254"
+          class="relative mx-auto w-40 drop-shadow-[0_16px_24px_rgba(15,81,50,0.28)] sm:w-52"
+        >
+      </div>
+      <h1 class="font-display mt-4 text-3xl font-bold leading-tight text-forest sm:text-5xl">Colégio Prof. Afonso</h1>
+      <p class="font-display mt-1 text-xl italic text-leaf sm:text-2xl">O melhor para você!</p>
+    </header>
+
+    <section class="fade-up delay-1 mx-auto mt-8 max-w-3xl" aria-labelledby="feira-titulo">
+      <div class="rounded-[28px] bg-gradient-to-br from-forest via-sun to-ember p-[3px] shadow-xl shadow-forest/10">
+        <div class="glass rounded-[25px] px-5 py-7 text-left sm:px-10 sm:py-9">
+          <p class="text-xs font-bold uppercase tracking-[0.24em] text-ember">Colégio Prof. Afonso apresenta</p>
+          <h2 id="feira-titulo" class="font-display mt-3 text-[2rem] font-bold leading-[1.05] text-forest sm:text-5xl">
+            XXIV Feira do Conhecimento <span class="block text-ember">2026</span>
+          </h2>
+          <p class="font-display mt-4 text-xl italic text-ink sm:text-2xl">Formação Integral - Um eterno aprendiz.</p>
+          <button type="button" id="startBtn" class="cta-pulse hover-lift mt-7 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#c2410c] to-ember px-8 text-lg font-extrabold text-white sm:w-auto">
+            Gere o seu crachá
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-up delay-2 mt-12" aria-labelledby="parceiros-titulo">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 id="parceiros-titulo" class="font-display text-2xl font-bold text-forest sm:text-3xl">Soluções educacionais</h2>
+        <p class="mt-2 text-base text-slate-600">Cinco parcerias que acompanham a formação dos alunos do CPA.</p>
+      </div>
+      <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+        <li class="glass hover-lift flex flex-col items-center rounded-3xl px-3 py-4 text-center">
+          <!-- LOGO NAVE A VELA -->
+          <img src="Logo Nave a Vela Robótica.png" alt="" width="2146" height="733" class="h-16 w-full object-contain sm:h-20">
+          <p class="mt-3 text-sm font-bold text-forest">Nave a Vela</p>
+          <p class="text-xs text-slate-600 sm:text-sm">Robótica</p>
+        </li>
+        <li class="glass hover-lift flex flex-col items-center rounded-3xl px-3 py-4 text-center">
+          <!-- LOGO PES ENGLISH -->
+          <img src="Logo Pes English_ Formação Bilíngue.png" alt="" width="1584" height="993" class="h-16 w-full object-contain sm:h-20">
+          <p class="mt-3 text-sm font-bold text-forest">pes. English</p>
+          <p class="text-xs text-slate-600 sm:text-sm">Formação Bilíngue</p>
+        </li>
+        <li class="glass hover-lift flex flex-col items-center rounded-3xl px-3 py-4 text-center">
+          <!-- LOGO ESCOLA DA INTELIGÊNCIA -->
+          <img src="Logo Escola da Inteligência com Subtítulo.png" alt="" width="2172" height="724" class="h-16 w-full object-contain sm:h-20">
+          <p class="mt-3 text-sm font-bold text-forest">Escola da Inteligência</p>
+          <p class="text-xs text-slate-600 sm:text-sm">Competências Socioemocionais</p>
+        </li>
+        <li class="glass hover-lift flex flex-col items-center rounded-3xl px-3 py-4 text-center">
+          <!-- LOGO GÊNIO DAS FINANÇAS -->
+          <img src="Logo Gênio das Finanças.png" alt="" width="1672" height="941" class="h-16 w-full object-contain sm:h-20">
+          <p class="mt-3 text-sm font-bold text-forest">Gênio das Finanças</p>
+          <p class="text-xs text-slate-600 sm:text-sm">Educação Financeira e Empreendedorismo</p>
+        </li>
+        <li class="glass hover-lift col-span-2 mx-auto flex w-full max-w-[16rem] flex-col items-center rounded-3xl px-3 py-4 text-center sm:col-span-1 sm:max-w-none lg:col-span-1">
+          <!-- LOGO MARALTO -->
+          <img src="Logo Maralto.png" alt="" width="2172" height="724" class="h-16 w-full object-contain sm:h-20">
+          <p class="mt-3 text-sm font-bold text-forest">Maralto</p>
+          <p class="text-xs text-slate-600 sm:text-sm">Formação Leitora</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="fade-up delay-3 mx-auto mt-12 w-full max-w-sm text-center" aria-label="Sistema Positivo de Ensino">
+      <div class="glass rounded-[28px] px-5 py-4">
+        <!-- LOGO POSITIVO -->
+        <img
+          src="Logo Sistema Positivo Escola Parceira.png"
+          alt="Sistema Positivo de Ensino. Escola Parceira."
+          width="1774"
+          height="887"
+          class="mx-auto w-full max-w-[320px]"
+        >
+      </div>
+    </section>
+
+    <footer class="mt-10 text-center text-sm text-slate-500">
+      <p>Colégio Prof. Afonso · Tucumã - PA · XXIV Feira do Conhecimento 2026</p>
+      <p class="mt-2">
+        Desenvolvido por Dhenison Carlos 2026 - Instagram -
+        <a href="https://www.instagram.com/dhenison.carlos/" class="font-semibold text-forest underline decoration-forest/30 underline-offset-2 hover:decoration-forest" target="_blank" rel="noopener noreferrer">@dhenison.carlos</a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- ETAPA 2 -->
+  <div id="studio" class="mx-auto hidden w-full max-w-6xl px-4 pb-8 pt-4 sm:px-6 sm:pt-6" hidden>
+    <header class="fade-up mb-5 flex items-center gap-3">
+      <button type="button" id="backBtn" class="hover-lift inline-flex min-h-12 items-center gap-2 rounded-full border border-forest/15 bg-white/80 px-4 text-sm font-semibold text-forest">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 6 9 12l6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voltar
+      </button>
+      <div class="min-w-0">
+        <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-leaf">Etapa 2 de 2</p>
+        <p class="font-display text-base font-bold leading-tight text-forest sm:text-2xl">XXIV Feira do Conhecimento 2026</p>
+      </div>
+    </header>
+
+    <div class="lg:grid lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <form id="badgeForm" class="min-w-0" novalidate>
+        <div class="glass fade-up rounded-[28px] p-4 sm:p-6">
+          <h1 class="font-display text-2xl font-bold text-forest">Dados do crachá</h1>
+          <p class="mt-1 text-sm text-slate-600">O texto aparece no crachá enquanto você preenche.</p>
+
+          <div class="mt-5 space-y-4">
+            <div>
+              <label for="nome" class="mb-1.5 block text-sm font-semibold text-forest">Nome Completo</label>
+              <input id="nome" name="nome" class="field" type="text" inputmode="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="80" placeholder="Ex.: Maria Silva Santos" required aria-describedby="nomeError">
+              <p id="nomeError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+            </div>
+
+            <div>
+              <label for="tema" class="mb-1.5 block text-sm font-semibold text-forest">Tema do Trabalho</label>
+              <input id="tema" name="tema" class="field" type="text" inputmode="text" autocomplete="off" enterkeyhint="next" maxlength="90" placeholder="Ex.: Formação do século XXI" required aria-describedby="temaError">
+              <p id="temaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+            </div>
+
+            <div>
+              <label for="turma" class="mb-1.5 block text-sm font-semibold text-forest">Turma</label>
+              <select id="turma" name="turma" class="field" required aria-describedby="turmaError">
+                <option value="" selected disabled>Selecione a turma</option>
+                <optgroup label="Ensino Fundamental I">
+                  <option>1º Ano do Ensino Fundamental I</option>
+                  <option>2º Ano do Ensino Fundamental I</option>
+                  <option>3º Ano do Ensino Fundamental I</option>
+                  <option>4º Ano do Ensino Fundamental I</option>
+                  <option>5º Ano do Ensino Fundamental I</option>
+                </optgroup>
+                <optgroup label="Ensino Fundamental II">
+                  <option>6º Ano do Ensino Fundamental II</option>
+                  <option>7º Ano do Ensino Fundamental II</option>
+                  <option>8º Ano do Ensino Fundamental II</option>
+                  <option>9º Ano do Ensino Fundamental II</option>
+                </optgroup>
+                <optgroup label="Ensino Médio">
+                  <option>1º Ano do Ensino Médio</option>
+                  <option>2º Ano do Ensino Médio</option>
+                  <option>3º Ano do Ensino Médio</option>
+                </optgroup>
+              </select>
+              <p id="turmaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dock mt-4">
+          <button type="submit" id="generateBtn" class="hover-lift inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-gradient-to-r from-[#c2410c] to-ember px-4 text-base font-extrabold text-white">
+            Gerar Crachá
+          </button>
+          <div id="postActions" class="mt-3 hidden grid-cols-2 gap-3">
+            <button type="button" id="resetBtn" class="hover-lift inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-forest bg-white px-3 text-sm font-bold text-forest">
+              Refazer
+            </button>
+            <button type="button" id="downloadBtn" class="hover-lift inline-flex min-h-12 items-center justify-center rounded-2xl bg-forest px-3 text-sm font-extrabold text-white">
+              Download (PNG)
+            </button>
+          </div>
+          <p id="formStatus" class="mt-2 text-center text-sm font-medium text-leaf lg:text-left" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <section id="previewCard" class="fade-up delay-1 mt-6 min-w-0 lg:mt-0" aria-labelledby="previewTitulo">
+        <div class="mb-3 flex items-end justify-between gap-3">
+          <h2 id="previewTitulo" class="font-display text-2xl font-bold text-forest">Pré-visualização</h2>
+          <p class="text-right text-xs font-semibold uppercase tracking-wide text-slate-500">Ao vivo</p>
+        </div>
+        <div id="previewFrame" class="relative w-full max-w-full shadow-[0_22px_50px_-24px_rgba(15,81,50,0.55)]">
+          <canvas id="previewCanvas" width="900" height="600" aria-hidden="true"></canvas>
+          <p id="previewLoading" class="absolute inset-0 flex items-center justify-center bg-white/80 px-6 text-center text-sm font-semibold text-forest">
+            Carregando o modelo do crachá…
+          </p>
+        </div>
+        <p class="mt-3 text-sm text-slate-600">A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.</p>
+        <p id="badgeLive" class="sr-only" aria-live="polite"></p>
+      </section>
+    </div>
+  </div>
+
+  <!-- MODELO DO CRACHÁ -->
+  <img id="badgeTemplate" src="Crachá Feira CPA.jpg" alt="" width="2528" height="1696" class="hidden">
+  <canvas id="exportCanvas" width="2528" height="1696" aria-hidden="true"></canvas>
+
+  <noscript>
+    <p class="mx-auto max-w-lg px-4 py-8 text-center font-semibold text-forest">Ative o JavaScript para preencher e baixar o crachá.</p>
+  </noscript>
+
+  <script>
+    const WHITE_BOX = { x: 0.06210443, y: 0.54068396, w: 0.87579114, h: 0.3696934 };
+    const PARTICLES = new Set(["da", "de", "do", "das", "dos", "e"]);
+
+    const welcome = document.getElementById("welcome");
+    const studio = document.getElementById("studio");
+    const startBtn = document.getElementById("startBtn");
+    const backBtn = document.getElementById("backBtn");
+    const form = document.getElementById("badgeForm");
+    const nomeInput = document.getElementById("nome");
+    const temaInput = document.getElementById("tema");
+    const turmaInput = document.getElementById("turma");
+    const generateBtn = document.getElementById("generateBtn");
+    const postActions = document.getElementById("postActions");
+    const resetBtn = document.getElementById("resetBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const formStatus = document.getElementById("formStatus");
+    const previewCanvas = document.getElementById("previewCanvas");
+    const previewFrame = document.getElementById("previewFrame");
+    const previewLoading = document.getElementById("previewLoading");
+    const previewCard = document.getElementById("previewCard");
+    const badgeLive = document.getElementById("badgeLive");
+    const exportCanvas = document.getElementById("exportCanvas");
+    const badgeImg = document.getElementById("badgeTemplate");
+
+    let composing = false;
+    let generated = false;
+    let drawQueued = false;
+    let templateReady = false;
+
+    function letterCount(word) {
+      return (word.match(/\p{L}/gu) || []).length;
+    }
+
+    function titleCaseName(value) {
+      const trailing = /\s$/.test(value);
+      const cleaned = value
+        .replace(/[^\p{L}\p{M}\s'’.-]/gu, "")
+        .replace(/\s{2,}/g, " ")
+        .replace(/^\s+/, "");
+      const words = cleaned.split(" ");
+      const formatted = words.map((word, index) => {
+        if (!word) return "";
+        const lower = word.toLocaleLowerCase("pt-BR");
+        const last = index === words.length - 1;
+        if (index > 0 && PARTICLES.has(lower) && (!last || trailing)) return lower;
+        return lower.replace(/(^|[-'’])(\p{L})/gu, (_, sep, ch) => sep + ch.toLocaleUpperCase("pt-BR"));
+      }).join(" ");
+      return trailing ? formatted.replace(/\s+$/, "") + " " : formatted;
+    }
+
+    function applyFormat(input, formatter) {
+      const start = input.selectionStart ?? input.value.length;
+      const before = input.value.slice(0, start);
+      const next = formatter(input.value);
+      const nextBefore = formatter(before);
+      if (next === input.value) return;
+      input.value = next;
+      const pos = Math.max(0, Math.min(next.length, nextBefore.length));
+      input.setSelectionRange(pos, pos);
+    }
+
+    function readFields() {
+      return {
+        name: nomeInput.value.trim(),
+        theme: temaInput.value.trim(),
+        grade: turmaInput.value.trim()
+      };
+    }
+
+    function viewModel(fields, withPlaceholder) {
+      const name = fields.name || (withPlaceholder ? "Nome do aluno" : "");
+      const theme = fields.theme ? "TEMA: " + fields.theme : (withPlaceholder ? "TEMA: tema do trabalho" : "");
+      const grade = fields.grade ? "TURMA: " + fields.grade : (withPlaceholder ? "TURMA: selecione a turma" : "");
+      return {
+        lines: [
+          { text: name, color: "#0f5132", weight: 800, size: 0.048, maxLines: 3, mute: !fields.name },
+          { text: theme, color: "#ea580c", weight: 600, size: 0.028, maxLines: 2, mute: !fields.theme },
+          { text: grade, color: "#1e293b", weight: 600, size: 0.026, maxLines: 2, mute: !fields.grade }
+        ].filter((line) => line.text)
+      };
+    }
+
+    function setError(input, message) {
+      const slot = document.getElementById(input.id + "Error");
+      slot.textContent = message || "";
+      input.setAttribute("aria-invalid", message ? "true" : "false");
+      input.classList.toggle("field-shake", Boolean(message));
+      if (message) {
+        input.addEventListener("animationend", () => input.classList.remove("field-shake"), { once: true });
+      }
+    }
+
+    function validate() {
+      const fields = readFields();
+      let firstInvalid = null;
+
+      const words = fields.name.split(/\s+/).filter(Boolean);
+      let nameError = "";
+      if (!fields.name) nameError = "Informe o nome completo do aluno.";
+      else if (words.length < 2 || words.filter((word) => letterCount(word) >= 2).length < 2) {
+        nameError = "Informe nome e sobrenome.";
+      }
+      setError(nomeInput, nameError);
+      if (nameError) firstInvalid = firstInvalid || nomeInput;
+
+      const themeError = fields.theme.length < 3 ? "Informe o tema do trabalho." : "";
+      setError(temaInput, themeError);
+      if (themeError) firstInvalid = firstInvalid || temaInput;
+
+      const gradeError = fields.grade ? "" : "Escolha a turma.";
+      setError(turmaInput, gradeError);
+      if (gradeError) firstInvalid = firstInvalid || turmaInput;
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        formStatus.textContent = "";
+        return false;
+      }
+      return true;
+    }
+
+    function wrapText(ctx, text, maxWidth) {
+      const words = String(text).split(/\s+/).filter(Boolean);
+      if (!words.length) return [""];
+      const lines = [];
+      let current = "";
+
+      const breakWord = (word) => {
+        let chunk = "";
+        for (const ch of word) {
+          const test = chunk + ch;
+          if (ctx.measureText(test).width <= maxWidth) chunk = test;
+          else {
+            if (chunk) lines.push(chunk);
+            chunk = ch;
+          }
+        }
+        current = chunk;
+      };
+
+      words.forEach((word) => {
+        const test = current ? current + " " + word : word;
+        if (ctx.measureText(test).width <= maxWidth) {
+          current = test;
+          return;
+        }
+        if (current) lines.push(current);
+        current = "";
+        if (ctx.measureText(word).width <= maxWidth) current = word;
+        else breakWord(word);
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    function layoutText(ctx, model, box, badgeWidth) {
+      const padX = box.w * 0.07;
+      const maxW = box.w - padX * 2;
+      const maxH = box.h * 0.84;
+      let scale = 1;
+      let blocks = [];
+      let gap = 0;
+      let height = 0;
+
+      for (let attempt = 0; attempt < 16; attempt += 1) {
+        blocks = model.lines.map((spec) => {
+          const size = Math.max(11, badgeWidth * spec.size * scale);
+          ctx.font = `${spec.weight} ${size}px Outfit, "Segoe UI", sans-serif`;
+          const lines = wrapText(ctx, spec.text, maxW).slice(0, spec.maxLines + 2);
+          return { ...spec, size, lines, lineH: size * 1.16 };
+        });
+        gap = Math.max(6, badgeWidth * 0.012 * scale);
+        height = blocks.reduce((sum, block) => sum + block.lines.length * block.lineH, 0) + gap * Math.max(0, blocks.length - 1);
+        const crowded = blocks.some((block) => block.lines.length > block.maxLines);
+        if (!crowded && height <= maxH) break;
+        scale *= 0.9;
+      }
+
+      return { blocks, gap, height };
+    }
+
+    function drawBadge(ctx, width, height, model) {
+      const imageRatio = badgeImg.naturalWidth / badgeImg.naturalHeight;
+      const canvasRatio = width / height;
+      let dw;
+      let dh;
+      let dx;
+      let dy;
+      if (canvasRatio > imageRatio) {
+        dh = height;
+        dw = height * imageRatio;
+        dx = (width - dw) / 2;
+        dy = 0;
+      } else {
+        dw = width;
+        dh = width / imageRatio;
+        dx = 0;
+        dy = (height - dh) / 2;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "#064e2a";
+      ctx.fillRect(0, 0, width, height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(badgeImg, dx, dy, dw, dh);
+
+      const box = {
+        x: dx + dw * WHITE_BOX.x,
+        y: dy + dh * WHITE_BOX.y,
+        w: dw * WHITE_BOX.w,
+        h: dh * WHITE_BOX.h
+      };
+      const layout = layoutText(ctx, model, box, dw);
+      const centerX = box.x + box.w / 2;
+      let y = box.y + (box.h - layout.height) / 2;
+
+      layout.blocks.forEach((block, index) => {
+        ctx.font = `${block.weight} ${block.size}px Outfit, "Segoe UI", sans-serif`;
+        ctx.fillStyle = block.color;
+        ctx.globalAlpha = block.mute ? 0.4 : 1;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        block.lines.forEach((line) => {
+          y += block.lineH / 2;
+          ctx.fillText(line, centerX, y);
+          y += block.lineH / 2;
+        });
+        ctx.globalAlpha = 1;
+        if (index < layout.blocks.length - 1) y += layout.gap;
+      });
+    }
+
+    function currentModel(withPlaceholder) {
+      return viewModel(readFields(), withPlaceholder);
+    }
+
+    function announce() {
+      const fields = readFields();
+      const parts = [];
+      if (fields.name) parts.push(fields.name);
+      if (fields.theme) parts.push("Tema: " + fields.theme);
+      if (fields.grade) parts.push("Turma: " + fields.grade);
+      badgeLive.textContent = parts.length ? "Crachá: " + parts.join(". ") : "Crachá aguardando nome, tema e turma.";
+    }
+
+    function paintPreview() {
+      if (!templateReady) return;
+      const cssWidth = previewCanvas.clientWidth;
+      if (!cssWidth) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const bitmapW = Math.max(1, Math.round(cssWidth * dpr));
+      const bitmapH = Math.max(1, Math.round(bitmapW * 2 / 3));
+      if (previewCanvas.width !== bitmapW || previewCanvas.height !== bitmapH) {
+        previewCanvas.width = bitmapW;
+        previewCanvas.height = bitmapH;
+      }
+      drawBadge(previewCanvas.getContext("2d"), previewCanvas.width, previewCanvas.height, currentModel(true));
+      announce();
+    }
+
+    function scheduleDraw() {
+      if (drawQueued) return;
+      drawQueued = true;
+      requestAnimationFrame(() => {
+        drawQueued = false;
+        paintPreview();
+      });
+    }
+
+    function showStage(stage) {
+      const isStudio = stage === "studio";
+      welcome.classList.toggle("hidden", isStudio);
+      welcome.hidden = isStudio;
+      studio.classList.toggle("hidden", !isStudio);
+      studio.hidden = !isStudio;
+      document.body.classList.toggle("has-dock", isStudio);
+      window.scrollTo(0, 0);
+      if (isStudio) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            paintPreview();
+            nomeInput.focus({ preventScroll: true });
+          });
+        });
+      }
+    }
+
+    function setGenerated(on) {
+      generated = on;
+      generateBtn.classList.toggle("hidden", on);
+      postActions.classList.toggle("hidden", !on);
+      postActions.classList.toggle("grid", on);
+      if (!on) formStatus.textContent = "";
+    }
+
+    function slugify(value) {
+      return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "aluno";
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      const parts = dataUrl.split(",");
+      const mime = (parts[0].match(/:(.*?);/) || [])[1] || "image/png";
+      const binary = atob(parts[1]);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      return new Blob([bytes], { type: mime });
+    }
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent)
+        || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
+    function downloadPng() {
+      if (!validate()) return;
+      if (!templateReady) {
+        formStatus.textContent = "O modelo do crachá ainda está carregando.";
+        return;
+      }
+
+      const previous = downloadBtn.textContent;
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = "Gerando PNG...";
+      let handedOff = false;
+
+      const releaseButton = () => {
+        downloadBtn.disabled = false;
+        downloadBtn.textContent = previous;
+      };
+
+      try {
+        const width = badgeImg.naturalWidth;
+        const height = badgeImg.naturalHeight;
+        exportCanvas.width = width;
+        exportCanvas.height = height;
+        drawBadge(exportCanvas.getContext("2d"), width, height, currentModel(false));
+        const dataUrl = exportCanvas.toDataURL("image/png");
+        const filename = "Cracha-XXIV-Feira-" + slugify(readFields().name) + ".png";
+        const blob = dataUrlToBlob(dataUrl);
+        const file = new File([blob], filename, { type: "image/png" });
+
+        if (isIOS() && navigator.canShare && navigator.canShare({ files: [file] })) {
+          const pending = navigator.share({ files: [file], title: "Crachá da XXIV Feira do Conhecimento" });
+          handedOff = true;
+          pending
+            .then(() => {
+              formStatus.textContent = "Escolha Salvar imagem para guardar o crachá na galeria.";
+            })
+            .catch((error) => {
+              if (!error || error.name !== "AbortError") formStatus.textContent = "Não foi possível abrir o compartilhamento. Tente novamente.";
+            })
+            .finally(releaseButton);
+          return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+        formStatus.textContent = "Download iniciado. O PNG foi para a pasta de downloads.";
+      } catch (error) {
+        formStatus.textContent = "Não foi possível gerar o PNG. Abra esta página pelo navegador, com as imagens na mesma pasta.";
+      } finally {
+        if (!handedOff) releaseButton();
+      }
+    }
+
+    function clearForm() {
+      form.reset();
+      [nomeInput, temaInput, turmaInput].forEach((input) => setError(input, ""));
+      setGenerated(false);
+      scheduleDraw();
+      nomeInput.focus();
+      if (window.matchMedia("(max-width: 1023px)").matches) {
+        form.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      }
+    }
+
+    startBtn.addEventListener("click", () => showStage("studio"));
+    backBtn.addEventListener("click", () => showStage("welcome"));
+
+    nomeInput.addEventListener("compositionstart", () => { composing = true; });
+    nomeInput.addEventListener("compositionend", () => {
+      composing = false;
+      applyFormat(nomeInput, titleCaseName);
+      scheduleDraw();
+    });
+    nomeInput.addEventListener("input", () => {
+      if (!composing) applyFormat(nomeInput, titleCaseName);
+      if (nomeInput.value.trim()) setError(nomeInput, "");
+      scheduleDraw();
+    });
+    nomeInput.addEventListener("blur", () => {
+      nomeInput.value = titleCaseName(nomeInput.value).trim();
+      scheduleDraw();
+    });
+
+    function normalizeTheme() {
+      const start = temaInput.selectionStart;
+      const trailing = /\s$/.test(temaInput.value);
+      let value = temaInput.value.replace(/\s{2,}/g, " ").replace(/^\s+/, "");
+      if (value) value = value.charAt(0).toLocaleUpperCase("pt-BR") + value.slice(1);
+      if (trailing && value && !value.endsWith(" ")) value += " ";
+      if (value !== temaInput.value) {
+        const delta = value.length - temaInput.value.length;
+        temaInput.value = value;
+        if (start != null) {
+          const pos = Math.max(0, Math.min(value.length, start + delta));
+          temaInput.setSelectionRange(pos, pos);
+        }
+      }
+    }
+
+    temaInput.addEventListener("input", () => {
+      normalizeTheme();
+      if (temaInput.value.trim()) setError(temaInput, "");
+      scheduleDraw();
+    });
+    temaInput.addEventListener("blur", () => {
+      temaInput.value = temaInput.value.trim();
+      normalizeTheme();
+      scheduleDraw();
+    });
+
+    turmaInput.addEventListener("change", () => {
+      if (turmaInput.value) setError(turmaInput, "");
+      scheduleDraw();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      nomeInput.value = titleCaseName(nomeInput.value).trim();
+      temaInput.value = temaInput.value.trim();
+      normalizeTheme();
+      if (!validate()) return;
+      setGenerated(true);
+      formStatus.textContent = "Crachá pronto. Você já pode baixar o PNG.";
+      scheduleDraw();
+      if (window.matchMedia("(max-width: 1023px)").matches) {
+        previewCard.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          block: "center"
+        });
+      }
+    });
+
+    resetBtn.addEventListener("click", clearForm);
+    downloadBtn.addEventListener("click", downloadPng);
+
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(() => scheduleDraw());
+      observer.observe(previewFrame);
+    } else {
+      window.addEventListener("resize", scheduleDraw);
+    }
+    window.addEventListener("resize", scheduleDraw);
+
+    async function boot() {
+      try {
+        await document.fonts.load("800 64px Outfit");
+        await document.fonts.load("600 42px Outfit");
+        if (!badgeImg.complete || !badgeImg.naturalWidth) {
+          await new Promise((resolve, reject) => {
+            badgeImg.addEventListener("load", resolve, { once: true });
+            badgeImg.addEventListener("error", reject, { once: true });
+          });
+        }
+        templateReady = true;
+        previewLoading.classList.add("hidden");
+        scheduleDraw();
+      } catch (error) {
+        previewLoading.textContent = "Não encontrei o arquivo do crachá nesta pasta.";
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>
