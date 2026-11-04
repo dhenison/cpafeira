@@ -534,15 +534,19 @@
       };
     }
 
+    function badgeUpper(value) {
+      return String(value).toLocaleUpperCase("pt-BR");
+    }
+
     function viewModel(fields, withPlaceholder) {
-      const name = fields.name || (withPlaceholder ? "Nome do aluno" : "");
-      const theme = fields.theme ? "TEMA: " + fields.theme : (withPlaceholder ? "TEMA: tema do trabalho" : "");
-      const grade = fields.grade ? "TURMA: " + fields.grade : (withPlaceholder ? "TURMA: selecione a turma" : "");
+      const name = fields.name ? badgeUpper(fields.name) : (withPlaceholder ? "NOME DO ALUNO" : "");
+      const theme = fields.theme ? "TEMA: " + badgeUpper(fields.theme) : (withPlaceholder ? "TEMA: TEMA DO TRABALHO" : "");
+      const grade = fields.grade ? "TURMA: " + badgeUpper(fields.grade) : (withPlaceholder ? "TURMA: SELECIONE A TURMA" : "");
       return {
         lines: [
-          { text: name, color: "#0f5132", weight: 800, size: 0.048, maxLines: 3, mute: !fields.name },
-          { text: theme, color: "#ea580c", weight: 600, size: 0.028, maxLines: 2, mute: !fields.theme },
-          { text: grade, color: "#1e293b", weight: 600, size: 0.026, maxLines: 2, mute: !fields.grade }
+          { text: name, color: "#0f5132", weight: 800, size: 0.05, maxLines: 3, mute: !fields.name },
+          { text: theme, color: "#ea580c", weight: 600, size: 0.034, maxLines: 2, mute: !fields.theme },
+          { text: grade, color: "#1e293b", weight: 600, size: 0.024, maxLines: 2, mute: !fields.grade }
         ].filter((line) => line.text)
       };
     }
