@@ -399,23 +399,23 @@
               <label for="turma" class="mb-1.5 block text-sm font-semibold text-forest">Turma</label>
               <select id="turma" name="turma" class="field" required aria-describedby="turmaError">
                 <option value="" selected disabled>Selecione a turma</option>
-                <optgroup label="Ensino Fundamental I">
-                  <option>1º Ano do Ensino Fundamental I</option>
-                  <option>2º Ano do Ensino Fundamental I</option>
-                  <option>3º Ano do Ensino Fundamental I</option>
-                  <option>4º Ano do Ensino Fundamental I</option>
-                  <option>5º Ano do Ensino Fundamental I</option>
+                <optgroup label="EF I">
+                  <option>1º Ano EF I</option>
+                  <option>2º Ano EF I</option>
+                  <option>3º Ano EF I</option>
+                  <option>4º Ano EF I</option>
+                  <option>5º Ano EF I</option>
                 </optgroup>
-                <optgroup label="Ensino Fundamental II">
-                  <option>6º Ano do Ensino Fundamental II</option>
-                  <option>7º Ano do Ensino Fundamental II</option>
-                  <option>8º Ano do Ensino Fundamental II</option>
-                  <option>9º Ano do Ensino Fundamental II</option>
+                <optgroup label="EF II">
+                  <option>6º Ano EF II</option>
+                  <option>7º Ano EF II</option>
+                  <option>8º Ano EF II</option>
+                  <option>9º Ano EF II</option>
                 </optgroup>
-                <optgroup label="Ensino Médio">
-                  <option>1º Ano do Ensino Médio</option>
-                  <option>2º Ano do Ensino Médio</option>
-                  <option>3º Ano do Ensino Médio</option>
+                <optgroup label="EM">
+                  <option>1º Ano EM</option>
+                  <option>2º Ano EM</option>
+                  <option>3º Ano EM</option>
                 </optgroup>
               </select>
               <p id="turmaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
@@ -546,7 +546,7 @@
         lines: [
           { text: name, color: "#0f5132", weight: 800, size: 0.05, maxLines: 3, mute: !fields.name },
           { text: theme, color: "#ea580c", weight: 600, size: 0.034, maxLines: 2, mute: !fields.theme },
-          { text: grade, color: "#1e293b", weight: 600, size: 0.024, maxLines: 2, mute: !fields.grade }
+          { text: grade, color: "#1e293b", weight: 600, size: 0.03, maxLines: 2, mute: !fields.grade }
         ].filter((line) => line.text)
       };
     }
