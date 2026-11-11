@@ -361,7 +361,7 @@
     </footer>
   </main>
 
-  <!-- ETAPA 2 -->
+    <!-- ETAPA 2 -->
   <div id="studio" class="mx-auto hidden w-full max-w-6xl px-4 pb-8 pt-4 sm:px-6 sm:pt-6" hidden>
     <header class="fade-up mb-5 flex items-center gap-3">
       <button type="button" id="backBtn" class="hover-lift inline-flex min-h-12 items-center gap-2 rounded-full border border-forest/15 bg-white/80 px-4 text-sm font-semibold text-forest">
@@ -371,7 +371,7 @@
         Voltar
       </button>
       <div class="min-w-0">
-        <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-leaf">Etapa 2 de 2</p>
+        <p id="studioStepLabel" class="text-[11px] font-bold uppercase tracking-[0.18em] text-leaf">Etapa 2 de 2 · Aluno</p>
         <p class="font-display text-base font-bold leading-tight text-forest sm:text-2xl">XXIV Feira do Conhecimento 2026</p>
       </div>
     </header>
@@ -379,7 +379,20 @@
     <div class="lg:grid lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-start lg:gap-10">
       <form id="badgeForm" class="min-w-0" novalidate>
         <div class="glass fade-up rounded-[28px] p-4 sm:p-6">
-          <h1 class="font-display text-2xl font-bold text-forest">Dados do crachá</h1>
+          <div class="mb-4 grid grid-cols-2 gap-1.5 rounded-2xl bg-forest/10 p-1.5" role="group" aria-label="Tipo de crachá">
+            <button type="button" id="modeAlunoBtn" class="min-h-11 rounded-xl bg-forest px-3 py-2 text-sm font-bold text-white shadow-sm transition">
+              Aluno
+            </button>
+            <button type="button" id="modeStaffBtn" class="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-transparent px-3 py-2 text-sm font-bold text-forest transition hover:bg-white/60">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Funcionário
+            </button>
+          </div>
+
+          <h1 id="formTitle" class="font-display text-2xl font-bold text-forest">Dados do crachá · Aluno</h1>
           <p class="mt-1 text-sm text-slate-600">O texto aparece no crachá enquanto você preenche.</p>
 
           <div class="mt-5 space-y-4">
@@ -389,39 +402,56 @@
               <p id="nomeError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
             </div>
 
-            <div>
-              <label for="tema" class="mb-1.5 block text-sm font-semibold text-forest">Tema do Trabalho</label>
-              <input id="tema" name="tema" class="field" type="text" inputmode="text" autocomplete="off" enterkeyhint="next" maxlength="90" placeholder="Ex.: Formação do século XXI" required aria-describedby="temaError">
-              <p id="temaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+            <div id="alunoFields" class="space-y-4">
+              <div>
+                <label for="tema" class="mb-1.5 block text-sm font-semibold text-forest">Tema do Trabalho</label>
+                <input id="tema" name="tema" class="field" type="text" inputmode="text" autocomplete="off" enterkeyhint="next" maxlength="90" placeholder="Ex.: Formação do século XXI" required aria-describedby="temaError">
+                <p id="temaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+              </div>
+
+              <div>
+                <label for="turma" class="mb-1.5 block text-sm font-semibold text-forest">Turma</label>
+                <select id="turma" name="turma" class="field" required aria-describedby="turmaError">
+                  <option value="" selected disabled>Selecione a turma</option>
+                  <optgroup label="Ensino Infantil">
+                    <option>Ensino Infantil</option>
+                  </optgroup>
+                  <optgroup label="EF I">
+                    <option>1º Ano EF I</option>
+                    <option>2º Ano EF I</option>
+                    <option>3º Ano EF I</option>
+                    <option>4º Ano EF I</option>
+                    <option>5º Ano EF I</option>
+                  </optgroup>
+                  <optgroup label="EF II">
+                    <option>6º Ano EF II</option>
+                    <option>7º Ano EF II</option>
+                    <option>8º Ano EF II</option>
+                    <option>9º Ano EF II</option>
+                  </optgroup>
+                  <optgroup label="EM">
+                    <option>1º Ano EM</option>
+                    <option>2º Ano EM</option>
+                    <option>3º Ano EM</option>
+                  </optgroup>
+                </select>
+                <p id="turmaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+              </div>
             </div>
 
-            <div>
-              <label for="turma" class="mb-1.5 block text-sm font-semibold text-forest">Turma</label>
-              <select id="turma" name="turma" class="field" required aria-describedby="turmaError">
-                <option value="" selected disabled>Selecione a turma</option>
-                <optgroup label="Ensino Infantil">
-                  <option>Ensino Infantil</option>
-                </optgroup>
-                <optgroup label="EF I">
-                  <option>1º Ano EF I</option>
-                  <option>2º Ano EF I</option>
-                  <option>3º Ano EF I</option>
-                  <option>4º Ano EF I</option>
-                  <option>5º Ano EF I</option>
-                </optgroup>
-                <optgroup label="EF II">
-                  <option>6º Ano EF II</option>
-                  <option>7º Ano EF II</option>
-                  <option>8º Ano EF II</option>
-                  <option>9º Ano EF II</option>
-                </optgroup>
-                <optgroup label="EM">
-                  <option>1º Ano EM</option>
-                  <option>2º Ano EM</option>
-                  <option>3º Ano EM</option>
-                </optgroup>
-              </select>
-              <p id="turmaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+            <div id="staffFields" class="hidden space-y-4" hidden>
+              <div>
+                <label for="funcao" class="mb-1.5 block text-sm font-semibold text-forest">Função</label>
+                <select id="funcao" name="funcao" class="field" aria-describedby="funcaoError">
+                  <option value="" selected disabled>Selecione a função</option>
+                  <option>Professor</option>
+                  <option>Coordenador Pedagógico</option>
+                  <option>Secretário</option>
+                  <option>Auxiliar de Secretaria</option>
+                  <option>Diretor</option>
+                </select>
+                <p id="funcaoError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+              </div>
             </div>
           </div>
         </div>
@@ -445,7 +475,10 @@
       <section id="previewCard" class="fade-up delay-1 mt-6 min-w-0 lg:mt-0" aria-labelledby="previewTitulo">
         <div class="mb-3 flex items-end justify-between gap-3">
           <h2 id="previewTitulo" class="font-display text-2xl font-bold text-forest">Pré-visualização</h2>
-          <p class="text-right text-xs font-semibold uppercase tracking-wide text-slate-500">Ao vivo</p>
+          <div class="flex items-center gap-2">
+            <span id="sizeBadge" class="hidden rounded-full bg-forest/10 px-2.5 py-0.5 text-xs font-bold text-forest">100 mm × 70 mm</span>
+            <p class="text-right text-xs font-semibold uppercase tracking-wide text-slate-500">Ao vivo</p>
+          </div>
         </div>
         <div id="previewFrame" class="relative w-full max-w-full shadow-[0_22px_50px_-24px_rgba(15,81,50,0.55)]">
           <canvas id="previewCanvas" width="900" height="600" aria-hidden="true"></canvas>
@@ -453,9 +486,100 @@
             Carregando o modelo do crachá…
           </p>
         </div>
-        <p class="mt-3 text-sm text-slate-600">A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.</p>
+        <p id="previewHint" class="mt-3 text-sm text-slate-600">A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.</p>
         <p id="badgeLive" class="sr-only" aria-live="polite"></p>
       </section>
+    </div>
+  </div>
+
+  <!-- MODAL DE ESCOLHA (ALUNO / FUNCIONÁRIO + SENHA) -->
+  <div id="roleModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" hidden role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
+    <div class="w-full max-w-md rounded-[28px] bg-gradient-to-br from-forest via-sun to-ember p-[3px] shadow-2xl">
+      <div class="rounded-[25px] bg-white p-5 sm:p-7">
+        <!-- Escolha entre Aluno e Funcionário -->
+        <div id="roleStepChoice">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-ember">Gerar Crachá</p>
+              <h2 id="roleModalTitle" class="font-display mt-1 text-2xl font-bold text-forest">Escolha a opção</h2>
+            </div>
+            <button type="button" id="closeModalBtn" class="inline-flex h-10 w-10 min-h-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-700" aria-label="Fechar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <p class="mt-1.5 text-sm text-slate-600">Selecione se o crachá é para Aluno ou Funcionário.</p>
+
+          <div class="mt-5 space-y-3">
+            <button type="button" id="chooseAlunoBtn" class="hover-lift flex w-full items-center justify-between gap-4 rounded-2xl border-2 border-forest/15 bg-[#f0fdf4] p-4 text-left transition hover:border-forest">
+              <div>
+                <p class="text-base font-extrabold text-forest">Aluno</p>
+                <p class="mt-0.5 text-xs font-medium text-slate-600">Nome Completo, Tema do Trabalho e Turma</p>
+              </div>
+              <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest text-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" id="chooseStaffBtn" class="hover-lift flex w-full items-center justify-between gap-4 rounded-2xl border-2 border-ember/20 bg-orange-50/70 p-4 text-left transition hover:border-ember">
+              <div>
+                <p class="inline-flex items-center gap-1.5 text-base font-extrabold text-[#c2410c]">
+                  Funcionário
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </p>
+                <p class="mt-0.5 text-xs font-medium text-slate-600">Nome Completo e Função · Download 100 × 70 mm</p>
+              </div>
+              <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-ember text-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Etapa de Senha para Funcionário -->
+        <form id="roleStepPassword" class="hidden" hidden novalidate>
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-ember">Acesso Restrito</p>
+              <h2 class="font-display mt-1 text-2xl font-bold text-forest">Crachá de Funcionário</h2>
+            </div>
+            <button type="button" id="closePasswordModalBtn" class="inline-flex h-10 w-10 min-h-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-700" aria-label="Fechar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <p class="mt-1.5 text-sm text-slate-600">Informe a senha de autorização para gerar o crachá de funcionário.</p>
+
+          <div class="mt-4">
+            <label for="staffPassword" class="mb-1.5 block text-sm font-semibold text-forest">Senha</label>
+            <div class="relative">
+              <input id="staffPassword" type="password" class="field pr-20" placeholder="Digite a senha" autocomplete="off" required aria-describedby="staffPasswordError">
+              <button type="button" id="togglePasswordBtn" class="absolute right-2 top-1/2 -translate-y-1/2 min-h-0 rounded-xl px-2.5 py-1.5 text-xs font-bold text-forest hover:bg-forest/10">
+                Mostrar
+              </button>
+            </div>
+            <p id="staffPasswordError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
+          </div>
+
+          <div class="mt-3 grid grid-cols-2 gap-3">
+            <button type="button" id="passwordBackBtn" class="hover-lift inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-forest bg-white px-3 text-sm font-bold text-forest">
+              Voltar
+            </button>
+            <button type="submit" class="hover-lift inline-flex min-h-12 items-center justify-center rounded-2xl bg-gradient-to-r from-[#c2410c] to-ember px-3 text-sm font-extrabold text-white">
+              Acessar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -470,15 +594,29 @@
   <script>
     const WHITE_BOX = { x: 0.06210443, y: 0.54068396, w: 0.87579114, h: 0.3696934 };
     const PARTICLES = new Set(["da", "de", "do", "das", "dos", "e"]);
+    const STAFF_PASSWORD = "cpa@feira2026";
+    // 100 mm × 70 mm em 300 DPI (11811 pixels por metro)
+    const STAFF_EXPORT = {
+      widthPx: 1181,
+      heightPx: 827,
+      ppm: 11811
+    };
 
     const welcome = document.getElementById("welcome");
     const studio = document.getElementById("studio");
     const startBtn = document.getElementById("startBtn");
     const backBtn = document.getElementById("backBtn");
+    const studioStepLabel = document.getElementById("studioStepLabel");
+    const formTitle = document.getElementById("formTitle");
+    const modeAlunoBtn = document.getElementById("modeAlunoBtn");
+    const modeStaffBtn = document.getElementById("modeStaffBtn");
+    const alunoFields = document.getElementById("alunoFields");
+    const staffFields = document.getElementById("staffFields");
     const form = document.getElementById("badgeForm");
     const nomeInput = document.getElementById("nome");
     const temaInput = document.getElementById("tema");
     const turmaInput = document.getElementById("turma");
+    const funcaoInput = document.getElementById("funcao");
     const generateBtn = document.getElementById("generateBtn");
     const postActions = document.getElementById("postActions");
     const resetBtn = document.getElementById("resetBtn");
@@ -488,10 +626,24 @@
     const previewFrame = document.getElementById("previewFrame");
     const previewLoading = document.getElementById("previewLoading");
     const previewCard = document.getElementById("previewCard");
+    const previewHint = document.getElementById("previewHint");
+    const sizeBadge = document.getElementById("sizeBadge");
     const badgeLive = document.getElementById("badgeLive");
     const exportCanvas = document.getElementById("exportCanvas");
     const badgeImg = document.getElementById("badgeTemplate");
 
+    const roleModal = document.getElementById("roleModal");
+    const roleStepChoice = document.getElementById("roleStepChoice");
+    const roleStepPassword = document.getElementById("roleStepPassword");
+    const chooseAlunoBtn = document.getElementById("chooseAlunoBtn");
+    const chooseStaffBtn = document.getElementById("chooseStaffBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const closePasswordModalBtn = document.getElementById("closePasswordModalBtn");
+    const passwordBackBtn = document.getElementById("passwordBackBtn");
+    const staffPasswordInput = document.getElementById("staffPassword");
+    const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+
+    let badgeType = "aluno";
     let composing = false;
     let generated = false;
     let drawQueued = false;
@@ -531,9 +683,11 @@
 
     function readFields() {
       return {
+        type: badgeType,
         name: nomeInput.value.trim(),
         theme: temaInput.value.trim(),
-        grade: turmaInput.value.trim()
+        grade: turmaInput.value.trim(),
+        role: funcaoInput.value.trim()
       };
     }
 
@@ -542,6 +696,17 @@
     }
 
     function viewModel(fields, withPlaceholder) {
+      if (fields.type === "funcionario") {
+        const name = fields.name ? badgeUpper(fields.name) : (withPlaceholder ? "NOME DO FUNCIONÁRIO" : "");
+        const role = fields.role ? "FUNÇÃO: " + badgeUpper(fields.role) : (withPlaceholder ? "FUNÇÃO: SELECIONE A FUNÇÃO" : "");
+        return {
+          lines: [
+            { text: name, color: "#0f5132", weight: 800, size: 0.052, maxLines: 3, mute: !fields.name },
+            { text: role, color: "#ea580c", weight: 700, size: 0.035, maxLines: 2, mute: !fields.role }
+          ].filter((line) => line.text)
+        };
+      }
+
       const name = fields.name ? badgeUpper(fields.name) : (withPlaceholder ? "NOME DO ALUNO" : "");
       const theme = fields.theme ? "TEMA: " + badgeUpper(fields.theme) : (withPlaceholder ? "TEMA: TEMA DO TRABALHO" : "");
       const grade = fields.grade ? "TURMA: " + badgeUpper(fields.grade) : (withPlaceholder ? "TURMA: SELECIONE A TURMA" : "");
@@ -556,7 +721,7 @@
 
     function setError(input, message) {
       const slot = document.getElementById(input.id + "Error");
-      slot.textContent = message || "";
+      if (slot) slot.textContent = message || "";
       input.setAttribute("aria-invalid", message ? "true" : "false");
       input.classList.toggle("field-shake", Boolean(message));
       if (message) {
@@ -570,20 +735,32 @@
 
       const words = fields.name.split(/\s+/).filter(Boolean);
       let nameError = "";
-      if (!fields.name) nameError = "Informe o nome completo do aluno.";
-      else if (words.length < 2 || words.filter((word) => letterCount(word) >= 2).length < 2) {
+      if (!fields.name) {
+        nameError = fields.type === "funcionario"
+          ? "Informe o nome completo do funcionário."
+          : "Informe o nome completo do aluno.";
+      } else if (words.length < 2 || words.filter((word) => letterCount(word) >= 2).length < 2) {
         nameError = "Informe nome e sobrenome.";
       }
       setError(nomeInput, nameError);
       if (nameError) firstInvalid = firstInvalid || nomeInput;
 
-      const themeError = fields.theme.length < 3 ? "Informe o tema do trabalho." : "";
-      setError(temaInput, themeError);
-      if (themeError) firstInvalid = firstInvalid || temaInput;
+      if (fields.type === "funcionario") {
+        setError(temaInput, "");
+        setError(turmaInput, "");
+        const roleError = fields.role ? "" : "Escolha a função.";
+        setError(funcaoInput, roleError);
+        if (roleError) firstInvalid = firstInvalid || funcaoInput;
+      } else {
+        setError(funcaoInput, "");
+        const themeError = fields.theme.length < 3 ? "Informe o tema do trabalho." : "";
+        setError(temaInput, themeError);
+        if (themeError) firstInvalid = firstInvalid || temaInput;
 
-      const gradeError = fields.grade ? "" : "Escolha a turma.";
-      setError(turmaInput, gradeError);
-      if (gradeError) firstInvalid = firstInvalid || turmaInput;
+        const gradeError = fields.grade ? "" : "Escolha a turma.";
+        setError(turmaInput, gradeError);
+        if (gradeError) firstInvalid = firstInvalid || turmaInput;
+      }
 
       if (firstInvalid) {
         firstInvalid.focus();
@@ -653,14 +830,19 @@
       return { blocks, gap, height };
     }
 
-    function drawBadge(ctx, width, height, model) {
+    function drawBadge(ctx, width, height, model, stretchFill) {
       const imageRatio = badgeImg.naturalWidth / badgeImg.naturalHeight;
       const canvasRatio = width / height;
       let dw;
       let dh;
       let dx;
       let dy;
-      if (canvasRatio > imageRatio) {
+      if (stretchFill) {
+        dw = width;
+        dh = height;
+        dx = 0;
+        dy = 0;
+      } else if (canvasRatio > imageRatio) {
         dh = height;
         dw = height * imageRatio;
         dx = (width - dw) / 2;
@@ -713,9 +895,14 @@
       const fields = readFields();
       const parts = [];
       if (fields.name) parts.push(fields.name);
-      if (fields.theme) parts.push("Tema: " + fields.theme);
-      if (fields.grade) parts.push("Turma: " + fields.grade);
-      badgeLive.textContent = parts.length ? "Crachá: " + parts.join(". ") : "Crachá aguardando nome, tema e turma.";
+      if (fields.type === "funcionario") {
+        if (fields.role) parts.push("Função: " + fields.role);
+        badgeLive.textContent = parts.length ? "Crachá de funcionário: " + parts.join(". ") : "Crachá de funcionário aguardando nome e função.";
+      } else {
+        if (fields.theme) parts.push("Tema: " + fields.theme);
+        if (fields.grade) parts.push("Turma: " + fields.grade);
+        badgeLive.textContent = parts.length ? "Crachá: " + parts.join(". ") : "Crachá aguardando nome, tema e turma.";
+      }
     }
 
     function paintPreview() {
@@ -723,13 +910,14 @@
       const cssWidth = previewCanvas.clientWidth;
       if (!cssWidth) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const isStaff = badgeType === "funcionario";
       const bitmapW = Math.max(1, Math.round(cssWidth * dpr));
-      const bitmapH = Math.max(1, Math.round(bitmapW * 2 / 3));
+      const bitmapH = Math.max(1, Math.round(isStaff ? (bitmapW * 70 / 100) : (bitmapW * 2 / 3)));
       if (previewCanvas.width !== bitmapW || previewCanvas.height !== bitmapH) {
         previewCanvas.width = bitmapW;
         previewCanvas.height = bitmapH;
       }
-      drawBadge(previewCanvas.getContext("2d"), previewCanvas.width, previewCanvas.height, currentModel(true));
+      drawBadge(previewCanvas.getContext("2d"), previewCanvas.width, previewCanvas.height, currentModel(true), isStaff);
       announce();
     }
 
@@ -742,7 +930,69 @@
       });
     }
 
-    function showStage(stage) {
+    function setBadgeType(type) {
+      badgeType = type === "funcionario" ? "funcionario" : "aluno";
+      const isStaff = badgeType === "funcionario";
+
+      studioStepLabel.textContent = isStaff ? "Etapa 2 de 2 · Funcionário" : "Etapa 2 de 2 · Aluno";
+      formTitle.textContent = isStaff ? "Dados do crachá · Funcionário" : "Dados do crachá · Aluno";
+
+      modeAlunoBtn.className = isStaff
+        ? "min-h-11 rounded-xl bg-transparent px-3 py-2 text-sm font-bold text-forest transition hover:bg-white/60"
+        : "min-h-11 rounded-xl bg-forest px-3 py-2 text-sm font-bold text-white shadow-sm transition";
+      modeStaffBtn.className = isStaff
+        ? "inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-ember px-3 py-2 text-sm font-bold text-white shadow-sm transition"
+        : "inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-transparent px-3 py-2 text-sm font-bold text-forest transition hover:bg-white/60";
+
+      alunoFields.classList.toggle("hidden", isStaff);
+      alunoFields.hidden = isStaff;
+      staffFields.classList.toggle("hidden", !isStaff);
+      staffFields.hidden = !isStaff;
+
+      sizeBadge.classList.toggle("hidden", !isStaff);
+      previewCanvas.style.aspectRatio = isStaff ? "10 / 7" : "3 / 2";
+      previewHint.textContent = isStaff
+        ? "A prévia acompanha a tela. O crachá de funcionário sai configurado no tamanho 100 mm × 70 mm (300 DPI)."
+        : "A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.";
+      downloadBtn.textContent = isStaff ? "Download PNG (100×70 mm)" : "Download (PNG)";
+
+      [nomeInput, temaInput, turmaInput, funcaoInput].forEach((input) => setError(input, ""));
+      setGenerated(false);
+      scheduleDraw();
+    }
+
+    function openRoleModal(step) {
+      const passwordStep = step === "password";
+      roleStepChoice.classList.toggle("hidden", passwordStep);
+      roleStepChoice.hidden = passwordStep;
+      roleStepPassword.classList.toggle("hidden", !passwordStep);
+      roleStepPassword.hidden = !passwordStep;
+
+      staffPasswordInput.value = "";
+      staffPasswordInput.type = "password";
+      togglePasswordBtn.textContent = "Mostrar";
+      setError(staffPasswordInput, "");
+
+      roleModal.classList.remove("hidden");
+      roleModal.classList.add("flex");
+      roleModal.hidden = false;
+
+      requestAnimationFrame(() => {
+        if (passwordStep) staffPasswordInput.focus();
+        else chooseAlunoBtn.focus();
+      });
+    }
+
+    function closeRoleModal() {
+      roleModal.classList.add("hidden");
+      roleModal.classList.remove("flex");
+      roleModal.hidden = true;
+      staffPasswordInput.value = "";
+      setError(staffPasswordInput, "");
+    }
+
+    function showStage(stage, type) {
+      if (type) setBadgeType(type);
       const isStudio = stage === "studio";
       welcome.classList.toggle("hidden", isStudio);
       welcome.hidden = isStudio;
@@ -773,15 +1023,94 @@
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-zA-Z0-9]+/g, "-")
-        .replace(/^-|-$/g, "") || "aluno";
+        .replace(/^-|-$/g, "") || "cracha";
     }
 
-    function dataUrlToBlob(dataUrl) {
+    const CRC_TABLE = (() => {
+      const table = new Uint32Array(256);
+      for (let n = 0; n < 256; n += 1) {
+        let c = n;
+        for (let k = 0; k < 8; k += 1) {
+          c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+        }
+        table[n] = c >>> 0;
+      }
+      return table;
+    })();
+
+    function crc32(bytes) {
+      let c = 0xffffffff;
+      for (let i = 0; i < bytes.length; i += 1) {
+        c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+      }
+      return (c ^ 0xffffffff) >>> 0;
+    }
+
+    function injectPngPhysChunk(pngBytes, ppmX, ppmY) {
+      // Verifica assinatura PNG
+      if (pngBytes.length < 33 || pngBytes[0] !== 0x89 || pngBytes[1] !== 0x50) {
+        return pngBytes;
+      }
+
+      const physChunk = new Uint8Array(21);
+      const physView = new DataView(physChunk.buffer);
+      physView.setUint32(0, 9, false); // comprimento = 9 bytes
+      physChunk[4] = 0x70; // 'p'
+      physChunk[5] = 0x48; // 'H'
+      physChunk[6] = 0x59; // 'Y'
+      physChunk[7] = 0x73; // 's'
+      physView.setUint32(8, ppmX, false);
+      physView.setUint32(12, ppmY, false);
+      physChunk[16] = 1; // unidade: metro
+      physView.setUint32(17, crc32(physChunk.subarray(4, 17)), false);
+
+      const chunks = [pngBytes.subarray(0, 8)];
+      const view = new DataView(pngBytes.buffer, pngBytes.byteOffset, pngBytes.byteLength);
+      let offset = 8;
+      let physInserted = false;
+
+      while (offset + 8 <= pngBytes.length) {
+        const length = view.getUint32(offset, false);
+        const total = 12 + length;
+        if (offset + total > pngBytes.length) {
+          chunks.push(pngBytes.subarray(offset));
+          break;
+        }
+        const type = String.fromCharCode(
+          pngBytes[offset + 4],
+          pngBytes[offset + 5],
+          pngBytes[offset + 6],
+          pngBytes[offset + 7]
+        );
+        if (type !== "pHYs") {
+          chunks.push(pngBytes.subarray(offset, offset + total));
+        }
+        if (type === "IHDR" && !physInserted) {
+          chunks.push(physChunk);
+          physInserted = true;
+        }
+        offset += total;
+      }
+
+      const totalLength = chunks.reduce((sum, part) => sum + part.length, 0);
+      const output = new Uint8Array(totalLength);
+      let cursor = 0;
+      chunks.forEach((part) => {
+        output.set(part, cursor);
+        cursor += part.length;
+      });
+      return output;
+    }
+
+    function dataUrlToBlob(dataUrl, physPpm) {
       const parts = dataUrl.split(",");
       const mime = (parts[0].match(/:(.*?);/) || [])[1] || "image/png";
       const binary = atob(parts[1]);
-      const bytes = new Uint8Array(binary.length);
+      let bytes = new Uint8Array(binary.length);
       for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      if (physPpm && mime === "image/png") {
+        bytes = injectPngPhysChunk(bytes, physPpm, physPpm);
+      }
       return new Blob([bytes], { type: mime });
     }
 
@@ -797,6 +1126,7 @@
         return;
       }
 
+      const isStaff = badgeType === "funcionario";
       const previous = downloadBtn.textContent;
       downloadBtn.disabled = true;
       downloadBtn.textContent = "Gerando PNG...";
@@ -808,14 +1138,15 @@
       };
 
       try {
-        const width = badgeImg.naturalWidth;
-        const height = badgeImg.naturalHeight;
+        const width = isStaff ? STAFF_EXPORT.widthPx : badgeImg.naturalWidth;
+        const height = isStaff ? STAFF_EXPORT.heightPx : badgeImg.naturalHeight;
         exportCanvas.width = width;
         exportCanvas.height = height;
-        drawBadge(exportCanvas.getContext("2d"), width, height, currentModel(false));
+        drawBadge(exportCanvas.getContext("2d"), width, height, currentModel(false), isStaff);
         const dataUrl = exportCanvas.toDataURL("image/png");
-        const filename = "Cracha-XXIV-Feira-" + slugify(readFields().name) + ".png";
-        const blob = dataUrlToBlob(dataUrl);
+        const prefix = isStaff ? "Cracha-Funcionario-XXIV-Feira-" : "Cracha-XXIV-Feira-";
+        const filename = prefix + slugify(readFields().name) + ".png";
+        const blob = dataUrlToBlob(dataUrl, isStaff ? STAFF_EXPORT.ppm : 0);
         const file = new File([blob], filename, { type: "image/png" });
 
         if (isIOS() && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -840,7 +1171,9 @@
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(url), 60000);
-        formStatus.textContent = "Download iniciado. O PNG foi para a pasta de downloads.";
+        formStatus.textContent = isStaff
+          ? "Download iniciado (PNG 100 mm × 70 mm)."
+          : "Download iniciado. O PNG foi para a pasta de downloads.";
       } catch (error) {
         formStatus.textContent = "Não foi possível gerar o PNG. Abra esta página pelo navegador, com as imagens na mesma pasta.";
       } finally {
@@ -850,7 +1183,7 @@
 
     function clearForm() {
       form.reset();
-      [nomeInput, temaInput, turmaInput].forEach((input) => setError(input, ""));
+      [nomeInput, temaInput, turmaInput, funcaoInput].forEach((input) => setError(input, ""));
       setGenerated(false);
       scheduleDraw();
       nomeInput.focus();
@@ -859,8 +1192,77 @@
       }
     }
 
-    startBtn.addEventListener("click", () => showStage("studio"));
+    startBtn.addEventListener("click", () => openRoleModal("choice"));
     backBtn.addEventListener("click", () => showStage("welcome"));
+
+    chooseAlunoBtn.addEventListener("click", () => {
+      closeRoleModal();
+      showStage("studio", "aluno");
+    });
+
+    chooseStaffBtn.addEventListener("click", () => {
+      openRoleModal("password");
+    });
+
+    passwordBackBtn.addEventListener("click", () => {
+      if (!studio.hidden) {
+        closeRoleModal();
+      } else {
+        openRoleModal("choice");
+      }
+    });
+
+    closeModalBtn.addEventListener("click", closeRoleModal);
+    closePasswordModalBtn.addEventListener("click", closeRoleModal);
+
+    roleModal.addEventListener("click", (event) => {
+      if (event.target === roleModal) closeRoleModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !roleModal.hidden) {
+        closeRoleModal();
+      }
+    });
+
+    togglePasswordBtn.addEventListener("click", () => {
+      const showing = staffPasswordInput.type === "text";
+      staffPasswordInput.type = showing ? "password" : "text";
+      togglePasswordBtn.textContent = showing ? "Mostrar" : "Ocultar";
+      staffPasswordInput.focus();
+    });
+
+    staffPasswordInput.addEventListener("input", () => {
+      if (staffPasswordInput.value) setError(staffPasswordInput, "");
+    });
+
+    roleStepPassword.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const typed = staffPasswordInput.value;
+      if (!typed) {
+        setError(staffPasswordInput, "Informe a senha para continuar.");
+        staffPasswordInput.focus();
+        return;
+      }
+      if (typed !== STAFF_PASSWORD) {
+        setError(staffPasswordInput, "Senha incorreta. Tente novamente.");
+        staffPasswordInput.focus();
+        staffPasswordInput.select();
+        return;
+      }
+      closeRoleModal();
+      showStage("studio", "funcionario");
+    });
+
+    modeAlunoBtn.addEventListener("click", () => {
+      if (badgeType !== "aluno") setBadgeType("aluno");
+    });
+
+    modeStaffBtn.addEventListener("click", () => {
+      if (badgeType !== "funcionario") {
+        openRoleModal("password");
+      }
+    });
 
     nomeInput.addEventListener("compositionstart", () => { composing = true; });
     nomeInput.addEventListener("compositionend", () => {
@@ -910,14 +1312,23 @@
       scheduleDraw();
     });
 
+    funcaoInput.addEventListener("change", () => {
+      if (funcaoInput.value) setError(funcaoInput, "");
+      scheduleDraw();
+    });
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       nomeInput.value = titleCaseName(nomeInput.value).trim();
-      temaInput.value = temaInput.value.trim();
-      normalizeTheme();
+      if (badgeType === "aluno") {
+        temaInput.value = temaInput.value.trim();
+        normalizeTheme();
+      }
       if (!validate()) return;
       setGenerated(true);
-      formStatus.textContent = "Crachá pronto. Você já pode baixar o PNG.";
+      formStatus.textContent = badgeType === "funcionario"
+        ? "Crachá pronto. Você já pode baixar o PNG (100 mm × 70 mm)."
+        : "Crachá pronto. Você já pode baixar o PNG.";
       scheduleDraw();
       if (window.matchMedia("(max-width: 1023px)").matches) {
         previewCard.scrollIntoView({
