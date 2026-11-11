@@ -437,6 +437,36 @@
                 </select>
                 <p id="turmaError" class="mt-1 min-h-[1.25rem] text-sm font-medium text-red-600" role="alert"></p>
               </div>
+
+              <!-- Opção de Formato e Medidas para Aluno -->
+              <div class="rounded-2xl border border-forest/15 bg-white/70 p-3.5 sm:p-4">
+                <span class="block text-sm font-semibold text-forest">Formato de Download</span>
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-forest/20 bg-white p-2.5 text-xs font-bold text-forest has-[:checked]:border-forest has-[:checked]:bg-forest/10 sm:text-sm">
+                    <input type="radio" name="alunoFormat" value="png" checked class="h-4 w-4 accent-forest min-h-0">
+                    PNG Original
+                  </label>
+                  <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-forest/20 bg-white p-2.5 text-xs font-bold text-forest has-[:checked]:border-forest has-[:checked]:bg-forest/10 sm:text-sm">
+                    <input type="radio" name="alunoFormat" value="pdf" class="h-4 w-4 accent-forest min-h-0">
+                    PDF (Folha A4)
+                  </label>
+                </div>
+
+                <div id="alunoCustomSizeBox" class="mt-3 hidden border-t border-forest/10 pt-3" hidden>
+                  <p class="text-xs font-semibold text-slate-600 mb-2">Medidas do crachá na folha A4 (em milímetros):</p>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label for="alunoWidthMm" class="block text-xs font-bold text-forest mb-1">Largura (mm)</label>
+                      <input id="alunoWidthMm" type="number" min="30" max="200" step="1" value="100" class="field text-sm" placeholder="Ex: 100">
+                    </div>
+                    <div>
+                      <label for="alunoHeightMm" class="block text-xs font-bold text-forest mb-1">Altura (mm)</label>
+                      <input id="alunoHeightMm" type="number" min="30" max="280" step="1" value="70" class="field text-sm" placeholder="Ex: 70">
+                    </div>
+                  </div>
+                  <p id="alunoSizeError" class="mt-1 min-h-[1rem] text-xs font-medium text-red-600" role="alert"></p>
+                </div>
+              </div>
             </div>
 
             <div id="staffFields" class="hidden space-y-4" hidden>
@@ -613,6 +643,11 @@
     const modeStaffBtn = document.getElementById("modeStaffBtn");
     const alunoFields = document.getElementById("alunoFields");
     const staffFields = document.getElementById("staffFields");
+    const alunoFormatRadios = document.querySelectorAll('input[name="alunoFormat"]');
+    const alunoCustomSizeBox = document.getElementById("alunoCustomSizeBox");
+    const alunoWidthMmInput = document.getElementById("alunoWidthMm");
+    const alunoHeightMmInput = document.getElementById("alunoHeightMm");
+    const alunoSizeError = document.getElementById("alunoSizeError");
     const form = document.getElementById("badgeForm");
     const nomeInput = document.getElementById("nome");
     const temaInput = document.getElementById("tema");
@@ -761,6 +796,23 @@
         const gradeError = fields.grade ? "" : "Escolha a turma.";
         setError(turmaInput, gradeError);
         if (gradeError) firstInvalid = firstInvalid || turmaInput;
+
+        const format = getAlunoFormat();
+        if (format === "pdf") {
+          const dims = getAlunoDimensions();
+          let dimErr = "";
+          if (isNaN(dims.w) || dims.w < 30 || dims.w > 200) {
+            dimErr = "Largura deve ser entre 30 e 200 mm.";
+          } else if (isNaN(dims.h) || dims.h < 30 || dims.h > 280) {
+            dimErr = "Altura deve ser entre 30 e 280 mm.";
+          }
+          if (alunoSizeError) alunoSizeError.textContent = dimErr;
+          if (dimErr) {
+            firstInvalid = firstInvalid || (isNaN(dims.w) || dims.w < 30 || dims.w > 200 ? alunoWidthMmInput : alunoHeightMmInput);
+          }
+        } else {
+          if (alunoSizeError) alunoSizeError.textContent = "";
+        }
       }
 
       if (firstInvalid) {
@@ -931,6 +983,41 @@
       });
     }
 
+    function getAlunoFormat() {
+      const checked = document.querySelector('input[name="alunoFormat"]:checked');
+      return checked ? checked.value : "png";
+    }
+
+    function getAlunoDimensions() {
+      const w = parseFloat(alunoWidthMmInput ? alunoWidthMmInput.value : 100);
+      const h = parseFloat(alunoHeightMmInput ? alunoHeightMmInput.value : 70);
+      return {
+        w: isNaN(w) ? 100 : w,
+        h: isNaN(h) ? 70 : h
+      };
+    }
+
+    function updateAlunoFormatUI() {
+      if (badgeType !== "aluno") return;
+      const format = getAlunoFormat();
+      const isPdf = format === "pdf";
+      if (alunoCustomSizeBox) {
+        alunoCustomSizeBox.classList.toggle("hidden", !isPdf);
+        alunoCustomSizeBox.hidden = !isPdf;
+      }
+      if (isPdf) {
+        const dims = getAlunoDimensions();
+        sizeBadge.textContent = `A4 · ${dims.w} × ${dims.h} mm`;
+        sizeBadge.classList.remove("hidden");
+        previewHint.textContent = `A prévia acompanha a tela. O crachá será baixado em PDF na folha A4 com as medidas de ${dims.w} mm × ${dims.h} mm.`;
+        downloadBtn.textContent = "Download PDF (A4)";
+      } else {
+        sizeBadge.classList.add("hidden");
+        previewHint.textContent = "A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.";
+        downloadBtn.textContent = "Download (PNG)";
+      }
+    }
+
     function setBadgeType(type) {
       badgeType = type === "funcionario" ? "funcionario" : "aluno";
       const isStaff = badgeType === "funcionario";
@@ -950,14 +1037,19 @@
       staffFields.classList.toggle("hidden", !isStaff);
       staffFields.hidden = !isStaff;
 
-      sizeBadge.classList.toggle("hidden", !isStaff);
-      previewCanvas.style.aspectRatio = isStaff ? "10 / 7" : "3 / 2";
-      previewHint.textContent = isStaff
-        ? "A prévia acompanha a tela. O crachá de funcionário é baixado em PDF na folha A4 já dimensionado em 100 mm × 70 mm."
-        : "A prévia acompanha a tela. O arquivo baixado sai em alta resolução, com no mínimo 1800 × 1200 px.";
-      downloadBtn.textContent = isStaff ? "Download PDF (A4)" : "Download (PNG)";
+      if (isStaff) {
+        sizeBadge.textContent = "A4 · 100 × 70 mm";
+        sizeBadge.classList.remove("hidden");
+        previewCanvas.style.aspectRatio = "10 / 7";
+        previewHint.textContent = "A prévia acompanha a tela. O crachá de funcionário é baixado em PDF na folha A4 já dimensionado em 100 mm × 70 mm.";
+        downloadBtn.textContent = "Download PDF (A4)";
+      } else {
+        previewCanvas.style.aspectRatio = "3 / 2";
+        updateAlunoFormatUI();
+      }
 
       [nomeInput, temaInput, turmaInput, funcaoInput].forEach((input) => setError(input, ""));
+      if (alunoSizeError) alunoSizeError.textContent = "";
       setGenerated(false);
       scheduleDraw();
     }
@@ -1041,15 +1133,15 @@
       return new Blob([dataUrlToBytes(dataUrl)], { type: mime });
     }
 
-    function buildStaffA4PdfBlob(jpegBytes, imgWidth, imgHeight) {
+    function buildCustomA4PdfBlob(jpegBytes, imgWidth, imgHeight, badgeWidthMm, badgeHeightMm) {
       const mmToPt = (mm) => (mm * 72) / 25.4;
       const f = (n) => n.toFixed(3);
 
-      // Folha A4 (210 mm × 297 mm) e crachá em 100 mm × 70 mm
+      // Folha A4 (210 mm × 297 mm) e crachá na medida customizada (em mm)
       const pageW = mmToPt(210);
       const pageH = mmToPt(297);
-      const badgeW = mmToPt(STAFF_EXPORT.widthMm);
-      const badgeH = mmToPt(STAFF_EXPORT.heightMm);
+      const badgeW = mmToPt(badgeWidthMm);
+      const badgeH = mmToPt(badgeHeightMm);
 
       // Centralizado horizontalmente e posicionado a 25 mm do topo da folha A4
       const x0 = (pageW - badgeW) / 2;
@@ -1057,7 +1149,7 @@
       const x1 = x0 + badgeW;
       const y1 = y0 + badgeH;
 
-      // Marcas discretas de corte nos 4 cantos (100 mm × 70 mm)
+      // Marcas discretas de corte nos 4 cantos
       const gap = mmToPt(1.5);
       const mark = mmToPt(5);
       const streamText = [
@@ -1125,6 +1217,10 @@
       return new Blob(parts, { type: "application/pdf" });
     }
 
+    function buildStaffA4PdfBlob(jpegBytes, imgWidth, imgHeight) {
+      return buildCustomA4PdfBlob(jpegBytes, imgWidth, imgHeight, STAFF_EXPORT.widthMm, STAFF_EXPORT.heightMm);
+    }
+
     function isIOS() {
       return /iPad|iPhone|iPod/.test(navigator.userAgent)
         || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -1149,11 +1245,33 @@
       };
 
       try {
-        const width = isStaff ? STAFF_EXPORT.widthPx : badgeImg.naturalWidth;
-        const height = isStaff ? STAFF_EXPORT.heightPx : badgeImg.naturalHeight;
+        let width;
+        let height;
+        let stretchFill = false;
+
+        const isAlunoPdf = !isStaff && getAlunoFormat() === "pdf";
+        const alunoDims = isAlunoPdf ? getAlunoDimensions() : null;
+
+        if (isStaff) {
+          width = STAFF_EXPORT.widthPx;
+          height = STAFF_EXPORT.heightPx;
+          stretchFill = true;
+        } else if (isAlunoPdf) {
+          // Renderização nítida proporcional às dimensões do aluno
+          const targetW = Math.round((alunoDims.w * 300) / 25.4);
+          const targetH = Math.round((alunoDims.h * 300) / 25.4);
+          width = Math.max(1200, targetW);
+          height = Math.max(800, targetH);
+          stretchFill = true;
+        } else {
+          width = badgeImg.naturalWidth;
+          height = badgeImg.naturalHeight;
+          stretchFill = false;
+        }
+
         exportCanvas.width = width;
         exportCanvas.height = height;
-        drawBadge(exportCanvas.getContext("2d"), width, height, currentModel(false), isStaff);
+        drawBadge(exportCanvas.getContext("2d"), width, height, currentModel(false), stretchFill);
 
         let blob;
         let filename;
@@ -1164,6 +1282,12 @@
           const jpegBytes = dataUrlToBytes(jpegUrl);
           blob = buildStaffA4PdfBlob(jpegBytes, width, height);
           filename = "Cracha-Funcionario-A4-XXIV-Feira-" + slugify(readFields().name) + ".pdf";
+          mime = "application/pdf";
+        } else if (isAlunoPdf) {
+          const jpegUrl = exportCanvas.toDataURL("image/jpeg", 0.98);
+          const jpegBytes = dataUrlToBytes(jpegUrl);
+          blob = buildCustomA4PdfBlob(jpegBytes, width, height, alunoDims.w, alunoDims.h);
+          filename = "Cracha-Aluno-A4-XXIV-Feira-" + slugify(readFields().name) + ".pdf";
           mime = "application/pdf";
         } else {
           const pngUrl = exportCanvas.toDataURL("image/png");
@@ -1179,7 +1303,7 @@
           handedOff = true;
           pending
             .then(() => {
-              formStatus.textContent = isStaff
+              formStatus.textContent = (isStaff || isAlunoPdf)
                 ? "Escolha Salvar em Arquivos ou Imprimir para usar o PDF A4."
                 : "Escolha Salvar imagem para guardar o crachá na galeria.";
             })
@@ -1198,9 +1322,13 @@
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(url), 60000);
-        formStatus.textContent = isStaff
-          ? "Download iniciado. O PDF A4 (crachá 100 mm × 70 mm) foi para a pasta de downloads."
-          : "Download iniciado. O PNG foi para a pasta de downloads.";
+        if (isStaff) {
+          formStatus.textContent = "Download iniciado. O PDF A4 (crachá 100 mm × 70 mm) foi para a pasta de downloads.";
+        } else if (isAlunoPdf) {
+          formStatus.textContent = `Download iniciado. O PDF A4 (crachá ${alunoDims.w} mm × ${alunoDims.h} mm) foi para a pasta de downloads.`;
+        } else {
+          formStatus.textContent = "Download iniciado. O PNG foi para a pasta de downloads.";
+        }
       } catch (error) {
         formStatus.textContent = "Não foi possível gerar o arquivo. Abra esta página pelo navegador, com as imagens na mesma pasta.";
       } finally {
@@ -1344,6 +1472,33 @@
       scheduleDraw();
     });
 
+    alunoFormatRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        updateAlunoFormatUI();
+        if (generated) {
+          const isPdf = getAlunoFormat() === "pdf";
+          const dims = getAlunoDimensions();
+          formStatus.textContent = isPdf
+            ? `Crachá pronto. Você já pode baixar o PDF em folha A4 (${dims.w} mm × ${dims.h} mm).`
+            : "Crachá pronto. Você já pode baixar o PNG.";
+        }
+      });
+    });
+
+    if (alunoWidthMmInput) {
+      alunoWidthMmInput.addEventListener("input", () => {
+        if (alunoSizeError) alunoSizeError.textContent = "";
+        updateAlunoFormatUI();
+      });
+    }
+
+    if (alunoHeightMmInput) {
+      alunoHeightMmInput.addEventListener("input", () => {
+        if (alunoSizeError) alunoSizeError.textContent = "";
+        updateAlunoFormatUI();
+      });
+    }
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       nomeInput.value = titleCaseName(nomeInput.value).trim();
@@ -1353,9 +1508,15 @@
       }
       if (!validate()) return;
       setGenerated(true);
-      formStatus.textContent = badgeType === "funcionario"
-        ? "Crachá pronto. Você já pode baixar o PDF em folha A4 (100 mm × 70 mm)."
-        : "Crachá pronto. Você já pode baixar o PNG.";
+      if (badgeType === "funcionario") {
+        formStatus.textContent = "Crachá pronto. Você já pode baixar o PDF em folha A4 (100 mm × 70 mm).";
+      } else {
+        const isPdf = getAlunoFormat() === "pdf";
+        const dims = getAlunoDimensions();
+        formStatus.textContent = isPdf
+          ? `Crachá pronto. Você já pode baixar o PDF em folha A4 (${dims.w} mm × ${dims.h} mm).`
+          : "Crachá pronto. Você já pode baixar o PNG.";
+      }
       scheduleDraw();
       if (window.matchMedia("(max-width: 1023px)").matches) {
         previewCard.scrollIntoView({
