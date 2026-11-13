@@ -235,7 +235,7 @@
               </h2>
             </div>
             <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15">
-              Todas na vertical
+              6 opções
             </span>
           </div>
 
@@ -263,8 +263,8 @@
             </span>
           </div>
 
-          <!-- Abas rápidas para alternar entre Foto 1, Foto 2 e Foto 3 quando em colagem -->
-          <div id="slotTabsContainer" class="hidden grid-cols-3 gap-2 mb-3">
+          <!-- Abas rápidas para alternar entre Foto 1, Foto 2, Foto 3 e Foto 4 quando em colagem -->
+          <div id="slotTabsContainer" class="hidden grid gap-2 mb-3">
             <!-- Botões de slot injetados via JS -->
           </div>
 
@@ -440,6 +440,29 @@
             { x: 586, y: 546,  w: 450, h: 514,  r: 26, label: 'Foto 2' }, // 450x514  (Vertical)
             { x: 586, y: 1078, w: 450, h: 514,  r: 26, label: 'Foto 3' }  // 450x514  (Vertical)
           ]
+        },
+        {
+          id: 'colagem-3-topo',
+          nome: '3 Fotos Topo',
+          subtitulo: '1 Topo + 2 Embaixo',
+          numFotos: 3,
+          slots: [
+            { x: 44,  y: 546,  w: 992, h: 514,  r: 28, label: 'Foto 1' }, // 992x514  (Horizontal Topo)
+            { x: 44,  y: 1078, w: 487, h: 514,  r: 26, label: 'Foto 2' }, // 487x514  (Vertical Esquerda)
+            { x: 549, y: 1078, w: 487, h: 514,  r: 26, label: 'Foto 3' }  // 487x514  (Vertical Direita)
+          ]
+        },
+        {
+          id: 'colagem-4',
+          nome: '4 Fotos',
+          subtitulo: 'Grade 2x2',
+          numFotos: 4,
+          slots: [
+            { x: 44,  y: 546,  w: 487, h: 514,  r: 26, label: 'Foto 1' }, // 487x514  (Topo Esquerda)
+            { x: 549, y: 546,  w: 487, h: 514,  r: 26, label: 'Foto 2' }, // 487x514  (Topo Direita)
+            { x: 44,  y: 1078, w: 487, h: 514,  r: 26, label: 'Foto 3' }, // 487x514  (Baixo Esquerda)
+            { x: 549, y: 1078, w: 487, h: 514,  r: 26, label: 'Foto 4' }  // 487x514  (Baixo Direita)
+          ]
         }
       ];
 
@@ -469,7 +492,7 @@
         selectedLayoutId: LAYOUTS_COLAGEM[0].id,
         activeSlotIndex: 0,
         targetUploadSlotIndex: null,
-        slots: [createEmptySlotState(), createEmptySlotState(), createEmptySlotState()],
+        slots: [createEmptySlotState(), createEmptySlotState(), createEmptySlotState(), createEmptySlotState()],
         officialFrameSource: null, // HTMLImageElement da moldura oficial
         emblemImg: null,
         isInteracting: false,
@@ -704,13 +727,13 @@
       function renderSlotTabs() {
         const layout = getActiveLayout();
         if (layout.slots.length <= 1) {
-          slotTabsContainer.classList.add('hidden');
-          slotTabsContainer.classList.remove('grid');
+          slotTabsContainer.className = 'hidden';
+          slotTabsContainer.innerHTML = '';
           return;
         }
 
-        slotTabsContainer.classList.remove('hidden');
-        slotTabsContainer.classList.add('grid');
+        const gridColsClass = layout.slots.length === 2 ? 'grid-cols-2' : layout.slots.length === 4 ? 'grid-cols-4' : 'grid-cols-3';
+        slotTabsContainer.className = `grid ${gridColsClass} gap-2 mb-3`;
         slotTabsContainer.innerHTML = '';
 
         layout.slots.forEach((slotDef, idx) => {
@@ -721,16 +744,17 @@
           const tab = document.createElement('button');
           tab.type = 'button';
           tab.className = [
-            'flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl border text-xs font-bold transition-all active:scale-95 cursor-pointer',
+            'flex items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2.5 py-2 rounded-xl border text-[11px] sm:text-xs font-bold transition-all active:scale-95 cursor-pointer truncate',
             isActive
               ? 'bg-cpa-greenDark text-white border-cpa-greenDark shadow-sm'
               : 'bg-slate-50 hover:bg-emerald-50 text-slate-700 border-slate-200'
           ].join(' ');
 
           const dot = document.createElement('span');
-          dot.className = `w-2 h-2 rounded-full ${hasPhoto ? 'bg-emerald-400' : 'bg-orange-400'}`;
+          dot.className = `w-2 h-2 rounded-full shrink-0 ${hasPhoto ? 'bg-emerald-400' : 'bg-orange-400'}`;
 
           const lbl = document.createElement('span');
+          lbl.className = 'truncate';
           lbl.textContent = slotDef.label;
 
           tab.appendChild(dot);
@@ -897,17 +921,19 @@
       }
 
       async function handleFilesSelection(fileList) {
-        const validFiles = Array.from(fileList || []).filter(f => f && f.type.startsWith('image/')).slice(0, 3);
+        const validFiles = Array.from(fileList || []).filter(f => f && f.type.startsWith('image/')).slice(0, 4);
         if (validFiles.length === 0) {
           showToast('Por favor, selecione uma imagem válida.', '⚠');
           return;
         }
 
-        // Se o usuário selecionou 2 ou 3 fotos de uma vez estando no modo 1 Foto, muda o layout automaticamente
+        // Se o usuário selecionou múltiplas fotos de uma vez, ajusta o layout automaticamente se necessário
         if (validFiles.length === 2 && getActiveLayout().numFotos === 1) {
           state.selectedLayoutId = 'colagem-2';
         } else if (validFiles.length === 3 && getActiveLayout().numFotos < 3) {
           state.selectedLayoutId = 'colagem-3';
+        } else if (validFiles.length >= 4 && getActiveLayout().numFotos < 4) {
+          state.selectedLayoutId = 'colagem-4';
         }
 
         const layout = getActiveLayout();
