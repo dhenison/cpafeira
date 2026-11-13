@@ -55,9 +55,9 @@
       overscroll-behavior-y: contain;
     }
 
-    /* Prevenção rigorosa de zoom/scroll acidental APENAS dentro da área do Stage 9:16 */
+    /* Permite rolagem vertical da página sobre slots vazios; bloqueia durante arraste/pinça em fotos */
     #stageViewport {
-      touch-action: none;
+      touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none;
     }
@@ -120,26 +120,6 @@
       pointer-events: none;
     }
 
-    /* Barra de rolagem suave e elegante para o carrossel de modelos */
-    .carousel-scrollbar::-webkit-scrollbar {
-      height: 6px;
-    }
-    .carousel-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 9999px;
-    }
-    .carousel-scrollbar::-webkit-scrollbar-thumb {
-      background: #15803d;
-      border-radius: 9999px;
-    }
-    .carousel-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #0f5132;
-    }
-    .carousel-scrollbar {
-      scrollbar-width: thin;
-      scrollbar-color: #15803d #f1f5f9;
-    }
-
     /* Gradiente estilo Instagram para o card de menção */
     .ig-badge-gradient {
       background: linear-gradient(135deg, #f59e0b 0%, #ea580c 45%, #db2777 100%);
@@ -165,28 +145,36 @@
   </div>
 
   <!-- Cabeçalho Institucional Compacto -->
-  <header class="w-full pt-3 pb-2 px-4 sm:pt-5 sm:pb-3">
+  <header class="w-full pt-2 pb-1.5 px-3 sm:pt-4 sm:pb-2.5 sm:px-4">
     <div class="max-w-5xl mx-auto">
-      <div class="flex items-center justify-between gap-3 px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="relative shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-emerald-50 to-amber-50 p-1 border border-emerald-800/10 shadow-sm flex items-center justify-center">
+      <div class="flex items-center justify-between gap-2 sm:gap-3 px-2.5 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <a href="../index.html"
+             aria-label="Voltar para a página inicial"
+             class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-cpa-greenDark border border-emerald-700/15 text-xs font-bold transition active:scale-95">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Voltar</span>
+          </a>
+          <div class="relative shrink-0 w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-amber-50 p-1 border border-emerald-800/10 shadow-sm flex items-center justify-center">
             <img src="Emblema do Colégio Prof. Afonso.png"
                  alt="Emblema do Colégio Prof. Afonso"
                  class="w-full h-full object-contain drop-shadow-sm" />
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-cpa-greenLight text-cpa-greenDark border border-emerald-600/20">
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] sm:text-xs font-bold uppercase tracking-wider bg-cpa-greenLight text-cpa-greenDark border border-emerald-600/20">
                 Colégio Prof. Afonso
               </span>
               <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100/80 text-amber-800 border border-amber-500/20">
                 Tucumã - PA
               </span>
             </div>
-            <h1 class="font-display font-extrabold text-base sm:text-xl md:text-2xl text-cpa-greenDark leading-tight truncate mt-0.5">
+            <h1 class="font-display font-extrabold text-sm sm:text-xl md:text-2xl text-cpa-greenDark leading-tight truncate mt-0.5">
               XXIV Feira do Conhecimento <span class="text-cpa-orangeDark">2026</span>
             </h1>
-            <p class="text-[11px] sm:text-xs text-slate-500 font-medium truncate">
+            <p class="hidden sm:block text-xs text-slate-500 font-medium truncate">
               Formação Integral — Um eterno aprendiz • Story 9:16 Vertical
             </p>
           </div>
@@ -200,19 +188,43 @@
     </div>
   </header>
 
-  <!-- Conteúdo Principal (Mobile-First em coluna única -> Desktop em 2 colunas) -->
-  <main class="max-w-5xl mx-auto px-4 pb-8 pt-1">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-start">
+  <!-- Conteúdo Principal (Mobile-First com todos os blocos visíveis -> Desktop em 2 colunas) -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-4 pb-6 pt-1">
+    <div class="grid grid-cols-12 gap-2.5 sm:gap-4 lg:gap-6 items-start">
 
-      <!-- COLUNA ESQUERDA: Área de Pré-visualização Interativa (Stage 9:16) -->
-      <section class="lg:col-span-5 flex flex-col items-center">
+      <!-- BLOCO 1: Seletor de Colagem (6 Opções 100% visíveis no topo no celular; topo da coluna direita no desktop) -->
+      <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-1">
+        <div class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-2.5 sm:p-4">
+          <div class="flex items-center justify-between mb-2 gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-orange-100 text-cpa-orangeDark flex items-center justify-center text-[11px] sm:text-xs font-extrabold shrink-0">1</span>
+              <h2 class="font-display font-bold text-xs sm:text-base text-slate-800 truncate">
+                Modelo de Colagem (Qtd. de Fotos)
+              </h2>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15 shrink-0">
+              6 modelos
+            </span>
+          </div>
+
+          <div id="layoutCarousel"
+               role="radiogroup"
+               aria-label="Opções de colagem de fotos"
+               class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 sm:gap-2">
+            <!-- Opções de colagem injetadas via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCO 2: Área de Pré-visualização Interativa (Stage 9:16) -->
+      <section class="col-span-5 min-w-0 flex flex-col items-center lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:row-span-4">
         <div class="w-full flex flex-col items-center">
           <div id="stageWrapper"
-               class="relative w-full max-w-[310px] sm:max-w-[340px] lg:max-w-[360px] mx-auto aspect-[9/16]">
+               class="relative w-full max-w-[165px] min-[390px]:max-w-[180px] sm:max-w-[240px] lg:max-w-[350px] mx-auto aspect-[9/16]">
 
             <!-- Moldura visual do aparelho / Stage -->
             <div id="stageViewport"
-                 class="relative w-full h-full rounded-[24px] overflow-hidden bg-white shadow-stage border-[3px] border-white ring-1 ring-emerald-900/15 cursor-grab active:cursor-grabbing transition-shadow duration-300">
+                 class="relative w-full h-full rounded-[16px] sm:rounded-[24px] overflow-hidden bg-white shadow-stage border-[2px] sm:border-[3px] border-white ring-1 ring-emerald-900/15 cursor-grab active:cursor-grabbing transition-shadow duration-300">
 
               <canvas id="previewCanvas"
                       width="1080"
@@ -221,175 +233,143 @@
 
               <!-- Badge discreta de gestos -->
               <div id="gestureHintBadge"
-                   class="hidden pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-slate-900/75 text-white text-[10px] font-semibold backdrop-blur-sm whitespace-nowrap shadow transition-opacity duration-500">
-                Arraste para mover • Pinça para zoom
+                   class="hidden pointer-events-none absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-slate-900/75 text-white text-[9px] sm:text-[10px] font-semibold backdrop-blur-sm whitespace-nowrap shadow transition-opacity duration-500">
+                Arraste • Pinça zoom
               </div>
             </div>
-          </div>
-
-          <!-- Botão Principal de Upload logo abaixo do Stage -->
-          <div class="w-full max-w-[340px] lg:max-w-[360px] mt-3.5">
-            <input id="photoInput" type="file" accept="image/*" multiple class="hidden" />
-            <button id="uploadBtn"
-                    type="button"
-                    class="relative pulse-ring w-full flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-orange-600/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer">
-              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span id="uploadBtnLabel">Escolher / Tirar Foto</span>
-            </button>
           </div>
         </div>
       </section>
 
-      <!-- COLUNA DIREITA: Seletor de Colagem Vertical, Seleção de Foto, Controles, Lembrete e Exportação -->
-      <section class="lg:col-span-7 flex flex-col gap-3.5 sm:gap-4">
-
-        <!-- 1. Seletor de Colagem (6 Opções de Modelos) -->
-        <div class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-3.5 sm:p-4">
-          <div class="flex items-center justify-between mb-2.5 gap-2">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="w-6 h-6 rounded-lg bg-orange-100 text-cpa-orangeDark flex items-center justify-center text-xs font-extrabold shrink-0">1</span>
-              <h2 class="font-display font-bold text-sm sm:text-base text-slate-800 truncate">
-                Modelo de Colagem
-              </h2>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15 hidden xs:inline-block sm:inline-block">
-                6 modelos (deslize ➔)
-              </span>
-              <div class="flex items-center gap-1">
-                <button id="carouselPrevBtn" type="button" title="Modelos anteriores" aria-label="Rolar carrossel para a esquerda"
-                        class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-cpa-greenDark flex items-center justify-center text-xs font-bold border border-slate-200 transition active:scale-95 cursor-pointer">
-                  ◀
-                </button>
-                <button id="carouselNextBtn" type="button" title="Próximos modelos" aria-label="Rolar carrossel para a direita"
-                        class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-cpa-greenDark flex items-center justify-center text-xs font-bold border border-slate-200 transition active:scale-95 cursor-pointer">
-                  ▶
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div id="layoutCarousel"
-               role="radiogroup"
-               aria-label="Opções de colagem de fotos"
-               class="flex items-stretch gap-2.5 overflow-x-auto carousel-scrollbar snap-x snap-mandatory pb-2.5 pt-0.5 cursor-grab">
-            <!-- Opções de colagem injetadas via JS -->
-          </div>
+      <!-- BLOCO 3: Botão Upload + Controles de Enquadramento e Seleção de Slot -->
+      <section class="col-span-7 min-w-0 flex flex-col gap-2.5 sm:gap-3.5 lg:col-span-7 lg:col-start-6 lg:row-start-2">
+        <!-- Botão Principal de Upload -->
+        <div class="w-full">
+          <input id="photoInput" type="file" accept="image/*" multiple class="hidden" />
+          <button id="uploadBtn"
+                  type="button"
+                  class="relative pulse-ring w-full flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-orange-600/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span id="uploadBtnLabel" class="truncate">Escolher / Tirar Foto</span>
+          </button>
         </div>
 
         <!-- 2. Enquadramento & Seleção de Slot da Foto -->
         <div id="photoControlsCard"
-             class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-3.5 sm:p-4 transition-all duration-300">
-          <div class="flex items-center justify-between mb-2.5 gap-2">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="w-6 h-6 rounded-lg bg-emerald-100 text-cpa-greenDark flex items-center justify-center text-xs font-extrabold shrink-0">2</span>
-              <h2 class="font-display font-bold text-sm sm:text-base text-slate-800 truncate">
+             class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-2.5 sm:p-4 transition-all duration-300">
+          <div class="flex items-center justify-between mb-2 sm:mb-2.5 gap-1.5">
+            <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-100 text-cpa-greenDark flex items-center justify-center text-[11px] sm:text-xs font-extrabold shrink-0">2</span>
+              <h2 class="font-display font-bold text-xs sm:text-base text-slate-800 truncate">
                 Ajustar <span id="activeSlotTitle" class="text-cpa-greenDark">Foto 1</span>
               </h2>
             </div>
             <span id="zoomPercentLabel"
-                  class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-cpa-greenDark border border-emerald-700/15 tabular-nums shrink-0">
+                  class="px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-emerald-50 text-cpa-greenDark border border-emerald-700/15 tabular-nums shrink-0">
               100%
             </span>
           </div>
 
           <!-- Abas rápidas para alternar entre Foto 1, Foto 2, Foto 3 e Foto 4 quando em colagem -->
-          <div id="slotTabsContainer" class="hidden grid gap-2 mb-3">
+          <div id="slotTabsContainer" class="hidden grid gap-1.5 sm:gap-2 mb-2 sm:mb-3">
             <!-- Botões de slot injetados via JS -->
           </div>
 
           <!-- Controle Deslizante de Zoom -->
-          <div class="flex items-center gap-2.5 mb-3">
+          <div class="flex items-center gap-1.5 sm:gap-2.5 mb-2 sm:mb-3">
             <button id="zoomOutBtn" type="button" aria-label="Diminuir zoom"
-                    class="w-9 h-9 shrink-0 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark font-bold text-lg flex items-center justify-center border border-slate-200 active:scale-95 transition disabled:opacity-40 disabled:pointer-events-none">
+                    class="w-7 h-7 sm:w-9 sm:h-9 shrink-0 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark font-bold text-base sm:text-lg flex items-center justify-center border border-slate-200 active:scale-95 transition disabled:opacity-40 disabled:pointer-events-none">
               −
             </button>
             <input id="zoomSlider" type="range" min="0.5" max="3.5" step="0.01" value="1"
                    aria-label="Controle de zoom da foto"
                    class="cpa-slider w-full cursor-pointer disabled:opacity-40" />
             <button id="zoomInBtn" type="button" aria-label="Aumentar zoom"
-                    class="w-9 h-9 shrink-0 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark font-bold text-lg flex items-center justify-center border border-slate-200 active:scale-95 transition disabled:opacity-40 disabled:pointer-events-none">
+                    class="w-7 h-7 sm:w-9 sm:h-9 shrink-0 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark font-bold text-base sm:text-lg flex items-center justify-center border border-slate-200 active:scale-95 transition disabled:opacity-40 disabled:pointer-events-none">
               +
             </button>
           </div>
 
           <!-- Botões Rápidos de Manipulação -->
-          <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-3 gap-1 sm:gap-2">
             <button id="rotateBtn" type="button"
-                    class="flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-xs font-bold text-slate-700 hover:text-cpa-greenDark active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 px-1 sm:px-2.5 py-1.5 sm:py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-[10px] sm:text-xs font-bold text-slate-700 hover:text-cpa-greenDark active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              <span>Girar 90°</span>
+              <span class="truncate">Girar 90°</span>
             </button>
 
             <button id="flipBtn" type="button"
-                    class="flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-xs font-bold text-slate-700 hover:text-cpa-greenDark active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 px-1 sm:px-2.5 py-1.5 sm:py-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-[10px] sm:text-xs font-bold text-slate-700 hover:text-cpa-greenDark active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
               </svg>
-              <span>Espelhar</span>
+              <span class="truncate">Espelhar</span>
             </button>
 
             <button id="resetBtn" type="button"
-                    class="flex items-center justify-center gap-1.5 px-2.5 py-2.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-xs font-bold text-slate-700 hover:text-amber-800 active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 px-1 sm:px-2.5 py-1.5 sm:py-2.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-[10px] sm:text-xs font-bold text-slate-700 hover:text-amber-800 active:scale-95 transition disabled:opacity-45 disabled:pointer-events-none">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
               </svg>
-              <span>Centralizar</span>
+              <span class="truncate">Centralizar</span>
             </button>
           </div>
         </div>
+      </section>
 
-        <!-- Card de Lembrete Estratégico (Engajamento no Instagram) -->
-        <div class="rounded-2xl bg-gradient-to-r from-amber-50/95 via-white/90 to-orange-50/95 backdrop-blur-md border border-orange-400/30 shadow-glass p-3.5 sm:p-4">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 shrink-0 rounded-xl ig-badge-gradient text-white flex items-center justify-center shadow-md">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <!-- BLOCO 4: Card de Lembrete Estratégico (Engajamento no Instagram) -->
+      <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-3">
+        <div class="rounded-2xl bg-gradient-to-r from-amber-50/95 via-white/90 to-orange-50/95 backdrop-blur-md border border-orange-400/30 shadow-glass p-2.5 sm:p-4">
+          <div class="flex items-center justify-between gap-2 sm:gap-3">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-xl ig-badge-gradient text-white flex items-center justify-center shadow-md">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.8A3.95 3.95 0 003.8 7.75v8.5a3.95 3.95 0 003.95 3.95h8.5a3.95 3.95 0 003.95-3.95v-8.5a3.95 3.95 0 00-3.95-3.95h-8.5zm8.95 1.35a1.15 1.15 0 110 2.3 1.15 1.15 0 010-2.3zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8A3.2 3.2 0 1015.2 12 3.2 3.2 0 0012 8.8z"/>
                 </svg>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 leading-snug font-medium">
+              <p class="text-[11px] sm:text-sm text-slate-700 leading-snug font-medium">
                 Não esqueça de mencionar o <strong class="font-extrabold text-cpa-orangeDark">@colegioprofafonso</strong> nos seus Stories!
               </p>
             </div>
 
             <button id="copyMentionBtn"
                     type="button"
-                    class="shrink-0 px-3.5 py-2 rounded-xl bg-white hover:bg-orange-50 text-cpa-orangeDark border border-orange-300 font-bold text-xs shadow-sm active:scale-95 transition-all duration-200 cursor-pointer whitespace-nowrap">
+                    class="shrink-0 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-white hover:bg-orange-50 text-cpa-orangeDark border border-orange-300 font-bold text-[11px] sm:text-xs shadow-sm active:scale-95 transition-all duration-200 cursor-pointer whitespace-nowrap">
               Copiar @
             </button>
           </div>
         </div>
+      </section>
 
-        <!-- Botões de Ação Final (Compartilhar nos Stories & Baixar Alta Qualidade) -->
-        <div class="flex flex-col sm:flex-row gap-2.5 pt-0.5">
+      <!-- BLOCO 5: Botões de Ação Final (Compartilhar nos Stories & Baixar Alta Qualidade) -->
+      <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-4 flex flex-col gap-2">
+        <div class="grid grid-cols-2 gap-2 sm:gap-2.5">
           <button id="shareBtn"
                   type="button"
-                  class="flex-1 flex items-center justify-center gap-2.5 px-5 py-4 rounded-2xl bg-gradient-to-r from-cpa-greenDark via-cpa-green to-emerald-600 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-emerald-900/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-greenDark via-cpa-green to-emerald-600 text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-emerald-900/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
-            <span id="shareBtnLabel">Compartilhar nos Stories</span>
+            <span id="shareBtnLabel" class="truncate">Compartilhar Stories</span>
           </button>
 
           <button id="downloadBtn"
                   type="button"
-                  class="sm:w-auto flex items-center justify-center gap-2 px-5 py-4 rounded-2xl bg-white/90 hover:bg-white text-cpa-greenDark border-2 border-cpa-green/30 hover:border-cpa-green font-display font-bold text-sm shadow-sm active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
-            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl bg-white/90 hover:bg-white text-cpa-greenDark border-2 border-cpa-green/30 hover:border-cpa-green font-display font-bold text-xs sm:text-sm shadow-sm active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            <span>Baixar Foto (Alta Qualidade)</span>
+            <span class="truncate">Baixar Foto (HD)</span>
           </button>
         </div>
 
         <p id="actionHelperNote" class="text-[11px] text-center lg:text-left text-slate-500 px-1">
           A imagem final é gerada localmente no seu dispositivo em resolução oficial <strong>1080 × 1920 px</strong> (PNG).
         </p>
-
       </section>
     </div>
   </main>
@@ -544,53 +524,6 @@
       const uploadBtnLabel = document.getElementById('uploadBtnLabel');
 
       const layoutCarousel = document.getElementById('layoutCarousel');
-      const carouselPrevBtn = document.getElementById('carouselPrevBtn');
-      const carouselNextBtn = document.getElementById('carouselNextBtn');
-
-      if (carouselPrevBtn && carouselNextBtn && layoutCarousel) {
-        carouselPrevBtn.addEventListener('click', () => {
-          layoutCarousel.scrollBy({ left: -260, behavior: 'smooth' });
-        });
-        carouselNextBtn.addEventListener('click', () => {
-          layoutCarousel.scrollBy({ left: 260, behavior: 'smooth' });
-        });
-
-        // Rolar horizontalmente com a rodinha do mouse no desktop
-        layoutCarousel.addEventListener('wheel', (e) => {
-          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            layoutCarousel.scrollLeft += e.deltaY;
-          }
-        }, { passive: false });
-
-        // Arrastar com o mouse (drag to scroll) no desktop
-        let isMouseDown = false;
-        let startX = 0;
-        let scrollStartLeft = 0;
-
-        layoutCarousel.addEventListener('mousedown', (e) => {
-          isMouseDown = true;
-          layoutCarousel.classList.add('cursor-grabbing');
-          layoutCarousel.classList.remove('cursor-grab');
-          startX = e.pageX - layoutCarousel.offsetLeft;
-          scrollStartLeft = layoutCarousel.scrollLeft;
-        });
-
-        window.addEventListener('mouseup', () => {
-          if (!isMouseDown) return;
-          isMouseDown = false;
-          layoutCarousel.classList.remove('cursor-grabbing');
-          layoutCarousel.classList.add('cursor-grab');
-        });
-
-        layoutCarousel.addEventListener('mousemove', (e) => {
-          if (!isMouseDown) return;
-          e.preventDefault();
-          const x = e.pageX - layoutCarousel.offsetLeft;
-          const walk = (x - startX) * 1.5;
-          layoutCarousel.scrollLeft = scrollStartLeft - walk;
-        });
-      }
       const slotTabsContainer = document.getElementById('slotTabsContainer');
       const activeSlotTitle = document.getElementById('activeSlotTitle');
 
@@ -702,7 +635,7 @@
       }
 
       // =========================================================================
-      // SELETOR DE COLAGEM VERTICAL (1, 2 e 3 FOTOS)
+      // SELETOR DE COLAGEM VERTICAL (6 MODELOS EM GRADE VISÍVEL)
       // =========================================================================
       function renderLayoutCarousel() {
         layoutCarousel.innerHTML = '';
@@ -715,23 +648,23 @@
           btn.setAttribute('role', 'radio');
           btn.setAttribute('aria-checked', String(isSelected));
           btn.className = [
-            'snap-start shrink-0 w-[114px] sm:w-[124px] rounded-2xl p-2.5 border-2 text-left transition-all duration-200 active:scale-95 cursor-pointer relative',
+            'flex items-center gap-1.5 p-1.5 sm:flex-col sm:items-stretch sm:p-2 rounded-xl sm:rounded-2xl border-2 text-left transition-all duration-200 active:scale-95 cursor-pointer relative min-w-0',
             isSelected
               ? 'border-cpa-green bg-emerald-50/90 shadow-md ring-2 ring-cpa-green/20'
               : 'border-slate-200 bg-white/85 hover:border-emerald-300 hover:bg-white'
           ].join(' ');
 
-          // Miniatura esquemática SVG mostrando os slots verticais na área da moldura
+          // Miniatura esquemática mostrando os slots na área da moldura
           const previewBox = document.createElement('div');
-          previewBox.className = 'w-full aspect-[9/12] rounded-xl bg-slate-50 border border-slate-200/80 mb-2 p-1.5 flex flex-col justify-between relative overflow-hidden';
+          previewBox.className = 'w-6 h-8 shrink-0 sm:w-full sm:h-auto sm:aspect-[9/12] rounded-md sm:rounded-xl bg-slate-50 border border-slate-200/80 sm:mb-1.5 p-0.5 sm:p-1.5 flex flex-col justify-between relative overflow-hidden';
 
           // Faixa mini cabeçalho
           const miniTop = document.createElement('div');
-          miniTop.className = 'w-full h-3 rounded bg-gradient-to-r from-cpa-green/25 via-cpa-gold/30 to-cpa-orange/25';
+          miniTop.className = 'w-full h-1 sm:h-2.5 rounded-[2px] sm:rounded bg-gradient-to-r from-cpa-green/25 via-cpa-gold/30 to-cpa-orange/25';
 
-          // Área central representando os slots verticais em coordenadas proporcionais
+          // Área central representando os slots em coordenadas proporcionais
           const miniCenter = document.createElement('div');
-          miniCenter.className = 'relative w-full flex-1 my-1';
+          miniCenter.className = 'relative w-full flex-1 my-0.5 sm:my-1';
           const areaTop = 540;
           const areaH = 1060;
           layout.slots.forEach((s, idx) => {
@@ -745,7 +678,7 @@
             box.style.top = `${topPct}%`;
             box.style.height = `${heightPct}%`;
             box.className = [
-              'absolute rounded-[4px] border flex items-center justify-center text-[9px] font-extrabold',
+              'absolute rounded-[2px] sm:rounded-[4px] border flex items-center justify-center text-[6px] sm:text-[9px] font-extrabold leading-none',
               isSelected
                 ? 'bg-cpa-green/20 border-cpa-green text-cpa-greenDark'
                 : 'bg-emerald-500/10 border-emerald-700/30 text-emerald-800'
@@ -756,34 +689,38 @@
 
           // Faixa mini rodapé
           const miniBot = document.createElement('div');
-          miniBot.className = 'w-full h-2.5 rounded bg-cpa-greenDark/80';
+          miniBot.className = 'w-full h-1 sm:h-2 rounded-[2px] sm:rounded bg-cpa-greenDark/80';
 
           previewBox.appendChild(miniTop);
           previewBox.appendChild(miniCenter);
           previewBox.appendChild(miniBot);
 
-          if (isSelected) {
-            const checkBadge = document.createElement('span');
-            checkBadge.className = 'absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-cpa-green text-white text-[10px] font-extrabold flex items-center justify-center shadow';
-            checkBadge.textContent = '✓';
-            previewBox.appendChild(checkBadge);
-          }
+          const textWrap = document.createElement('div');
+          textWrap.className = 'min-w-0 flex-1';
 
           const title = document.createElement('div');
-          title.className = 'font-display font-bold text-xs text-slate-800 truncate';
+          title.className = 'font-display font-bold text-[11px] sm:text-xs text-slate-800 leading-tight truncate';
           title.textContent = layout.nome;
 
           const sub = document.createElement('div');
-          sub.className = 'text-[10px] font-medium text-slate-500 truncate';
+          sub.className = 'text-[9px] sm:text-[10px] font-medium text-slate-500 leading-tight truncate';
           sub.textContent = layout.subtitulo;
 
+          textWrap.appendChild(title);
+          textWrap.appendChild(sub);
+
           btn.appendChild(previewBox);
-          btn.appendChild(title);
-          btn.appendChild(sub);
+          btn.appendChild(textWrap);
+
+          if (isSelected) {
+            const checkBadge = document.createElement('span');
+            checkBadge.className = 'absolute -top-1.5 -right-1.5 sm:top-1.5 sm:right-1.5 w-4 h-4 rounded-full bg-cpa-green text-white text-[9px] sm:text-[10px] font-extrabold flex items-center justify-center shadow';
+            checkBadge.textContent = '✓';
+            btn.appendChild(checkBadge);
+          }
 
           btn.addEventListener('click', () => {
             selectLayout(layout.id);
-            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
           });
           layoutCarousel.appendChild(btn);
         });
@@ -804,7 +741,7 @@
       }
 
       // =========================================================================
-      // ABAS DOS SLOTS (FOTO 1, FOTO 2, FOTO 3)
+      // ABAS DOS SLOTS (FOTO 1, FOTO 2, FOTO 3, FOTO 4)
       // =========================================================================
       function renderSlotTabs() {
         const layout = getActiveLayout();
@@ -814,8 +751,12 @@
           return;
         }
 
-        const gridColsClass = layout.slots.length === 2 ? 'grid-cols-2' : layout.slots.length === 4 ? 'grid-cols-4' : 'grid-cols-3';
-        slotTabsContainer.className = `grid ${gridColsClass} gap-2 mb-3`;
+        const gridColsClass = layout.slots.length === 2
+          ? 'grid-cols-2'
+          : layout.slots.length === 4
+            ? 'grid-cols-2 sm:grid-cols-4'
+            : 'grid-cols-3';
+        slotTabsContainer.className = `grid ${gridColsClass} gap-1.5 sm:gap-2 mb-2 sm:mb-3`;
         slotTabsContainer.innerHTML = '';
 
         layout.slots.forEach((slotDef, idx) => {
@@ -1358,7 +1299,6 @@
 
       // Touch Events
       stageViewport.addEventListener('touchstart', (e) => {
-        e.preventDefault();
         if (e.touches.length === 1) {
           const t = e.touches[0];
           const hitIdx = activateSlotAtClientPoint(t.clientX, t.clientY);
@@ -1368,12 +1308,15 @@
           lastClientY = t.clientY;
           movedDistance = 0;
 
-          const activeSlot = getActiveSlotState();
-          if (hitIdx !== -1 && activeSlot && activeSlot.photoImg) {
+          const touchedSlot = hitIdx !== -1 ? state.slots[hitIdx] : null;
+          if (touchedSlot && touchedSlot.photoImg) {
+            e.preventDefault();
+            stageViewport.style.touchAction = 'none';
             dragActive = true;
             state.isInteracting = true;
             requestRender();
           } else {
+            stageViewport.style.touchAction = 'pan-y';
             dragActive = false;
           }
         } else if (e.touches.length === 2) {
@@ -1381,15 +1324,17 @@
           const t2 = e.touches[1];
           const midX = (t1.clientX + t2.clientX) / 2;
           const midY = (t1.clientY + t2.clientY) / 2;
-          activateSlotAtClientPoint(midX, midY);
+          const hitIdx = activateSlotAtClientPoint(midX, midY);
 
-          const activeSlot = getActiveSlotState();
-          if (!activeSlot || !activeSlot.photoImg) return;
+          const touchedSlot = hitIdx !== -1 ? state.slots[hitIdx] : null;
+          if (!touchedSlot || !touchedSlot.photoImg) return;
 
+          e.preventDefault();
+          stageViewport.style.touchAction = 'none';
           dragActive = false;
           state.isInteracting = true;
           pinchStartDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
-          pinchStartZoom = activeSlot.zoom;
+          pinchStartZoom = touchedSlot.zoom;
           pinchMidX = midX;
           pinchMidY = midY;
           requestRender();
@@ -1397,22 +1342,27 @@
       }, { passive: false });
 
       stageViewport.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        const activeSlot = getActiveSlotState();
-        if (!activeSlot || !activeSlot.photoImg) return;
-
-        if (e.touches.length === 1 && dragActive) {
+        if (e.touches.length === 1) {
           const t = e.touches[0];
           const dx = t.clientX - lastClientX;
           const dy = t.clientY - lastClientY;
           movedDistance += Math.hypot(dx, dy);
           lastClientX = t.clientX;
           lastClientY = t.clientY;
+
+          const activeSlot = getActiveSlotState();
+          if (!dragActive || !activeSlot || !activeSlot.photoImg) return;
+
+          e.preventDefault();
           const delta = clientDeltaToCanvas(dx, dy);
           activeSlot.panX += delta.x;
           activeSlot.panY += delta.y;
           requestRender();
         } else if (e.touches.length === 2 && pinchStartDist > 0) {
+          const activeSlot = getActiveSlotState();
+          if (!activeSlot || !activeSlot.photoImg) return;
+
+          e.preventDefault();
           const t1 = e.touches[0];
           const t2 = e.touches[1];
           const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
@@ -1435,6 +1385,7 @@
           dragActive = false;
           pinchStartDist = 0;
           state.isInteracting = false;
+          stageViewport.style.touchAction = 'pan-y';
           requestRender();
 
           if (wasTap) {
@@ -1459,6 +1410,7 @@
         dragActive = false;
         pinchStartDist = 0;
         state.isInteracting = false;
+        stageViewport.style.touchAction = 'pan-y';
         requestRender();
       });
 
