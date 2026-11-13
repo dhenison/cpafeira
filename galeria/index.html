@@ -157,7 +157,16 @@
           </p>
         </div>
 
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <input id="bulkUploadInput" type="file" accept="image/*" multiple class="hidden" />
+          <button id="bulkUploadBtn"
+                  type="button"
+                  class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cpa-greenDark to-cpa-green hover:brightness-110 text-white font-display font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer disabled:opacity-50">
+            <svg id="bulkUploadIcon" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            <span id="bulkUploadLabel">Enviar Fotos Prontas</span>
+          </button>
           <button id="refreshBtn"
                   type="button"
                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark border border-slate-200 hover:border-emerald-300 text-xs font-bold transition active:scale-95 cursor-pointer disabled:opacity-50">
@@ -321,8 +330,15 @@
 
       const SUPABASE_URL = 'https://digjzihjboflcuftmokj.supabase.co';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpZ2p6aWhqYm9mbGN1ZnRtb2tqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTg5NDgsImV4cCI6MjA5OTE5NDk0OH0.5QwxirNiFNq7aVCbpgRjNFzlUZk5CyvWY1FPKwCOa1Q';
+      const SUPABASE_BUCKET = 'feira-cpa';
       const MAX_GALLERY_PHOTOS = 2000;
       const PAGE_SIZE = 40;
+      const EXCLUDED_PHOTO_IDS = new Set([
+        '87d6fa94-defe-4c78-a90e-6274c48f6a15'
+      ]);
+      const EXCLUDED_PHOTO_URLS = new Set([
+        'https://digjzihjboflcuftmokj.supabase.co/storage/v1/object/public/feira-cpa/stories/feira-cpa-1794579445858_9etxap.webp'
+      ]);
 
       const LAYOUT_LABELS = {
         'colagem-1': '1 Foto',
@@ -338,6 +354,7 @@
         photos: [],
         totalCount: 0,
         isLoading: false,
+        isUploading: false,
         hasMore: false,
         activeIndex: -1
       };
@@ -350,6 +367,9 @@
       const errorState = document.getElementById('errorState');
       const errorMessage = document.getElementById('errorMessage');
       const retryBtn = document.getElementById('retryBtn');
+      const bulkUploadInput = document.getElementById('bulkUploadInput');
+      const bulkUploadBtn = document.getElementById('bulkUploadBtn');
+      const bulkUploadLabel = document.getElementById('bulkUploadLabel');
       const refreshBtn = document.getElementById('refreshBtn');
       const refreshIcon = document.getElementById('refreshIcon');
       const loadMoreWrap = document.getElementById('loadMoreWrap');
@@ -479,6 +499,13 @@
           img.loading = 'lazy';
           img.decoding = 'async';
           img.className = 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]';
+          img.addEventListener('error', () => {
+            EXCLUDED_PHOTO_IDS.add(photo.id);
+            EXCLUDED_PHOTO_URLS.add(photo.public_url);
+            state.photos = state.photos.filter((p) => p.id !== photo.id && p.public_url !== photo.public_url);
+            updateCapacityUI(Math.max(0, state.totalCount - 1));
+            renderGrid();
+          });
 
           const overlay = document.createElement('div');
           overlay.className = 'absolute inset-x-0 bottom-0 p-2 sm:p-2.5 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent flex items-end justify-between gap-1.5';
@@ -552,7 +579,7 @@
         }
 
         try {
-          const url = `${SUPABASE_URL}/rest/v1/feira_cpa_galeria?select=id,public_url,layout_id,origem,mime_type,created_at&order=created_at.desc&limit=${limit}&offset=${offset}`;
+          const url = `${SUPABASE_URL}/rest/v1/feira_cpa_galeria?select=id,public_url,layout_id,origem,mime_type,created_at&id=neq.87d6fa94-defe-4c78-a90e-6274c48f6a15&order=created_at.desc&limit=${limit}&offset=${offset}`;
           const res = await fetch(url, {
             method: 'GET',
             headers: {
@@ -568,12 +595,13 @@
 
           const contentRange = res.headers.get('content-range') || '';
           const match = contentRange.match(/\/(\d+)$/);
-          const rows = await res.json();
+          const rawRows = await res.json();
+          const rows = rawRows.filter((row) => row && !EXCLUDED_PHOTO_IDS.has(row.id) && !EXCLUDED_PHOTO_URLS.has(row.public_url));
           const total = match ? Math.min(MAX_GALLERY_PHOTOS, parseInt(match[1], 10)) : (offset + rows.length);
 
           updateCapacityUI(total);
           state.photos = reset ? rows : state.photos.concat(rows);
-          state.hasMore = state.photos.length < total && rows.length === limit;
+          state.hasMore = state.photos.length < total && rawRows.length === limit;
 
           loadingSkeleton.classList.add('hidden');
           renderGrid();
@@ -668,6 +696,186 @@
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showPrevPhoto();
         if (e.key === 'ArrowRight') showNextPhoto();
+      });
+
+      async function converterArquivoParaGaleria(file) {
+        const MAX_DIM = 1920;
+        let width = 1080;
+        let height = 1920;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let bitmap = null;
+        if (typeof createImageBitmap === 'function') {
+          try {
+            bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+          } catch {
+            bitmap = null;
+          }
+        }
+
+        if (bitmap) {
+          try {
+            const scale = Math.max(bitmap.width, bitmap.height) > MAX_DIM
+              ? MAX_DIM / Math.max(bitmap.width, bitmap.height)
+              : 1;
+            width = Math.max(1, Math.round(bitmap.width * scale));
+            height = Math.max(1, Math.round(bitmap.height * scale));
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(bitmap, 0, 0, width, height);
+          } finally {
+            bitmap.close();
+          }
+        } else {
+          const objectUrl = URL.createObjectURL(file);
+          try {
+            const img = await new Promise((resolve, reject) => {
+              const el = new Image();
+              el.onload = () => resolve(el);
+              el.onerror = () => reject(new Error('Falha ao carregar imagem'));
+              el.src = objectUrl;
+            });
+            const srcW = img.naturalWidth || 1080;
+            const srcH = img.naturalHeight || 1920;
+            const scale = Math.max(srcW, srcH) > MAX_DIM ? MAX_DIM / Math.max(srcW, srcH) : 1;
+            width = Math.max(1, Math.round(srcW * scale));
+            height = Math.max(1, Math.round(srcH * scale));
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+          } finally {
+            URL.revokeObjectURL(objectUrl);
+          }
+        }
+
+        return new Promise((resolve, reject) => {
+          canvas.toBlob((webpBlob) => {
+            if (webpBlob && webpBlob.type === 'image/webp') {
+              resolve({ blob: webpBlob, ext: 'webp', mime: 'image/webp', width, height });
+              return;
+            }
+            canvas.toBlob((jpegBlob) => {
+              if (jpegBlob) {
+                resolve({ blob: jpegBlob, ext: 'jpg', mime: 'image/jpeg', width, height });
+              } else {
+                reject(new Error('Falha ao converter imagem para WebP/JPEG.'));
+              }
+            }, 'image/jpeg', 0.88);
+          }, 'image/webp', 0.86);
+        });
+      }
+
+      async function enviarFotoProntaParaSupabase(file) {
+        const { blob, ext, mime, width, height } = await converterArquivoParaGaleria(file);
+        const uniqueSuffix = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+        const storagePath = `stories/feira-cpa-${uniqueSuffix}.${ext}`;
+        const uploadUrl = `${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${storagePath}`;
+
+        const uploadRes = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': mime,
+            'x-upsert': 'false'
+          },
+          body: blob
+        });
+
+        if (!uploadRes.ok) {
+          throw new Error(`Falha no upload para o Storage (${uploadRes.status})`);
+        }
+
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/${storagePath}`;
+        const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/feira_cpa_galeria`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal'
+          },
+          body: JSON.stringify({
+            storage_path: storagePath,
+            public_url: publicUrl,
+            layout_id: 'colagem-1',
+            origem: 'salvar',
+            mime_type: mime,
+            size_bytes: blob.size,
+            width,
+            height
+          })
+        });
+
+        if (!insertRes.ok) {
+          const errBody = await insertRes.text().catch(() => '');
+          if (errBody.includes('LIMITE_GALERIA_ATINGIDO')) {
+            throw new Error('LIMITE_GALERIA_ATINGIDO');
+          }
+          throw new Error(`Falha ao registrar foto na galeria (${insertRes.status})`);
+        }
+      }
+
+      async function handleBulkUpload(fileList) {
+        if (state.isUploading) return;
+        const validFiles = Array.from(fileList || []).filter((f) => f && f.type.startsWith('image/'));
+        if (validFiles.length === 0) {
+          showToast('Selecione apenas arquivos de imagem válidos.', '⚠', 2800);
+          return;
+        }
+
+        state.isUploading = true;
+        bulkUploadBtn.disabled = true;
+        const originalLabel = bulkUploadLabel.textContent;
+        let successCount = 0;
+        let errorCount = 0;
+        let limitReached = false;
+
+        try {
+          for (let i = 0; i < validFiles.length; i++) {
+            bulkUploadLabel.textContent = `Enviando ${i + 1}/${validFiles.length}...`;
+            try {
+              await enviarFotoProntaParaSupabase(validFiles[i]);
+              successCount += 1;
+            } catch (err) {
+              console.error('Erro no envio em lote:', err);
+              if (err && err.message === 'LIMITE_GALERIA_ATINGIDO') {
+                limitReached = true;
+                break;
+              }
+              errorCount += 1;
+            }
+          }
+
+          if (successCount > 0) {
+            await carregarFotos({ reset: true });
+          }
+
+          if (limitReached) {
+            showToast(`Limite de 2.000 fotos atingido (${successCount} enviada(s)).`, '⚠', 3600);
+          } else if (successCount > 0 && errorCount === 0) {
+            showToast(`${successCount} ${successCount === 1 ? 'foto enviada' : 'fotos enviadas'} para a galeria!`, '✓', 3200);
+          } else if (successCount > 0) {
+            showToast(`${successCount} enviada(s), ${errorCount} falha(s).`, '⚠', 3400);
+          } else {
+            showToast('Não foi possível enviar as fotos selecionadas.', '⚠', 3200);
+          }
+        } finally {
+          state.isUploading = false;
+          bulkUploadBtn.disabled = false;
+          bulkUploadLabel.textContent = originalLabel;
+        }
+      }
+
+      bulkUploadBtn.addEventListener('click', () => {
+        if (!state.isUploading) bulkUploadInput.click();
+      });
+      bulkUploadInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleBulkUpload(e.target.files);
+        }
+        bulkUploadInput.value = '';
       });
 
       refreshBtn.addEventListener('click', () => carregarFotos({ reset: true }));
