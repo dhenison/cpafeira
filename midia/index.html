@@ -120,6 +120,26 @@
       pointer-events: none;
     }
 
+    /* Barra de rolagem suave e elegante para o carrossel de modelos */
+    .carousel-scrollbar::-webkit-scrollbar {
+      height: 6px;
+    }
+    .carousel-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 9999px;
+    }
+    .carousel-scrollbar::-webkit-scrollbar-thumb {
+      background: #15803d;
+      border-radius: 9999px;
+    }
+    .carousel-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #0f5132;
+    }
+    .carousel-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #15803d #f1f5f9;
+    }
+
     /* Gradiente estilo Instagram para o card de menção */
     .ig-badge-gradient {
       background: linear-gradient(135deg, #f59e0b 0%, #ea580c 45%, #db2777 100%);
@@ -225,24 +245,36 @@
       <!-- COLUNA DIREITA: Seletor de Colagem Vertical, Seleção de Foto, Controles, Lembrete e Exportação -->
       <section class="lg:col-span-7 flex flex-col gap-3.5 sm:gap-4">
 
-        <!-- 1. Seletor de Colagem (1, 2 ou 3 Fotos na Vertical) -->
+        <!-- 1. Seletor de Colagem (6 Opções de Modelos) -->
         <div class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-3.5 sm:p-4">
-          <div class="flex items-center justify-between mb-2.5">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-lg bg-orange-100 text-cpa-orangeDark flex items-center justify-center text-xs font-extrabold">1</span>
-              <h2 class="font-display font-bold text-sm sm:text-base text-slate-800">
-                Modelo de Colagem Vertical
+          <div class="flex items-center justify-between mb-2.5 gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-6 h-6 rounded-lg bg-orange-100 text-cpa-orangeDark flex items-center justify-center text-xs font-extrabold shrink-0">1</span>
+              <h2 class="font-display font-bold text-sm sm:text-base text-slate-800 truncate">
+                Modelo de Colagem
               </h2>
             </div>
-            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15">
-              6 opções
-            </span>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15 hidden xs:inline-block sm:inline-block">
+                6 modelos (deslize ➔)
+              </span>
+              <div class="flex items-center gap-1">
+                <button id="carouselPrevBtn" type="button" title="Modelos anteriores" aria-label="Rolar carrossel para a esquerda"
+                        class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-cpa-greenDark flex items-center justify-center text-xs font-bold border border-slate-200 transition active:scale-95 cursor-pointer">
+                  ◀
+                </button>
+                <button id="carouselNextBtn" type="button" title="Próximos modelos" aria-label="Rolar carrossel para a direita"
+                        class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-cpa-greenDark flex items-center justify-center text-xs font-bold border border-slate-200 transition active:scale-95 cursor-pointer">
+                  ▶
+                </button>
+              </div>
+            </div>
           </div>
 
           <div id="layoutCarousel"
                role="radiogroup"
-               aria-label="Opções de colagem vertical de fotos"
-               class="flex items-stretch gap-2.5 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-1 pt-0.5">
+               aria-label="Opções de colagem de fotos"
+               class="flex items-stretch gap-2.5 overflow-x-auto carousel-scrollbar snap-x snap-mandatory pb-2.5 pt-0.5 cursor-grab">
             <!-- Opções de colagem injetadas via JS -->
           </div>
         </div>
@@ -512,6 +544,53 @@
       const uploadBtnLabel = document.getElementById('uploadBtnLabel');
 
       const layoutCarousel = document.getElementById('layoutCarousel');
+      const carouselPrevBtn = document.getElementById('carouselPrevBtn');
+      const carouselNextBtn = document.getElementById('carouselNextBtn');
+
+      if (carouselPrevBtn && carouselNextBtn && layoutCarousel) {
+        carouselPrevBtn.addEventListener('click', () => {
+          layoutCarousel.scrollBy({ left: -260, behavior: 'smooth' });
+        });
+        carouselNextBtn.addEventListener('click', () => {
+          layoutCarousel.scrollBy({ left: 260, behavior: 'smooth' });
+        });
+
+        // Rolar horizontalmente com a rodinha do mouse no desktop
+        layoutCarousel.addEventListener('wheel', (e) => {
+          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            layoutCarousel.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+
+        // Arrastar com o mouse (drag to scroll) no desktop
+        let isMouseDown = false;
+        let startX = 0;
+        let scrollStartLeft = 0;
+
+        layoutCarousel.addEventListener('mousedown', (e) => {
+          isMouseDown = true;
+          layoutCarousel.classList.add('cursor-grabbing');
+          layoutCarousel.classList.remove('cursor-grab');
+          startX = e.pageX - layoutCarousel.offsetLeft;
+          scrollStartLeft = layoutCarousel.scrollLeft;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (!isMouseDown) return;
+          isMouseDown = false;
+          layoutCarousel.classList.remove('cursor-grabbing');
+          layoutCarousel.classList.add('cursor-grab');
+        });
+
+        layoutCarousel.addEventListener('mousemove', (e) => {
+          if (!isMouseDown) return;
+          e.preventDefault();
+          const x = e.pageX - layoutCarousel.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          layoutCarousel.scrollLeft = scrollStartLeft - walk;
+        });
+      }
       const slotTabsContainer = document.getElementById('slotTabsContainer');
       const activeSlotTitle = document.getElementById('activeSlotTitle');
 
@@ -702,7 +781,10 @@
           btn.appendChild(title);
           btn.appendChild(sub);
 
-          btn.addEventListener('click', () => selectLayout(layout.id));
+          btn.addEventListener('click', () => {
+            selectLayout(layout.id);
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          });
           layoutCarousel.appendChild(btn);
         });
       }
