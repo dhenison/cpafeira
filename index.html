@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0f5132">
-  <meta name="description" content="Gere o crachá da XXIV Feira do Conhecimento 2026 do Colégio Prof. Afonso, em Tucumã — PA.">
+  <meta name="description" content="XXIV Feira do Conhecimento 2026 do Colégio Prof. Afonso, em Tucumã — PA.">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Crachá CPA">
-  <title>Crachá · XXIV Feira do Conhecimento 2026 · Colégio Prof. Afonso</title>
+  <meta name="apple-mobile-web-app-title" content="Feira CPA">
+  <title>XXIV Feira do Conhecimento 2026 · Colégio Prof. Afonso</title>
   <!--
     Imagens na mesma pasta deste arquivo:
     Emblema do Colégio Prof. Afonso.png
@@ -290,19 +290,19 @@
             XXIV Feira do Conhecimento <span class="block text-ember">2026</span>
           </h2>
           <p class="font-display mt-4 text-xl italic text-ink sm:text-2xl">Formação Integral - Um eterno aprendiz.</p>
-          <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <button type="button" id="startBtn" class="hover-lift inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full border-2 border-forest bg-white/90 px-7 text-base font-extrabold text-forest shadow-sm transition hover:bg-forest hover:text-white sm:w-auto">
-              Gere o seu crachá
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a href="midia/index.html" class="cta-pulse hover-lift inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#c2410c] to-ember px-8 text-lg font-extrabold text-white sm:w-auto">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
                 <path d="m10 8 6 4-6 4V8z" fill="currentColor"/>
               </svg>
               Mídia Feira
+            </a>
+            <a href="galeria/index.html" class="hover-lift inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-forest to-leaf px-7 text-base font-extrabold text-white shadow-lg shadow-forest/20 sm:w-auto">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Visualizar Galeria da Feira
             </a>
           </div>
         </div>
@@ -645,7 +645,6 @@
 
     const welcome = document.getElementById("welcome");
     const studio = document.getElementById("studio");
-    const startBtn = document.getElementById("startBtn");
     const backBtn = document.getElementById("backBtn");
     const studioStepLabel = document.getElementById("studioStepLabel");
     const formTitle = document.getElementById("formTitle");
@@ -1357,7 +1356,6 @@
       }
     }
 
-    startBtn.addEventListener("click", () => openRoleModal("choice"));
     backBtn.addEventListener("click", () => showStage("welcome"));
 
     chooseAlunoBtn.addEventListener("click", () => {

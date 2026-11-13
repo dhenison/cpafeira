@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f5132" />
+  <title>Galeria da Feira | XXIV Feira do Conhecimento 2026 — CPA</title>
+  <meta name="description" content="Veja, amplie e baixe todas as fotos e colagens compartilhadas na XXIV Feira do Conhecimento 2026 do Colégio Prof. Afonso." />
+  <link rel="icon" type="image/png" href="../Emblema do Colégio Prof. Afonso.png" />
+
+  <!-- Google Fonts: Outfit (Display) & Plus Jakarta Sans (UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS v3 via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Outfit"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            cpa: {
+              greenDark: '#0f5132',
+              green: '#15803d',
+              greenLight: '#dcfce7',
+              orangeDark: '#ea580c',
+              orange: '#f97316',
+              gold: '#eab308',
+              amber: '#f59e0b',
+            }
+          },
+          boxShadow: {
+            glass: '0 10px 30px -10px rgba(15, 81, 50, 0.14)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    body {
+      background: linear-gradient(155deg, #f8fafc 0%, #f0fdf4 52%, #fff7ed 100%);
+      min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: contain;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+  </style>
+</head>
+<body class="text-slate-800 font-sans antialiased relative overflow-x-hidden">
+
+  <!-- Blobs decorativos suaves de fundo -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden -z-10" aria-hidden="true">
+    <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-cpa-green/10 blur-3xl"></div>
+    <div class="absolute top-1/3 -right-24 w-80 h-80 rounded-full bg-cpa-orange/10 blur-3xl"></div>
+    <div class="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-cpa-gold/15 blur-3xl"></div>
+  </div>
+
+  <!-- Toast de Feedback Flutuante -->
+  <div id="toast" role="status" aria-live="polite"
+       class="fixed top-4 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 -translate-y-3 transition-all duration-300">
+    <div class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-cpa-greenDark text-white text-xs sm:text-sm font-semibold shadow-lg border border-white/20 backdrop-blur-md whitespace-nowrap">
+      <span id="toastIcon">✓</span>
+      <span id="toastText">Ação concluída!</span>
+    </div>
+  </div>
+
+  <!-- Cabeçalho Institucional -->
+  <header class="w-full pt-2.5 pb-2 px-3 sm:pt-4 sm:pb-3 sm:px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-2.5 px-3 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/85 backdrop-blur-md border border-emerald-900/10 shadow-glass">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <a href="../index.html"
+             aria-label="Voltar ao início"
+             class="shrink-0 inline-flex items-center gap-1 px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-cpa-greenDark border border-emerald-700/15 text-xs font-bold transition active:scale-95">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Início</span>
+          </a>
+
+          <div class="relative shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-emerald-50 to-amber-50 p-1 border border-emerald-800/10 shadow-sm flex items-center justify-center">
+            <img src="../Emblema do Colégio Prof. Afonso.png"
+                 alt="Emblema do Colégio Prof. Afonso"
+                 class="w-full h-full object-contain drop-shadow-sm" />
+          </div>
+
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] sm:text-xs font-bold uppercase tracking-wider bg-cpa-greenLight text-cpa-greenDark border border-emerald-600/20">
+                Colégio Prof. Afonso
+              </span>
+              <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100/80 text-amber-800 border border-amber-500/20">
+                Mural Oficial da Feira
+              </span>
+            </div>
+            <h1 class="font-display font-extrabold text-sm sm:text-xl md:text-2xl text-cpa-greenDark leading-tight truncate mt-0.5">
+              Galeria da Feira <span class="text-cpa-orangeDark">2026</span>
+            </h1>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0 ml-auto">
+          <a href="../midia/index.html"
+             class="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-xs sm:text-sm shadow-md shadow-orange-600/20 hover:brightness-105 active:scale-95 transition whitespace-nowrap">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="sm:hidden">Criar Foto</span>
+            <span class="hidden sm:inline">Criar Minha Foto (Mídia CPA)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-3 sm:px-4 pb-10 pt-1">
+    <!-- Barra de Status e Capacidade -->
+    <section class="rounded-2xl bg-white/85 backdrop-blur-md border border-emerald-900/10 shadow-glass p-3 sm:p-4 mb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center justify-between sm:justify-start gap-3 mb-1.5">
+            <h2 class="font-display font-bold text-sm sm:text-base text-slate-800">
+              Fotos Compartilhadas na Feira
+            </h2>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-50 text-cpa-greenDark border border-emerald-700/15 tabular-nums">
+              <span id="totalPhotosCount">0</span> / 2.000 fotos
+            </span>
+          </div>
+
+          <div class="w-full max-w-md h-2 rounded-full bg-slate-100 overflow-hidden border border-slate-200/70">
+            <div id="capacityBar"
+                 class="h-full rounded-full bg-gradient-to-r from-cpa-green via-emerald-500 to-cpa-orange transition-all duration-500"
+                 style="width: 0%;"></div>
+          </div>
+          <p id="gallerySubtitle" class="text-[11px] sm:text-xs text-slate-500 mt-1">
+            Todas as fotos salvas, baixadas ou compartilhadas na Mídia CPA aparecem aqui em alta qualidade (1080 × 1920 px).
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="refreshBtn"
+                  type="button"
+                  class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-cpa-greenDark border border-slate-200 hover:border-emerald-300 text-xs font-bold transition active:scale-95 cursor-pointer disabled:opacity-50">
+            <svg id="refreshIcon" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Atualizar</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estado de Erro -->
+    <div id="errorState" class="hidden rounded-2xl bg-red-50 border border-red-200 p-5 text-center mb-4">
+      <p class="font-display font-bold text-red-800 text-base">Não foi possível carregar a Galeria da Feira</p>
+      <p id="errorMessage" class="text-xs sm:text-sm text-red-700 mt-1">Verifique sua conexão e tente novamente.</p>
+      <button id="retryBtn"
+              type="button"
+              class="mt-3 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold cursor-pointer transition active:scale-95">
+        Tentar Novamente
+      </button>
+    </div>
+
+    <!-- Estado Vazio -->
+    <div id="emptyState" class="hidden rounded-3xl bg-white/85 backdrop-blur-md border border-emerald-900/10 shadow-glass p-8 sm:p-12 text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-emerald-100 to-amber-100 text-cpa-greenDark flex items-center justify-center mb-4 shadow-sm">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h3 class="font-display font-extrabold text-lg sm:text-xl text-cpa-greenDark">
+        A Galeria da Feira ainda está vazia!
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 max-w-md mx-auto mt-1.5">
+        Seja o primeiro a registrar um momento da XXIV Feira do Conhecimento 2026 com a moldura oficial do CPA.
+      </p>
+      <a href="../midia/index.html"
+         class="mt-5 inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-sm shadow-lg shadow-orange-600/20 hover:brightness-105 active:scale-95 transition">
+        <span>Criar Primeira Foto na Moldura</span>
+        <span>➔</span>
+      </a>
+    </div>
+
+    <!-- Skeleton Loader -->
+    <div id="loadingSkeleton" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-4">
+      <div class="aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="hidden sm:block aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="hidden md:block aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="hidden lg:block aspect-[9/16] rounded-2xl skeleton"></div>
+      <div class="hidden lg:block aspect-[9/16] rounded-2xl skeleton"></div>
+    </div>
+
+    <!-- Grade de Fotos (Estilo Google Fotos) -->
+    <div id="photosGrid"
+         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-4">
+      <!-- Cards inseridos via JS -->
+    </div>
+
+    <!-- Paginação (Carregar mais) -->
+    <div id="loadMoreWrap" class="hidden mt-6 text-center">
+      <button id="loadMoreBtn"
+              type="button"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-emerald-50 text-cpa-greenDark border-2 border-cpa-green/30 hover:border-cpa-green font-display font-bold text-sm shadow-sm active:scale-95 transition cursor-pointer disabled:opacity-50">
+        <span id="loadMoreBtnLabel">Carregar mais fotos</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="max-w-6xl mx-auto px-4 pb-8 pt-2">
+    <div class="rounded-2xl bg-white/70 backdrop-blur-md border border-emerald-900/10 p-4 sm:p-5">
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 items-center justify-items-center">
+        <img src="../Logo Sistema Positivo Escola Parceira.png" alt="Sistema Positivo" class="h-8 sm:h-9 w-auto object-contain opacity-90" />
+        <img src="../Logo Nave a Vela Robótica.png" alt="Nave à Vela Robótica" class="h-7 sm:h-8 w-auto object-contain opacity-90" />
+        <img src="../Logo Pes English_ Formação Bilíngue.png" alt="PES English" class="h-8 sm:h-9 w-auto object-contain opacity-90" />
+        <img src="../Logo Escola da Inteligência com Subtítulo.png" alt="Escola da Inteligência" class="h-7 sm:h-8 w-auto object-contain mix-blend-multiply opacity-90" />
+        <img src="../Logo Gênio das Finanças.png" alt="Gênio das Finanças" class="h-8 sm:h-9 w-auto object-contain opacity-90" />
+        <img src="../Logo Maralto.png" alt="Maralto" class="h-7 sm:h-8 w-auto object-contain opacity-90" />
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-200/70 flex flex-col sm:flex-row items-center justify-between gap-1 text-[11px] text-slate-500">
+        <span>© 2026 Colégio Prof. Afonso (CPA) — Tucumã - PA</span>
+        <span>XXIV Feira do Conhecimento • Galeria Compartilhada</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Lightbox (Visualização em Tela Cheia) -->
+  <div id="lightboxModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="lightboxMeta"
+       class="hidden fixed inset-0 z-50 flex-col bg-slate-950/92 backdrop-blur-md">
+
+    <!-- Topo Lightbox -->
+    <div class="flex items-center justify-between gap-2 px-3 py-2.5 sm:px-5 sm:py-3 border-b border-white/10 text-white shrink-0">
+      <div class="min-w-0">
+        <p id="lightboxMeta" class="font-display font-bold text-xs sm:text-sm truncate">
+          XXIV Feira do Conhecimento 2026
+        </p>
+        <p id="lightboxCounter" class="text-[11px] text-slate-300 tabular-nums">1 de 1</p>
+      </div>
+
+      <button id="closeLightboxBtn"
+              type="button"
+              aria-label="Fechar visualização"
+              class="w-9 h-9 shrink-0 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-base font-bold cursor-pointer transition active:scale-95">
+        ✕
+      </button>
+    </div>
+
+    <!-- Área Central da Imagem com Navegação -->
+    <div id="lightboxStage" class="relative flex-1 min-h-0 flex items-center justify-center p-2 sm:p-6 overflow-hidden">
+      <button id="prevPhotoBtn"
+              type="button"
+              aria-label="Foto anterior"
+              class="absolute left-2 sm:left-4 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white border border-white/20 flex items-center justify-center text-lg font-bold cursor-pointer transition active:scale-95 disabled:opacity-25 disabled:pointer-events-none">
+        ‹
+      </button>
+
+      <img id="lightboxImg"
+           src=""
+           alt="Foto da Galeria da Feira CPA 2026"
+           class="max-h-full max-w-full rounded-2xl shadow-2xl object-contain select-none" />
+
+      <button id="nextPhotoBtn"
+              type="button"
+              aria-label="Próxima foto"
+              class="absolute right-2 sm:right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white border border-white/20 flex items-center justify-center text-lg font-bold cursor-pointer transition active:scale-95 disabled:opacity-25 disabled:pointer-events-none">
+        ›
+      </button>
+    </div>
+
+    <!-- Rodapé Ações Lightbox -->
+    <div class="px-3 py-3 sm:px-5 sm:py-4 border-t border-white/10 bg-slate-950/80 flex items-center justify-center gap-2.5 shrink-0">
+      <button id="lightboxShareBtn"
+              type="button"
+              class="flex-1 max-w-[190px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cpa-greenDark to-cpa-green text-white font-display font-bold text-xs sm:text-sm cursor-pointer hover:brightness-110 active:scale-95 transition">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+        </svg>
+        <span>Compartilhar</span>
+      </button>
+
+      <button id="lightboxDownloadBtn"
+              type="button"
+              class="flex-1 max-w-[190px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cpa-orangeDark to-cpa-orange text-white font-display font-bold text-xs sm:text-sm cursor-pointer hover:brightness-110 active:scale-95 transition">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        <span>Baixar Foto</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const SUPABASE_URL = 'https://digjzihjboflcuftmokj.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpZ2p6aWhqYm9mbGN1ZnRtb2tqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTg5NDgsImV4cCI6MjA5OTE5NDk0OH0.5QwxirNiFNq7aVCbpgRjNFzlUZk5CyvWY1FPKwCOa1Q';
+      const MAX_GALLERY_PHOTOS = 2000;
+      const PAGE_SIZE = 40;
+
+      const LAYOUT_LABELS = {
+        'colagem-1': '1 Foto',
+        'colagem-2': '2 Fotos',
+        'colagem-3': '3 Fotos',
+        'colagem-3-mosaico': 'Mosaico 3',
+        'colagem-3-topo': 'Topo 3',
+        'colagem-4': '4 Fotos'
+      };
+
+      const state = {
+        photos: [],
+        totalCount: 0,
+        isLoading: false,
+        hasMore: false,
+        activeIndex: -1
+      };
+
+      const totalPhotosCount = document.getElementById('totalPhotosCount');
+      const capacityBar = document.getElementById('capacityBar');
+      const photosGrid = document.getElementById('photosGrid');
+      const loadingSkeleton = document.getElementById('loadingSkeleton');
+      const emptyState = document.getElementById('emptyState');
+      const errorState = document.getElementById('errorState');
+      const errorMessage = document.getElementById('errorMessage');
+      const retryBtn = document.getElementById('retryBtn');
+      const refreshBtn = document.getElementById('refreshBtn');
+      const refreshIcon = document.getElementById('refreshIcon');
+      const loadMoreWrap = document.getElementById('loadMoreWrap');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const loadMoreBtnLabel = document.getElementById('loadMoreBtnLabel');
+
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxStage = document.getElementById('lightboxStage');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxMeta = document.getElementById('lightboxMeta');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+      const prevPhotoBtn = document.getElementById('prevPhotoBtn');
+      const nextPhotoBtn = document.getElementById('nextPhotoBtn');
+      const lightboxDownloadBtn = document.getElementById('lightboxDownloadBtn');
+      const lightboxShareBtn = document.getElementById('lightboxShareBtn');
+
+      const toastEl = document.getElementById('toast');
+      const toastIcon = document.getElementById('toastIcon');
+      const toastText = document.getElementById('toastText');
+      let toastTimer = null;
+
+      function showToast(message, icon = '✓', duration = 2600) {
+        toastText.textContent = message;
+        toastIcon.textContent = icon;
+        toastEl.classList.remove('opacity-0', '-translate-y-3');
+        toastEl.classList.add('opacity-100', 'translate-y-0');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toastEl.classList.remove('opacity-100', 'translate-y-0');
+          toastEl.classList.add('opacity-0', '-translate-y-3');
+        }, duration);
+      }
+
+      function formatarDataHora(isoString) {
+        try {
+          const d = new Date(isoString);
+          return d.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+        } catch {
+          return '';
+        }
+      }
+
+      function updateCapacityUI(count) {
+        state.totalCount = count;
+        totalPhotosCount.textContent = count.toLocaleString('pt-BR');
+        const pct = Math.min(100, (count / MAX_GALLERY_PHOTOS) * 100);
+        capacityBar.style.width = `${pct.toFixed(1)}%`;
+      }
+
+      async function baixarFotoDireto(photo) {
+        if (!photo || !photo.public_url) return;
+        showToast('Preparando download...', '⬇️', 2000);
+        try {
+          const res = await fetch(photo.public_url);
+          if (!res.ok) throw new Error('Falha ao baixar arquivo');
+          const blob = await res.blob();
+          const ext = photo.mime_type === 'image/jpeg' ? 'jpg' : 'webp';
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Feira-CPA-2026-${photo.id.slice(0, 8)}.${ext}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+          showToast('Foto baixada com sucesso!', '✓', 2400);
+        } catch (err) {
+          console.error(err);
+          window.open(photo.public_url, '_blank', 'noopener');
+        }
+      }
+
+      async function compartilharFoto(photo) {
+        if (!photo || !photo.public_url) return;
+        try {
+          const res = await fetch(photo.public_url);
+          const blob = await res.blob();
+          const ext = photo.mime_type === 'image/jpeg' ? 'jpg' : 'webp';
+          const file = new File([blob], `Feira-CPA-2026.${ext}`, { type: photo.mime_type || 'image/webp' });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'XXIV Feira do Conhecimento 2026 — CPA',
+              text: 'Confira esta foto da XXIV Feira do Conhecimento 2026 do @colegioprofafonso!'
+            });
+            return;
+          }
+          if (navigator.share) {
+            await navigator.share({
+              title: 'Galeria da Feira CPA 2026',
+              url: photo.public_url
+            });
+            return;
+          }
+          await baixarFotoDireto(photo);
+        } catch (err) {
+          if (!err || err.name !== 'AbortError') {
+            await baixarFotoDireto(photo);
+          }
+        }
+      }
+
+      function renderGrid() {
+        photosGrid.innerHTML = '';
+
+        if (state.photos.length === 0) {
+          emptyState.classList.remove('hidden');
+          loadMoreWrap.classList.add('hidden');
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+
+        state.photos.forEach((photo, idx) => {
+          const card = document.createElement('article');
+          card.className = 'group relative aspect-[9/16] rounded-2xl overflow-hidden bg-slate-100 border border-emerald-900/10 shadow-md hover:shadow-xl transition-all duration-200 cursor-pointer';
+
+          const img = document.createElement('img');
+          img.src = photo.public_url;
+          img.alt = `Foto ${idx + 1} da Feira CPA 2026`;
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.className = 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]';
+
+          const overlay = document.createElement('div');
+          overlay.className = 'absolute inset-x-0 bottom-0 p-2 sm:p-2.5 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent flex items-end justify-between gap-1.5';
+
+          const info = document.createElement('div');
+          info.className = 'min-w-0 text-white';
+
+          const layoutBadge = document.createElement('span');
+          layoutBadge.className = 'inline-block px-1.5 py-0.5 rounded-md bg-white/20 backdrop-blur-sm text-[9px] sm:text-[10px] font-bold leading-none mb-0.5';
+          layoutBadge.textContent = LAYOUT_LABELS[photo.layout_id] || 'Story';
+
+          const dateLabel = document.createElement('p');
+          dateLabel.className = 'text-[10px] sm:text-[11px] font-medium text-slate-200 truncate';
+          dateLabel.textContent = formatarDataHora(photo.created_at);
+
+          info.appendChild(layoutBadge);
+          info.appendChild(dateLabel);
+
+          const quickDownload = document.createElement('button');
+          quickDownload.type = 'button';
+          quickDownload.setAttribute('aria-label', 'Baixar foto');
+          quickDownload.className = 'shrink-0 w-8 h-8 rounded-xl bg-white/90 hover:bg-white text-cpa-greenDark flex items-center justify-center shadow active:scale-95 transition cursor-pointer';
+          quickDownload.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>';
+          quickDownload.addEventListener('click', (e) => {
+            e.stopPropagation();
+            baixarFotoDireto(photo);
+          });
+
+          overlay.appendChild(info);
+          overlay.appendChild(quickDownload);
+
+          card.appendChild(img);
+          card.appendChild(overlay);
+          card.addEventListener('click', () => openLightbox(idx));
+          photosGrid.appendChild(card);
+        });
+
+        if (state.hasMore && state.photos.length < MAX_GALLERY_PHOTOS) {
+          loadMoreWrap.classList.remove('hidden');
+        } else {
+          loadMoreWrap.classList.add('hidden');
+        }
+      }
+
+      async function carregarFotos({ reset = false } = {}) {
+        if (state.isLoading) return;
+        state.isLoading = true;
+        refreshBtn.disabled = true;
+        refreshIcon.classList.add('animate-spin');
+        loadMoreBtn.disabled = true;
+        loadMoreBtnLabel.textContent = 'Carregando...';
+        errorState.classList.add('hidden');
+
+        if (reset) {
+          state.photos = [];
+          photosGrid.innerHTML = '';
+          emptyState.classList.add('hidden');
+          loadMoreWrap.classList.add('hidden');
+          loadingSkeleton.classList.remove('hidden');
+        }
+
+        const offset = state.photos.length;
+        const limit = Math.min(PAGE_SIZE, MAX_GALLERY_PHOTOS - offset);
+        if (limit <= 0) {
+          state.hasMore = false;
+          state.isLoading = false;
+          refreshBtn.disabled = false;
+          refreshIcon.classList.remove('animate-spin');
+          loadingSkeleton.classList.add('hidden');
+          return;
+        }
+
+        try {
+          const url = `${SUPABASE_URL}/rest/v1/feira_cpa_galeria?select=id,public_url,layout_id,origem,mime_type,created_at&order=created_at.desc&limit=${limit}&offset=${offset}`;
+          const res = await fetch(url, {
+            method: 'GET',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              Prefer: 'count=exact'
+            }
+          });
+
+          if (!res.ok) {
+            throw new Error(`Erro HTTP ${res.status}`);
+          }
+
+          const contentRange = res.headers.get('content-range') || '';
+          const match = contentRange.match(/\/(\d+)$/);
+          const rows = await res.json();
+          const total = match ? Math.min(MAX_GALLERY_PHOTOS, parseInt(match[1], 10)) : (offset + rows.length);
+
+          updateCapacityUI(total);
+          state.photos = reset ? rows : state.photos.concat(rows);
+          state.hasMore = state.photos.length < total && rows.length === limit;
+
+          loadingSkeleton.classList.add('hidden');
+          renderGrid();
+        } catch (err) {
+          console.error(err);
+          loadingSkeleton.classList.add('hidden');
+          errorState.classList.remove('hidden');
+          errorMessage.textContent = 'Não foi possível buscar as fotos no servidor agora.';
+        } finally {
+          state.isLoading = false;
+          refreshBtn.disabled = false;
+          refreshIcon.classList.remove('animate-spin');
+          loadMoreBtn.disabled = false;
+          loadMoreBtnLabel.textContent = 'Carregar mais fotos';
+        }
+      }
+
+      function updateLightboxView() {
+        const photo = state.photos[state.activeIndex];
+        if (!photo) return;
+        lightboxImg.src = photo.public_url;
+        const layoutName = LAYOUT_LABELS[photo.layout_id] || 'Story';
+        lightboxMeta.textContent = `${layoutName} • ${formatarDataHora(photo.created_at)}`;
+        lightboxCounter.textContent = `${state.activeIndex + 1} de ${state.photos.length}`;
+        prevPhotoBtn.disabled = state.activeIndex <= 0;
+        nextPhotoBtn.disabled = state.activeIndex >= state.photos.length - 1;
+      }
+
+      function openLightbox(index) {
+        if (index < 0 || index >= state.photos.length) return;
+        state.activeIndex = index;
+        updateLightboxView();
+        lightboxModal.classList.remove('hidden');
+        lightboxModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.add('hidden');
+        lightboxModal.classList.remove('flex');
+        lightboxImg.src = '';
+        state.activeIndex = -1;
+        document.body.style.overflow = '';
+      }
+
+      function showPrevPhoto() {
+        if (state.activeIndex > 0) {
+          state.activeIndex -= 1;
+          updateLightboxView();
+        }
+      }
+
+      function showNextPhoto() {
+        if (state.activeIndex < state.photos.length - 1) {
+          state.activeIndex += 1;
+          updateLightboxView();
+        }
+      }
+
+      closeLightboxBtn.addEventListener('click', closeLightbox);
+      prevPhotoBtn.addEventListener('click', showPrevPhoto);
+      nextPhotoBtn.addEventListener('click', showNextPhoto);
+      lightboxStage.addEventListener('click', (e) => {
+        if (e.target === lightboxStage) closeLightbox();
+      });
+
+      lightboxDownloadBtn.addEventListener('click', () => {
+        baixarFotoDireto(state.photos[state.activeIndex]);
+      });
+
+      lightboxShareBtn.addEventListener('click', () => {
+        compartilharFoto(state.photos[state.activeIndex]);
+      });
+
+      // Suporte a swipe no Lightbox para celular
+      let touchStartX = 0;
+      lightboxStage.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      lightboxStage.addEventListener('touchend', (e) => {
+        if (e.changedTouches.length !== 1) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 48) {
+          if (dx > 0) showPrevPhoto();
+          else showNextPhoto();
+        }
+      }, { passive: true });
+
+      window.addEventListener('keydown', (e) => {
+        if (lightboxModal.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevPhoto();
+        if (e.key === 'ArrowRight') showNextPhoto();
+      });
+
+      refreshBtn.addEventListener('click', () => carregarFotos({ reset: true }));
+      retryBtn.addEventListener('click', () => carregarFotos({ reset: true }));
+      loadMoreBtn.addEventListener('click', () => carregarFotos({ reset: false }));
+
+      carregarFotos({ reset: true });
+    })();
+  </script>
+</body>
+</html>

@@ -180,9 +180,22 @@
           </div>
         </div>
 
-        <div class="hidden md:flex items-center gap-2 shrink-0 px-3 py-1.5 rounded-xl bg-emerald-50/90 border border-emerald-700/15 text-xs font-semibold text-cpa-greenDark">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>1080 × 1920 px HD</span>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="../galeria/index.html"
+             id="headerGalleryBtn"
+             class="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-cpa-greenDark to-cpa-green text-white font-display font-bold text-[11px] sm:text-xs shadow-md shadow-emerald-900/20 hover:brightness-110 active:scale-95 transition whitespace-nowrap">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="sm:hidden">Galeria</span>
+            <span class="hidden sm:inline">Visualizar Galeria da Feira</span>
+            <span id="headerGalleryCountBadge" class="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] font-extrabold tabular-nums">...</span>
+          </a>
+
+          <div class="hidden lg:flex items-center gap-2 shrink-0 px-3 py-1.5 rounded-xl bg-emerald-50/90 border border-emerald-700/15 text-xs font-semibold text-cpa-greenDark">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>1080 × 1920 px HD</span>
+          </div>
         </div>
       </div>
     </div>
@@ -346,12 +359,12 @@
         </div>
       </section>
 
-      <!-- BLOCO 5: Botões de Ação Final (Compartilhar nos Stories & Baixar Alta Qualidade) -->
-      <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-4 flex flex-col gap-2">
+      <!-- BLOCO 5: Botões de Ação Final (Compartilhar, Baixar, Salvar e Visualizar Galeria) -->
+      <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-4 flex flex-col gap-2.5">
         <div class="grid grid-cols-2 gap-2 sm:gap-2.5">
           <button id="shareBtn"
                   type="button"
-                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-greenDark via-cpa-green to-emerald-600 text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-emerald-900/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-greenDark via-cpa-green to-emerald-600 text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-emerald-900/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
             <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
@@ -360,7 +373,7 @@
 
           <button id="downloadBtn"
                   type="button"
-                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-4 rounded-xl sm:rounded-2xl bg-white/90 hover:bg-white text-cpa-greenDark border-2 border-cpa-green/30 hover:border-cpa-green font-display font-bold text-xs sm:text-sm shadow-sm active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+                  class="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-3 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-white/95 hover:bg-white text-cpa-greenDark border-2 border-cpa-green/35 hover:border-cpa-green font-display font-bold text-xs sm:text-sm shadow-sm active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
             <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
@@ -368,8 +381,43 @@
           </button>
         </div>
 
+        <button id="saveGalleryBtn"
+                type="button"
+                class="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-orange-600/20 hover:brightness-105 active:scale-[0.98] transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <span id="saveGalleryBtnLabel">Salvar na Galeria da Feira</span>
+        </button>
+
+        <a id="viewGalleryBtn"
+           href="../galeria/index.html"
+           class="w-full flex items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-gradient-to-r from-emerald-950 via-cpa-greenDark to-emerald-800 text-white border-2 border-cpa-gold/60 shadow-lg shadow-emerald-950/25 hover:brightness-110 active:scale-[0.99] transition-all duration-200">
+          <span class="flex items-center gap-2.5 min-w-0">
+            <span class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-cpa-gold">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </span>
+            <span class="min-w-0">
+              <span class="block font-display font-extrabold text-sm sm:text-base leading-tight truncate">
+                Visualizar Galeria da Feira
+              </span>
+              <span class="block text-[11px] text-emerald-100/90 truncate">
+                Veja e baixe todas as fotos compartilhadas do evento
+              </span>
+            </span>
+          </span>
+          <span class="shrink-0 flex items-center gap-1.5">
+            <span id="galleryCountBadge" class="px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-[11px] font-extrabold tabular-nums whitespace-nowrap">
+              0 / 2.000
+            </span>
+            <span class="text-amber-300 font-bold text-sm">➔</span>
+          </span>
+        </a>
+
         <p id="actionHelperNote" class="text-[11px] text-center lg:text-left text-slate-500 px-1">
-          A imagem final é gerada localmente no seu dispositivo em resolução oficial <strong>1080 × 1920 px</strong> (PNG).
+          Ao compartilhar ou baixar no aparelho, uma cópia em alta qualidade (<strong>1080 × 1920 px</strong>) é salva automaticamente na <strong>Galeria da Feira</strong> (limite de 2.000 fotos).
         </p>
       </section>
     </div>
@@ -598,8 +646,15 @@
       const INSTAGRAM_HANDLE = '@colegioprofafonso';
       const OUTPUT_FILENAME = 'Feira-CPA-2026-Story.png';
 
+      // Supabase Storage & Galeria da Feira (máx. 2.000 fotos em 1080x1920 WebP/JPEG)
+      const SUPABASE_URL = 'https://digjzihjboflcuftmokj.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpZ2p6aWhqYm9mbGN1ZnRtb2tqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTg5NDgsImV4cCI6MjA5OTE5NDk0OH0.5QwxirNiFNq7aVCbpgRjNFzlUZk5CyvWY1FPKwCOa1Q';
+      const SUPABASE_BUCKET = 'feira-cpa';
+      const MAX_GALLERY_PHOTOS = 2000;
+
       function createEmptySlotState() {
         return {
+          photoId: null,
           photoImg: null,
           photoW: 0,
           photoH: 0,
@@ -625,7 +680,11 @@
         isInteracting: false,
         renderQueued: false,
         cameraFacingMode: 'environment',
-        cameraStream: null
+        cameraStream: null,
+        lastSavedSignature: null,
+        isUploadingGallery: false,
+        galleryUploadPromise: null,
+        galleryPhotoCount: null
       };
 
       // Referências DOM
@@ -671,6 +730,11 @@
       const shareBtn = document.getElementById('shareBtn');
       const shareBtnLabel = document.getElementById('shareBtnLabel');
       const downloadBtn = document.getElementById('downloadBtn');
+      const saveGalleryBtn = document.getElementById('saveGalleryBtn');
+      const saveGalleryBtnLabel = document.getElementById('saveGalleryBtnLabel');
+      const viewGalleryBtn = document.getElementById('viewGalleryBtn');
+      const galleryCountBadge = document.getElementById('galleryCountBadge');
+      const headerGalleryCountBadge = document.getElementById('headerGalleryCountBadge');
       const actionHelperNote = document.getElementById('actionHelperNote');
 
       const toastEl = document.getElementById('toast');
@@ -1072,6 +1136,7 @@
 
       function setSlotImage(slotIndex, normalizedCanvas) {
         state.slots[slotIndex] = {
+          photoId: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
           photoImg: normalizedCanvas,
           photoW: normalizedCanvas.width,
           photoH: normalizedCanvas.height,
@@ -1819,7 +1884,7 @@
       copyMentionBtn.addEventListener('click', () => copiarArroba({ silent: false }));
 
       // =========================================================================
-      // RENDERIZAÇÃO OFFSCREEN (1080x1920) + SHARE & DOWNLOAD
+      // RENDERIZAÇÃO OFFSCREEN (1080x1920) + SHARE, DOWNLOAD & GALERIA SUPABASE
       // =========================================================================
       function gerarBlobStory() {
         return new Promise((resolve, reject) => {
@@ -1829,6 +1894,173 @@
             else reject(new Error('Falha ao gerar PNG 1080x1920.'));
           }, 'image/png', 1.0);
         });
+      }
+
+      function gerarBlobGaleriaAltaQualidade() {
+        return new Promise((resolve, reject) => {
+          renderComposition(exportCtx, { isExport: true });
+          exportCanvas.toBlob((webpBlob) => {
+            if (webpBlob && webpBlob.type === 'image/webp') {
+              resolve({ blob: webpBlob, ext: 'webp', mime: 'image/webp' });
+              return;
+            }
+            exportCanvas.toBlob((jpegBlob) => {
+              if (jpegBlob) {
+                resolve({ blob: jpegBlob, ext: 'jpg', mime: 'image/jpeg' });
+              } else {
+                reject(new Error('Falha ao gerar WebP/JPEG 1080x1920.'));
+              }
+            }, 'image/jpeg', 0.88);
+          }, 'image/webp', 0.86);
+        });
+      }
+
+      function getCompositionSignature() {
+        const layout = getActiveLayout();
+        const slotsSig = layout.slots.map((_, idx) => {
+          const s = state.slots[idx];
+          if (!s || !s.photoImg) return 'empty';
+          return [
+            s.photoId || 'no-id',
+            Math.round(s.panX),
+            Math.round(s.panY),
+            Number(s.zoom).toFixed(2),
+            s.rotation,
+            s.flipX ? 1 : 0
+          ].join(':');
+        }).join('|');
+        return `${layout.id}::${slotsSig}`;
+      }
+
+      function renderGalleryCountBadges(count) {
+        if (typeof count !== 'number' || Number.isNaN(count)) return;
+        state.galleryPhotoCount = count;
+        const formatted = count.toLocaleString('pt-BR');
+        if (galleryCountBadge) {
+          galleryCountBadge.textContent = `${formatted} / 2.000`;
+        }
+        if (headerGalleryCountBadge) {
+          headerGalleryCountBadge.textContent = `${formatted}`;
+        }
+      }
+
+      async function fetchGalleryCountFromSupabase() {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/feira_cpa_galeria?select=id&limit=1`, {
+          method: 'GET',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            Prefer: 'count=exact'
+          }
+        });
+        if (!res.ok) {
+          throw new Error(`Erro ao consultar contagem (${res.status})`);
+        }
+        const contentRange = res.headers.get('content-range') || '';
+        const match = contentRange.match(/\/(\d+)$/);
+        const total = match ? parseInt(match[1], 10) : 0;
+        renderGalleryCountBadges(total);
+        return total;
+      }
+
+      function atualizarContadorGaleria() {
+        fetchGalleryCountFromSupabase().catch((err) => {
+          console.warn('Não foi possível atualizar contador da galeria:', err);
+        });
+      }
+
+      async function salvarNaGaleriaSistema({ origem = 'salvar', silentIfAlreadySaved = false } = {}) {
+        const signature = getCompositionSignature();
+        if (state.lastSavedSignature === signature) {
+          if (!silentIfAlreadySaved) {
+            showToast('Esta foto já está salva na Galeria da Feira!', '🖼️', 2800);
+          }
+          return { alreadySaved: true };
+        }
+
+        if (state.isUploadingGallery && state.galleryUploadPromise) {
+          return state.galleryUploadPromise;
+        }
+
+        state.isUploadingGallery = true;
+        const uploadTask = (async () => {
+          const currentCount = await fetchGalleryCountFromSupabase();
+          if (currentCount >= MAX_GALLERY_PHOTOS) {
+            throw new Error('LIMITE_GALERIA_ATINGIDO');
+          }
+
+          const { blob, ext, mime } = await gerarBlobGaleriaAltaQualidade();
+          const uniqueSuffix = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+          const storagePath = `stories/feira-cpa-${uniqueSuffix}.${ext}`;
+          const uploadUrl = `${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${storagePath}`;
+
+          const uploadRes = await fetch(uploadUrl, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': mime,
+              'x-upsert': 'false'
+            },
+            body: blob
+          });
+
+          if (!uploadRes.ok) {
+            const errBody = await uploadRes.text().catch(() => '');
+            if (errBody.includes('LIMITE_GALERIA_ATINGIDO') || uploadRes.status === 403) {
+              const latestCount = await fetchGalleryCountFromSupabase().catch(() => currentCount);
+              if (latestCount >= MAX_GALLERY_PHOTOS) {
+                throw new Error('LIMITE_GALERIA_ATINGIDO');
+              }
+            }
+            throw new Error(`Falha no upload para o Storage (${uploadRes.status})`);
+          }
+
+          const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/${storagePath}`;
+          const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/feira_cpa_galeria`, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+              Prefer: 'return=minimal'
+            },
+            body: JSON.stringify({
+              storage_path: storagePath,
+              public_url: publicUrl,
+              layout_id: getActiveLayout().id,
+              origem,
+              mime_type: mime,
+              size_bytes: blob.size,
+              width: STORY_W,
+              height: STORY_H
+            })
+          });
+
+          if (!insertRes.ok) {
+            const errBody = await insertRes.text().catch(() => '');
+            if (errBody.includes('LIMITE_GALERIA_ATINGIDO')) {
+              throw new Error('LIMITE_GALERIA_ATINGIDO');
+            }
+            throw new Error(`Falha ao registrar foto na galeria (${insertRes.status})`);
+          }
+
+          state.lastSavedSignature = signature;
+          await fetchGalleryCountFromSupabase().catch(() => {
+            if (typeof state.galleryPhotoCount === 'number') {
+              renderGalleryCountBadges(Math.min(MAX_GALLERY_PHOTOS, state.galleryPhotoCount + 1));
+            }
+          });
+          return { success: true, publicUrl };
+        })();
+
+        state.galleryUploadPromise = uploadTask;
+        try {
+          return await uploadTask;
+        } finally {
+          state.isUploadingGallery = false;
+          state.galleryUploadPromise = null;
+        }
       }
 
       function dispararDownload(blob) {
@@ -1855,7 +2087,7 @@
       const supportsFileShare = verificaSuporteWebShareFile();
       if (!supportsFileShare) {
         shareBtnLabel.textContent = 'Gerar e Baixar Story (HD)';
-        actionHelperNote.innerHTML = 'Seu navegador fará o download direto do arquivo <strong>1080 × 1920 px</strong> pronto para postar no Instagram.';
+        actionHelperNote.innerHTML = 'Seu navegador fará o download direto do arquivo <strong>1080 × 1920 px</strong> e salvará automaticamente na <strong>Galeria da Feira</strong>.';
       }
 
       async function processarAcaoFinal(modo) {
@@ -1873,34 +2105,74 @@
 
         shareBtn.disabled = true;
         downloadBtn.disabled = true;
+        saveGalleryBtn.disabled = true;
         const originalShareText = shareBtnLabel.textContent;
+        const originalSaveText = saveGalleryBtnLabel.textContent;
+
         if (modo === 'share') shareBtnLabel.textContent = 'Gerando Story HD...';
+        if (modo === 'save_gallery') saveGalleryBtnLabel.textContent = 'Salvando na Galeria...';
 
         try {
+          if (modo === 'save_gallery') {
+            const galleryRes = await salvarNaGaleriaSistema({ origem: 'salvar', silentIfAlreadySaved: false });
+            if (galleryRes && galleryRes.success) {
+              showToast('Foto salva na Galeria da Feira! 🎉', '🖼️', 3200);
+            }
+            return;
+          }
+
           const blob = await gerarBlobStory();
           const file = new File([blob], OUTPUT_FILENAME, { type: 'image/png' });
 
           if (modo === 'share' && navigator.canShare && navigator.canShare({ files: [file] })) {
+            // Dispara o backup para a Galeria da Feira sem await antes de navigator.share para preservar o gesto do usuário no mobile
+            const galleryPromise = salvarNaGaleriaSistema({ origem: 'compartilhar', silentIfAlreadySaved: true })
+              .catch((err) => ({ error: err }));
+
             await copiarArroba({ silent: true });
             await navigator.share({
               files: [file],
               title: 'XXIV Feira do Conhecimento 2026 — CPA',
               text: `Minha foto na XXIV Feira do Conhecimento 2026 do ${INSTAGRAM_HANDLE}!`
             });
-            showToast(`Story pronto! Lembre-se de marcar ${INSTAGRAM_HANDLE}`, '🚀', 3200);
+
+            const galleryRes = await galleryPromise;
+            if (galleryRes && galleryRes.error && galleryRes.error.message === 'LIMITE_GALERIA_ATINGIDO') {
+              showToast(`Story pronto! Galeria atingiu o limite de 2.000 fotos.`, '🚀', 3400);
+            } else {
+              showToast(`Story pronto e salvo na Galeria da Feira! Marca ${INSTAGRAM_HANDLE}`, '🚀', 3400);
+            }
           } else {
             dispararDownload(blob);
-            showToast('Imagem 1080×1920 baixada com sucesso!', '⬇️', 3000);
+            try {
+              const galleryRes = await salvarNaGaleriaSistema({ origem: 'baixar', silentIfAlreadySaved: true });
+              if (galleryRes && (galleryRes.success || galleryRes.alreadySaved)) {
+                showToast('Foto baixada e salva na Galeria da Feira!', '⬇️', 3200);
+              }
+            } catch (galErr) {
+              if (galErr && galErr.message === 'LIMITE_GALERIA_ATINGIDO') {
+                showToast('Foto baixada! Galeria da Feira atingiu 2.000 fotos.', '⬇️', 3400);
+              } else {
+                console.warn('Falha ao salvar cópia na galeria:', galErr);
+                showToast('Imagem 1080×1920 baixada com sucesso!', '⬇️', 3000);
+              }
+            }
           }
         } catch (err) {
           if (err && err.name === 'AbortError') {
             // Usuário fechou a gaveta de compartilhamento manualmente
+          } else if (err && err.message === 'LIMITE_GALERIA_ATINGIDO') {
+            showToast('A Galeria da Feira atingiu o limite máximo de 2.000 fotos.', '⚠', 3600);
+          } else if (modo === 'save_gallery') {
+            console.error(err);
+            showToast('Erro ao salvar na Galeria da Feira. Tente novamente.', '⚠', 3200);
           } else {
             console.error(err);
             try {
               const fallbackBlob = await gerarBlobStory();
               dispararDownload(fallbackBlob);
-              showToast('Compartilhamento indisponível. Foto baixada!', '⬇️', 3000);
+              await salvarNaGaleriaSistema({ origem: 'baixar', silentIfAlreadySaved: true }).catch(() => {});
+              showToast('Foto baixada e enviada para a Galeria da Feira!', '⬇️', 3200);
             } catch {
               showToast('Erro ao gerar a imagem. Tente novamente.', '⚠');
             }
@@ -1908,15 +2180,19 @@
         } finally {
           shareBtn.disabled = false;
           downloadBtn.disabled = false;
+          saveGalleryBtn.disabled = false;
           shareBtnLabel.textContent = originalShareText;
+          saveGalleryBtnLabel.textContent = originalSaveText;
         }
       }
 
       shareBtn.addEventListener('click', () => processarAcaoFinal('share'));
       downloadBtn.addEventListener('click', () => processarAcaoFinal('download'));
+      saveGalleryBtn.addEventListener('click', () => processarAcaoFinal('save_gallery'));
 
-      // Inicializa moldura oficial e interface
+      // Inicializa moldura oficial, contador da galeria e interface
       inicializarAssets();
+      atualizarContadorGaleria();
     })();
   </script>
 </body>
