@@ -246,6 +246,7 @@
         <!-- Botão Principal de Upload -->
         <div class="w-full">
           <input id="photoInput" type="file" accept="image/*" multiple class="hidden" />
+          <input id="cameraInput" type="file" accept="image/*" capture="environment" class="hidden" />
           <button id="uploadBtn"
                   type="button"
                   class="relative pulse-ring w-full flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-xs sm:text-base shadow-lg shadow-orange-600/25 hover:brightness-105 active:scale-95 transition-all duration-200 cursor-pointer">
@@ -395,6 +396,120 @@
     </div>
   </footer>
 
+  <!-- Modal 1: Escolha de Origem da Foto (Câmera ou Galeria) -->
+  <div id="photoSourceModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="photoSourceModalTitle"
+       class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+    <div class="w-full max-w-sm rounded-3xl bg-white border border-emerald-900/15 shadow-2xl p-4 sm:p-5">
+      <div class="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <span id="photoSourceSlotBadge"
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-cpa-greenDark border border-emerald-700/15 mb-1">
+            Foto 1
+          </span>
+          <h2 id="photoSourceModalTitle" class="font-display font-extrabold text-lg text-slate-800 leading-tight">
+            Como deseja adicionar?
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Tire uma foto na hora ou escolha da sua galeria.
+          </p>
+        </div>
+        <button id="closeSourceModalBtn"
+                type="button"
+                aria-label="Fechar opções"
+                class="w-8 h-8 shrink-0 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm font-bold cursor-pointer transition active:scale-95">
+          ✕
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <button id="chooseCameraBtn"
+                type="button"
+                class="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-orange-50 to-amber-50 hover:from-orange-100 hover:to-amber-100 border-2 border-cpa-orange/30 hover:border-cpa-orange text-left transition active:scale-[0.98] cursor-pointer">
+          <span class="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br from-cpa-orangeDark to-cpa-orange text-white flex items-center justify-center shadow-md shadow-orange-600/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block font-display font-bold text-sm sm:text-base text-slate-800">Abrir Câmera</span>
+            <span class="block text-xs text-slate-600">Tirar foto agora e colocar na moldura</span>
+          </span>
+          <span class="text-cpa-orangeDark font-bold text-sm shrink-0">➔</span>
+        </button>
+
+        <button id="chooseGalleryBtn"
+                type="button"
+                class="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 to-green-50 hover:from-emerald-100 hover:to-green-100 border-2 border-cpa-green/25 hover:border-cpa-green text-left transition active:scale-[0.98] cursor-pointer">
+          <span class="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br from-cpa-greenDark to-cpa-green text-white flex items-center justify-center shadow-md shadow-emerald-900/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block font-display font-bold text-sm sm:text-base text-slate-800">Escolher na Galeria</span>
+            <span class="block text-xs text-slate-600">Selecionar foto salva no aparelho</span>
+          </span>
+          <span class="text-cpa-greenDark font-bold text-sm shrink-0">➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Câmera Ao Vivo -->
+  <div id="cameraModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="cameraModalTitle"
+       class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-950/85 backdrop-blur-sm p-3 sm:p-4">
+    <div class="w-full max-w-md rounded-3xl bg-slate-900 border border-white/15 shadow-2xl overflow-hidden flex flex-col">
+      <div class="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/10">
+        <h2 id="cameraModalTitle" class="font-display font-bold text-sm sm:text-base text-white truncate">
+          Câmera • Foto 1
+        </h2>
+        <button id="closeCameraModalBtn"
+                type="button"
+                aria-label="Fechar câmera"
+                class="w-8 h-8 shrink-0 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold cursor-pointer transition active:scale-95">
+          ✕
+        </button>
+      </div>
+
+      <div class="relative w-full aspect-[3/4] max-h-[62dvh] bg-black overflow-hidden">
+        <video id="cameraVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+      </div>
+
+      <div class="p-3.5 sm:p-4 bg-slate-900 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between gap-2.5">
+          <button id="switchCameraBtn"
+                  type="button"
+                  class="px-3 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/15 flex items-center justify-center gap-1.5 cursor-pointer transition active:scale-95 shrink-0">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Virar Câmera</span>
+          </button>
+
+          <button id="capturePhotoBtn"
+                  type="button"
+                  class="flex-1 px-4 py-3 rounded-2xl bg-gradient-to-r from-cpa-orangeDark via-cpa-orange to-cpa-amber text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-orange-600/30 hover:brightness-105 cursor-pointer transition active:scale-95 flex items-center justify-center gap-2">
+            <span class="w-3.5 h-3.5 rounded-full bg-white ring-4 ring-white/30"></span>
+            <span>Tirar Foto</span>
+          </button>
+        </div>
+
+        <button id="nativeCameraBtn"
+                type="button"
+                class="w-full py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold border border-white/10 cursor-pointer transition">
+          Usar Câmera do Aparelho
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Canvas Offscreen Oculto para Exportação 1080x1920 sem perda de qualidade -->
   <canvas id="exportCanvas" width="1080" height="1920" class="hidden" aria-hidden="true"></canvas>
 
@@ -508,7 +623,9 @@
         officialFrameSource: null, // HTMLImageElement da moldura oficial
         emblemImg: null,
         isInteracting: false,
-        renderQueued: false
+        renderQueued: false,
+        cameraFacingMode: 'environment',
+        cameraStream: null
       };
 
       // Referências DOM
@@ -520,8 +637,23 @@
       const gestureHintBadge = document.getElementById('gestureHintBadge');
 
       const photoInput = document.getElementById('photoInput');
+      const cameraInput = document.getElementById('cameraInput');
       const uploadBtn = document.getElementById('uploadBtn');
       const uploadBtnLabel = document.getElementById('uploadBtnLabel');
+
+      const photoSourceModal = document.getElementById('photoSourceModal');
+      const photoSourceSlotBadge = document.getElementById('photoSourceSlotBadge');
+      const chooseCameraBtn = document.getElementById('chooseCameraBtn');
+      const chooseGalleryBtn = document.getElementById('chooseGalleryBtn');
+      const closeSourceModalBtn = document.getElementById('closeSourceModalBtn');
+
+      const cameraModal = document.getElementById('cameraModal');
+      const cameraModalTitle = document.getElementById('cameraModalTitle');
+      const closeCameraModalBtn = document.getElementById('closeCameraModalBtn');
+      const cameraVideo = document.getElementById('cameraVideo');
+      const switchCameraBtn = document.getElementById('switchCameraBtn');
+      const capturePhotoBtn = document.getElementById('capturePhotoBtn');
+      const nativeCameraBtn = document.getElementById('nativeCameraBtn');
 
       const layoutCarousel = document.getElementById('layoutCarousel');
       const slotTabsContainer = document.getElementById('slotTabsContainer');
@@ -938,9 +1070,112 @@
         requestRender();
       }
 
+      function setSlotImage(slotIndex, normalizedCanvas) {
+        state.slots[slotIndex] = {
+          photoImg: normalizedCanvas,
+          photoW: normalizedCanvas.width,
+          photoH: normalizedCanvas.height,
+          panX: 0,
+          panY: 0,
+          baseScale: 1,
+          zoom: 1,
+          rotation: 0,
+          flipX: false
+        };
+        recalcularBaseScaleSlot(slotIndex);
+      }
+
+      function finalizarAtualizacaoFoto() {
+        const layout = getActiveLayout();
+        state.targetUploadSlotIndex = null;
+        uploadBtn.classList.remove('pulse-ring');
+        gestureHintBadge.classList.remove('hidden', 'opacity-0');
+        setTimeout(() => gestureHintBadge.classList.add('opacity-0'), 4200);
+
+        renderLayoutCarousel();
+        renderSlotTabs();
+        syncControlsUI();
+        renderPreviewNow();
+
+        const missingCount = layout.slots.filter((_, i) => !state.slots[i].photoImg).length;
+        if (missingCount > 0) {
+          showToast('Foto adicionada! Toque no espaço vazio para enviar a próxima.', '📸', 3000);
+        } else {
+          showToast('Arraste ou use pinça para enquadrar suas fotos!', '📸', 2800);
+        }
+      }
+
+      function abrirModalOrigemFoto(slotIndex) {
+        const layout = getActiveLayout();
+        const safeIdx = Math.min(Math.max(0, slotIndex), layout.slots.length - 1);
+        const slotLabel = layout.slots[safeIdx] ? layout.slots[safeIdx].label : 'Foto 1';
+        photoSourceSlotBadge.textContent = slotLabel;
+        photoSourceModal.classList.remove('hidden');
+        photoSourceModal.classList.add('flex');
+      }
+
+      function fecharModalOrigemFoto() {
+        photoSourceModal.classList.add('hidden');
+        photoSourceModal.classList.remove('flex');
+      }
+
+      function stopCameraStream() {
+        if (state.cameraStream) {
+          state.cameraStream.getTracks().forEach((track) => track.stop());
+          state.cameraStream = null;
+        }
+        cameraVideo.srcObject = null;
+      }
+
+      function fecharModalCamera() {
+        stopCameraStream();
+        cameraModal.classList.add('hidden');
+        cameraModal.classList.remove('flex');
+      }
+
+      async function iniciarCameraAoVivo() {
+        if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+          cameraInput.click();
+          return;
+        }
+
+        const layout = getActiveLayout();
+        const targetIdx = state.targetUploadSlotIndex !== null ? state.targetUploadSlotIndex : state.activeSlotIndex;
+        const safeIdx = Math.min(Math.max(0, targetIdx), layout.slots.length - 1);
+        const slotLabel = layout.slots[safeIdx] ? layout.slots[safeIdx].label : 'Foto 1';
+        cameraModalTitle.textContent = `Câmera • ${slotLabel}`;
+
+        stopCameraStream();
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: state.cameraFacingMode,
+              width: { ideal: 1920 },
+              height: { ideal: 1080 }
+            },
+            audio: false
+          });
+          state.cameraStream = stream;
+          cameraVideo.srcObject = stream;
+          cameraVideo.style.transform = state.cameraFacingMode === 'user' ? 'scaleX(-1)' : '';
+          cameraModal.classList.remove('hidden');
+          cameraModal.classList.add('flex');
+          await cameraVideo.play().catch(() => {});
+        } catch (err) {
+          console.warn('Fallback para câmera nativa:', err);
+          fecharModalCamera();
+          cameraInput.click();
+        }
+      }
+
       function abrirSeletorParaSlot(slotIndex) {
         state.targetUploadSlotIndex = slotIndex;
-        photoInput.click();
+        state.activeSlotIndex = slotIndex;
+        renderSlotTabs();
+        syncControlsUI();
+        requestRender();
+        abrirModalOrigemFoto(slotIndex);
       }
 
       async function handleFilesSelection(fileList) {
@@ -971,55 +1206,18 @@
             const safeIdx = Math.min(targetIdx, layout.slots.length - 1);
 
             const normalized = await normalizarFotoComExif(validFiles[0]);
-            state.slots[safeIdx] = {
-              photoImg: normalized,
-              photoW: normalized.width,
-              photoH: normalized.height,
-              panX: 0,
-              panY: 0,
-              baseScale: 1,
-              zoom: 1,
-              rotation: 0,
-              flipX: false
-            };
-            recalcularBaseScaleSlot(safeIdx);
+            setSlotImage(safeIdx, normalized);
             state.activeSlotIndex = safeIdx;
           } else {
             // Múltiplas fotos enviadas de uma vez -> preenche em sequência 0, 1, 2
             for (let i = 0; i < validFiles.length && i < layout.slots.length; i++) {
               const normalized = await normalizarFotoComExif(validFiles[i]);
-              state.slots[i] = {
-                photoImg: normalized,
-                photoW: normalized.width,
-                photoH: normalized.height,
-                panX: 0,
-                panY: 0,
-                baseScale: 1,
-                zoom: 1,
-                rotation: 0,
-                flipX: false
-              };
-              recalcularBaseScaleSlot(i);
+              setSlotImage(i, normalized);
             }
             state.activeSlotIndex = 0;
           }
 
-          state.targetUploadSlotIndex = null;
-          uploadBtn.classList.remove('pulse-ring');
-          gestureHintBadge.classList.remove('hidden', 'opacity-0');
-          setTimeout(() => gestureHintBadge.classList.add('opacity-0'), 4200);
-
-          renderLayoutCarousel();
-          renderSlotTabs();
-          syncControlsUI();
-          renderPreviewNow();
-
-          const missingCount = layout.slots.filter((_, i) => !state.slots[i].photoImg).length;
-          if (missingCount > 0) {
-            showToast(`Foto adicionada! Toque no espaço vazio para enviar a próxima.`, '📸', 3000);
-          } else {
-            showToast('Arraste ou use pinça para enquadrar suas fotos!', '📸', 2800);
-          }
+          finalizarAtualizacaoFoto();
         } catch (err) {
           console.error(err);
           showToast('Não foi possível ler a imagem. Tente outra.', '⚠');
@@ -1474,18 +1672,89 @@
       }, { passive: false });
 
       // =========================================================================
-      // UPLOAD TRIGGERS
+      // UPLOAD TRIGGERS (CÂMERA OU GALERIA)
       // =========================================================================
       uploadBtn.addEventListener('click', () => {
         const layout = getActiveLayout();
-        // Se o slot atual já tem foto mas existe outro vazio, prioriza o primeiro vazio
-        const firstEmpty = layout.slots.findIndex((_, i) => !state.slots[i].photoImg);
-        if (firstEmpty !== -1 && !state.slots[state.activeSlotIndex].photoImg) {
-          abrirSeletorParaSlot(state.activeSlotIndex);
-        } else if (firstEmpty !== -1) {
-          abrirSeletorParaSlot(firstEmpty);
+        const allEmpty = layout.slots.every((_, i) => !state.slots[i].photoImg);
+        if (allEmpty) {
+          abrirSeletorParaSlot(0);
         } else {
           abrirSeletorParaSlot(state.activeSlotIndex);
+        }
+      });
+
+      chooseCameraBtn.addEventListener('click', () => {
+        fecharModalOrigemFoto();
+        iniciarCameraAoVivo();
+      });
+
+      chooseGalleryBtn.addEventListener('click', () => {
+        fecharModalOrigemFoto();
+        photoInput.click();
+      });
+
+      closeSourceModalBtn.addEventListener('click', fecharModalOrigemFoto);
+      photoSourceModal.addEventListener('click', (e) => {
+        if (e.target === photoSourceModal) fecharModalOrigemFoto();
+      });
+
+      closeCameraModalBtn.addEventListener('click', fecharModalCamera);
+      cameraModal.addEventListener('click', (e) => {
+        if (e.target === cameraModal) fecharModalCamera();
+      });
+
+      switchCameraBtn.addEventListener('click', () => {
+        state.cameraFacingMode = state.cameraFacingMode === 'environment' ? 'user' : 'environment';
+        iniciarCameraAoVivo();
+      });
+
+      nativeCameraBtn.addEventListener('click', () => {
+        fecharModalCamera();
+        cameraInput.click();
+      });
+
+      capturePhotoBtn.addEventListener('click', () => {
+        const vw = cameraVideo.videoWidth;
+        const vh = cameraVideo.videoHeight;
+        if (!vw || !vh) {
+          showToast('Aguarde a câmera carregar.', '⚠');
+          return;
+        }
+
+        const MAX_DIM = 2200;
+        const scale = Math.max(vw, vh) > MAX_DIM ? MAX_DIM / Math.max(vw, vh) : 1;
+        const w = Math.round(vw * scale);
+        const h = Math.round(vh * scale);
+
+        const capCanvas = document.createElement('canvas');
+        capCanvas.width = w;
+        capCanvas.height = h;
+        const capCtx = capCanvas.getContext('2d');
+
+        if (state.cameraFacingMode === 'user') {
+          capCtx.translate(w, 0);
+          capCtx.scale(-1, 1);
+        }
+        capCtx.drawImage(cameraVideo, 0, 0, w, h);
+
+        fecharModalCamera();
+
+        const layout = getActiveLayout();
+        const targetIdx = state.targetUploadSlotIndex !== null
+          ? state.targetUploadSlotIndex
+          : state.activeSlotIndex;
+        const safeIdx = Math.min(Math.max(0, targetIdx), layout.slots.length - 1);
+
+        setSlotImage(safeIdx, capCanvas);
+        state.activeSlotIndex = safeIdx;
+        finalizarAtualizacaoFoto();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!cameraModal.classList.contains('hidden')) fecharModalCamera();
+          if (!photoSourceModal.classList.contains('hidden')) fecharModalOrigemFoto();
         }
       });
 
@@ -1494,6 +1763,13 @@
           handleFilesSelection(e.target.files);
         }
         photoInput.value = '';
+      });
+
+      cameraInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleFilesSelection(e.target.files);
+        }
+        cameraInput.value = '';
       });
 
       // =========================================================================
