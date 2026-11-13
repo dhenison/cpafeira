@@ -1969,7 +1969,7 @@
         });
       }
 
-      async function salvarNaGaleriaSistema({ origem = 'salvar', silentIfAlreadySaved = false } = {}) {
+      async function salvarNaGaleriaSistema({ origem = 'salvar', silentIfAlreadySaved = false, preGeneratedBlob = null } = {}) {
         const signature = getCompositionSignature();
         if (state.lastSavedSignature === signature) {
           if (!silentIfAlreadySaved) {
@@ -1984,12 +1984,12 @@
 
         state.isUploadingGallery = true;
         const uploadTask = (async () => {
-          const currentCount = await fetchGalleryCountFromSupabase();
-          if (currentCount >= MAX_GALLERY_PHOTOS) {
+          const currentCount = await fetchGalleryCountFromSupabase().catch(() => null);
+          if (currentCount !== null && currentCount >= MAX_GALLERY_PHOTOS) {
             throw new Error('LIMITE_GALERIA_ATINGIDO');
           }
 
-          const { blob, ext, mime } = await gerarBlobGaleriaAltaQualidade();
+          const { blob, ext, mime } = preGeneratedBlob || (await gerarBlobGaleriaAltaQualidade());
           const uniqueSuffix = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
           const storagePath = `stories/feira-cpa-${uniqueSuffix}.${ext}`;
           const uploadUrl = `${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${storagePath}`;
@@ -2009,7 +2009,7 @@
             const errBody = await uploadRes.text().catch(() => '');
             if (errBody.includes('LIMITE_GALERIA_ATINGIDO') || uploadRes.status === 403) {
               const latestCount = await fetchGalleryCountFromSupabase().catch(() => currentCount);
-              if (latestCount >= MAX_GALLERY_PHOTOS) {
+              if (latestCount !== null && latestCount >= MAX_GALLERY_PHOTOS) {
                 throw new Error('LIMITE_GALERIA_ATINGIDO');
               }
             }
@@ -2112,6 +2112,8 @@
         if (modo === 'share') shareBtnLabel.textContent = 'Gerando Story HD...';
         if (modo === 'save_gallery') saveGalleryBtnLabel.textContent = 'Salvando na Galeria...';
 
+        let pendingGalleryPromise = null;
+
         try {
           if (modo === 'save_gallery') {
             const galleryRes = await salvarNaGaleriaSistema({ origem: 'salvar', silentIfAlreadySaved: false });
@@ -2121,13 +2123,19 @@
             return;
           }
 
-          const blob = await gerarBlobStory();
+          const [blob, preGeneratedBlob] = await Promise.all([
+            gerarBlobStory(),
+            gerarBlobGaleriaAltaQualidade()
+          ]);
           const file = new File([blob], OUTPUT_FILENAME, { type: 'image/png' });
 
           if (modo === 'share' && navigator.canShare && navigator.canShare({ files: [file] })) {
-            // Dispara o backup para a Galeria da Feira sem await antes de navigator.share para preservar o gesto do usuário no mobile
-            const galleryPromise = salvarNaGaleriaSistema({ origem: 'compartilhar', silentIfAlreadySaved: true })
-              .catch((err) => ({ error: err }));
+            // Inicia o envio da cópia WebP/JPEG para o Supabase antes da gaveta nativa de compartilhamento
+            pendingGalleryPromise = salvarNaGaleriaSistema({
+              origem: 'compartilhar',
+              silentIfAlreadySaved: true,
+              preGeneratedBlob
+            }).catch((err) => ({ error: err }));
 
             await copiarArroba({ silent: true });
             await navigator.share({
@@ -2136,16 +2144,23 @@
               text: `Minha foto na XXIV Feira do Conhecimento 2026 do ${INSTAGRAM_HANDLE}!`
             });
 
-            const galleryRes = await galleryPromise;
+            const galleryRes = await pendingGalleryPromise;
             if (galleryRes && galleryRes.error && galleryRes.error.message === 'LIMITE_GALERIA_ATINGIDO') {
               showToast(`Story pronto! Galeria atingiu o limite de 2.000 fotos.`, '🚀', 3400);
+            } else if (galleryRes && galleryRes.error) {
+              console.warn('Falha ao salvar cópia no compartilhamento:', galleryRes.error);
+              showToast(`Story pronto! Lembre-se de marcar ${INSTAGRAM_HANDLE}`, '🚀', 3400);
             } else {
               showToast(`Story pronto e salvo na Galeria da Feira! Marca ${INSTAGRAM_HANDLE}`, '🚀', 3400);
             }
           } else {
             dispararDownload(blob);
             try {
-              const galleryRes = await salvarNaGaleriaSistema({ origem: 'baixar', silentIfAlreadySaved: true });
+              const galleryRes = await salvarNaGaleriaSistema({
+                origem: 'baixar',
+                silentIfAlreadySaved: true,
+                preGeneratedBlob
+              });
               if (galleryRes && (galleryRes.success || galleryRes.alreadySaved)) {
                 showToast('Foto baixada e salva na Galeria da Feira!', '⬇️', 3200);
               }
@@ -2160,7 +2175,13 @@
           }
         } catch (err) {
           if (err && err.name === 'AbortError') {
-            // Usuário fechou a gaveta de compartilhamento manualmente
+            // Mesmo se fechar o menu de compartilhamento, aguarda a cópia na Galeria finalizar
+            if (pendingGalleryPromise) {
+              const galleryRes = await pendingGalleryPromise;
+              if (galleryRes && galleryRes.success) {
+                showToast('Cópia salva na Galeria da Feira! 🖼️', '🖼️', 2600);
+              }
+            }
           } else if (err && err.message === 'LIMITE_GALERIA_ATINGIDO') {
             showToast('A Galeria da Feira atingiu o limite máximo de 2.000 fotos.', '⚠', 3600);
           } else if (modo === 'save_gallery') {
