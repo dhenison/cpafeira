@@ -205,7 +205,7 @@
   <main class="max-w-5xl mx-auto px-3 sm:px-4 pb-6 pt-1">
     <div class="grid grid-cols-12 gap-2.5 sm:gap-4 lg:gap-6 items-start">
 
-      <!-- BLOCO 1: Seletor de Colagem (6 Opções 100% visíveis no topo no celular; topo da coluna direita no desktop) -->
+      <!-- BLOCO 1: Seletor de Colagem (7 Opções visíveis no topo no celular; topo da coluna direita no desktop) -->
       <section class="col-span-12 min-w-0 lg:col-span-7 lg:col-start-6 lg:row-start-1">
         <div class="rounded-2xl bg-white/80 backdrop-blur-md border border-emerald-900/10 shadow-glass p-2.5 sm:p-4">
           <div class="flex items-center justify-between mb-2 gap-2">
@@ -216,14 +216,14 @@
               </h2>
             </div>
             <span class="text-[10px] sm:text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-600/15 shrink-0">
-              6 modelos
+              7 modelos
             </span>
           </div>
 
           <div id="layoutCarousel"
                role="radiogroup"
                aria-label="Opções de colagem de fotos"
-               class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 sm:gap-2">
+               class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-1.5 sm:gap-2">
             <!-- Opções de colagem injetadas via JS -->
           </div>
         </div>
@@ -346,7 +346,7 @@
                 </svg>
               </div>
               <p class="text-[11px] sm:text-sm text-slate-700 leading-snug font-medium">
-                Não esqueça de mencionar o <strong class="font-extrabold text-cpa-orangeDark">@colegioprofafonso</strong> nos seus Stories!
+                Não esqueça de mencionar o <strong class="font-extrabold text-cpa-orangeDark">@cpa_afonso</strong> nos seus Stories!
               </p>
             </div>
 
@@ -628,6 +628,17 @@
           ]
         },
         {
+          id: 'colagem-3-vert-2horiz',
+          nome: '1 Vert + 2 Horiz',
+          subtitulo: '1 Vertical + 2 Horizontais',
+          numFotos: 3,
+          slots: [
+            { x: 44,  y: 546,  w: 380, h: 1046, r: 28, label: 'Foto 1' }, // 380x1046 (Vertical Esquerda)
+            { x: 442, y: 546,  w: 594, h: 514,  r: 26, label: 'Foto 2' }, // 594x514  (Horizontal Superior)
+            { x: 442, y: 1078, w: 594, h: 514,  r: 26, label: 'Foto 3' }  // 594x514  (Horizontal Inferior)
+          ]
+        },
+        {
           id: 'colagem-4',
           nome: '4 Fotos',
           subtitulo: 'Grade 2x2',
@@ -643,7 +654,7 @@
 
       const STORY_W = 1080;
       const STORY_H = 1920;
-      const INSTAGRAM_HANDLE = '@colegioprofafonso';
+      const INSTAGRAM_HANDLE = '@cpa_afonso';
       const OUTPUT_FILENAME = 'Feira-CPA-2026-Story.png';
 
       // Supabase Storage & Galeria da Feira (máx. 2.000 fotos em 1080x1920 WebP/JPEG)
@@ -1838,7 +1849,7 @@
       });
 
       // =========================================================================
-      // COPIAR @colegioprofafonso PARA ÁREA DE TRANSFERÊNCIA
+      // COPIAR @cpa_afonso PARA ÁREA DE TRANSFERÊNCIA
       // =========================================================================
       async function copiarArroba({ silent = false } = {}) {
         let copied = false;
